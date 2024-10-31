@@ -4,4 +4,5 @@ torch==2.2.2
 torchvision==0.17.2
 transformers==4.46.1
 matplotlib==3.9.2
+datasets==3.1.0
 
