@@ -1,14 +1,25 @@
 import argparse
+import logging
 
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+import wandb
 
 from torch.optim import AdamW
 from torch.utils.data import DataLoader
 from torchvision import transforms
 from transformers import CLIPVisionModel, CLIPImageProcessor
 from datasets import load_dataset
+from tqdm import tqdm
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+# use this rather than directly calling logger
+def log_info(data, step=None):
+    if wandb.run is not None: wandb.log(data, step=step)
+    else: logger.info(f's{step}: {data}')
 
 def preprocess(x, processor):
     return {'image': processor(x['image'])['pixel_values'][0], 'label': x['label']}
@@ -40,14 +51,12 @@ class CLIPClassifier(nn.Module):
     def __init__(
         self,
         model_name='openai/clip-vit-large-patch14',
-        num_classes=1000,
-        device='cuda' if torch.cuda.is_available() else 'cpu'
+        num_classes=1000
     ):
         super().__init__() 
             
-        self.device = device 
         self.num_classes = num_classes
-        self.clip = CLIPVisionModel.from_pretrained(model_name).to(device)
+        self.clip = CLIPVisionModel.from_pretrained(model_name)
 
         self.hidden_size = self.clip.config.hidden_size
         for param in self.clip.parameters():
@@ -63,31 +72,84 @@ class CLIPClassifier(nn.Module):
         for param in self.head:
             param.requires_grad = True
             
-    def forward(self, inputs, is_processed=True):
+    def forward(self, inputs):
         h = self.clip(pixel_values=inputs['pixel_values']).last_hidden_state
         pooled = torch.mean(h[:, 1:, :], dim=1)
         logits = self.head(pooled)
         return logits
 
-    def step(self, im_batch, labels):
+    def step(self, inputs):
         # TODO -- nll between logits and labels
-        logits = self.forward(im_batch)
+        logits = self.forward(inputs)
        
 @torch.no_grad() 
-def val(model, loader, config):
+def val(model, val_loader, config, max_steps=None):
     model.eval()
     corr = n = 0
     
-    for batch in loader:
-        pass
+    for i, batch in enumerate(val_loader):
+        if max_steps is not None and i >= max_steps: break
+        inputs = {k: v.to(config['device']) for k, v in batch.items()}
+        logits = model.forward(inputs)
+        preds = torch.argmax(logits, dim=1)
+        corr += (preds == inputs['label']).sum().item()
+        n += inputs['label'].size()
+    
+    return corr / n
 
-def train_clip(
-    model,
-    train_loader,
-    config
-):
-    pass
+def init(config):
+    model = CLIPClassifier(
+        model_name=config['model_name'],
+        num_classes=config.get('num_classes', 1000)).to(config['device'])
+    
+    optim = AdamW(model.parameters(), lr=config['lr'])
 
+    train_loader = imnet_loader(
+        model_name=config['model_name'],
+        split='train',
+        batch_size=config['batch_size'],
+        streaming=config['streaming'],
+        num_workers=config['num_workers'],
+        num_samples=config.get('num_train_samples', None))
+    
+    val_loader = imnet_loader(
+        model_name=config['model_name'],
+        split='val',
+        batch_size=config['batch_size'],
+        streaming=config['streaming'],
+        num_workers=config['num_workers'],
+        num_samples=config.get('num_val_samples', None))
+
+    return model, optim, train_loader, val_loader
+
+def train(config):
+    model, optim, train_loader, val_loader = init(config)
+    log_info('loaded') 
+    
+    val(model, val_loader, config, max_steps=1) 
+    log_info('sanity check pass') 
+
+    step = 0
+    for epoch in range(config['train_epochs']):
+        log_info(f'starting epoch {epoch + 1}')
+        for batch in tqdm(train_loader):
+            inputs = {k: v.to(config['device']) for k, v in batch.items()}
+
+            model.train()
+            loss = model.step(inputs)
+            loss.backward()
+            log_info({'train/loss': loss}, step=step)
+
+            if (step + 1) % config['grad_accum_steps'] == 0:
+                optim.step()
+                optim.zero_grad()
+            
+            if (step + 1) % config['eval_at'] == 0:
+                acc = val(model, val_loader, config)
+                log_info({'eval/acc': acc}, step=step)
+            
+            step += 1
+    
 def find_patch():
     pass
 
