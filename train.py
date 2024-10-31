@@ -81,7 +81,6 @@ def val(model, loader, config):
     for batch in loader:
         pass
 
-
 def train_clip(
     model,
     train_loader,
