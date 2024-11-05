@@ -11,8 +11,7 @@ import torch.nn.functional as F
 import wandb
 
 from torch.optim import AdamW
-from torch.utils.data import DataLoader
-from torchvision import transforms
+from torch.utils.data import Dataset, DataLoader
 from transformers import CLIPVisionModel, CLIPImageProcessor
 from datasets import load_dataset
 from tqdm import tqdm
@@ -28,12 +27,45 @@ def log_info(data, step=None):
 def preprocess(x, processor):
     return {'pixel_values': processor(x['image'])['pixel_values'][0], 'label': x['label']}
 
+class ImageNetDataset(Dataset):
+    SPLIT_SIZES = {'train': 1281167, 'validation': 50000, 'test': 50000} 
+    
+    def __init__(self, processor, split='train', streaming=True, num_samples=None):
+        self.split = split
+        self.processor = processor
+        self.dataset = load_dataset('imagenet-1k', split=split, streaming=streaming, trust_remote_code=True)
+        if num_samples: self.dataset = self.dataset.shuffle(seed=42).take(num_samples)
+        self.iterator = iter(self.dataset) if streaming else None
+    
+    def __len__(self):
+        return self.SPLIT_SIZES[self.split]
+    
+    def __getitem__(self, idx):
+        if self.iterator is not None:
+            try:
+                item = next(self.iterator)
+            except StopIteration:
+                self.iterator = iter(self.dataset)
+                item = next(self.iterator)
+        else:
+            item = self.dataset[idx]
+        
+        return {'image': item['image'], 'label': item['label']}
+    
+    def get_collate_fn(self):
+        def collate_fn(batch):
+            images = [item['image'] for item in batch]
+            labels = torch.tensor([item['label'] for item in batch])
+            processed = self.processor(images, return_tensors='pt')
+            return {'pixel_values': processed['pixel_values'], 'label': labels}
+        return collate_fn
+
 def imnet_loader(
     model_name='openai/clip-vit-large-patch14',
     split='train',
     batch_size=4,
     streaming=True,
-    num_workers=1,
+    num_workers=4,
     num_samples=None
 ):
     processor = CLIPImageProcessor.from_pretrained(model_name)
@@ -41,6 +73,8 @@ def imnet_loader(
         function=preprocess, fn_kwargs={'processor': processor}, remove_columns=['image'])
     if num_samples: dataset = dataset.shuffle(seed=42).take(num_samples)
     return DataLoader(dataset, batch_size=batch_size, num_workers=num_workers, pin_memory=True)
+    # dataset = ImageNetDataset(processor, split=split, streaming=streaming, num_samples=num_samples)
+    # return DataLoader(dataset, batch_size=batch_size, pin_memory=True, collate_fn=dataset.get_collate_fn())
 
 def patch_loader():
     pass
@@ -92,11 +126,6 @@ class CLIPClassifier(nn.Module):
     
     def save(self, path, step, optim):
         torch.save({'model': self.state_dict(), 'optim': optim.state_dict(), 'step': step}, path)
-    
-    def load(self, path, optim=None):
-        checkpoint = torch.load(path, map_location=next(self.parameters()).device)
-        self.load_state_dict(checkpoint['model'])
-        if optim: optim.load_state_dict(checkpoint['optim'])
        
 @torch.no_grad() 
 def val(model, val_loader, config, max_steps=None):
@@ -119,9 +148,20 @@ def init(config):
     model = CLIPClassifier(
         model_name=config['model_name'],
         num_classes=config.get('num_classes', 1000),
-        name=datetime.now().strftime('%b%d_%H%M')).to(config['device'])
+        name=datetime.now().strftime('%b%d_%H%M')).to(config['device']
+    )
     
     optim = AdamW(model.parameters(), lr=config['lr'])
+    start_step = 0
+
+    if config.get('resume_from'):
+        checkpoint_path = config['resume_from']
+        logger.info(f'loading checkpoint from {checkpoint_path}')
+        checkpoint = torch.load(checkpoint_path, map_location=config['device'])
+        model.load_state_dict(checkpoint['model'])
+        optim.load_state_dict(checkpoint['optim'])
+        start_step = checkpoint['step']
+        logger.info(f'resuming from step {start_step}')
 
     train_loader = imnet_loader(
         model_name=config['model_name'],
@@ -137,16 +177,18 @@ def init(config):
         streaming=config['streaming'],
         num_samples=config.get('num_val_samples', None))
 
-    return model, optim, train_loader, val_loader
+    return model, optim, start_step, train_loader, val_loader
 
 def train_classifier(config):
-    model, optim, train_loader, val_loader = init(config)
+    model, optim, start_step, train_loader, val_loader = init(config)
     logger.info('loaded')
     
     val(model, val_loader, config, max_steps=1)
     logger.info('sanity check pass')
 
-    step = best_acc = 0
+    step = start_step
+    best_acc = 0
+
     for epoch in range(config['train_epochs']):
         logger.info(f'starting epoch {epoch + 1}')
         for batch in tqdm(train_loader):

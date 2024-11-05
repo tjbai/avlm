@@ -14,3 +14,4 @@ num_val_samples: null
 eval_at: 1000
 
 checkpoint_dir: '/scratch4/jeisner1/checkpoints'
+resume_from: '/scratch4/jeisner1/checkpoints/imnet_best_model_1999_Nov05_0111.pt'
