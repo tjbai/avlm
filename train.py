@@ -1,5 +1,9 @@
+import os
+import yaml
 import argparse
 import logging
+from pathlib import Path
+from datetime import datetime
 
 import torch
 import torch.nn as nn
@@ -19,18 +23,14 @@ logger = logging.getLogger(__name__)
 # use this rather than directly calling logger
 def log_info(data, step=None):
     if wandb.run is not None: wandb.log(data, step=step)
-    else: logger.info(f's{step}: {data}')
+    else: logger.info(f's{step}:{data}')
 
 def preprocess(x, processor):
-    return {'image': processor(x['image'])['pixel_values'][0], 'label': x['label']}
+    return {'pixel_values': processor(x['image'])['pixel_values'][0], 'label': x['label']}
 
-'''
-TODO -- will need a separate patch attack loader that applies the
-        patch during preprocessing
-'''
 def imnet_loader(
     model_name='openai/clip-vit-large-patch14',
-    split='validation',
+    split='train',
     batch_size=4,
     streaming=True,
     num_workers=1,
@@ -38,9 +38,15 @@ def imnet_loader(
 ):
     processor = CLIPImageProcessor.from_pretrained(model_name)
     dataset = load_dataset('imagenet-1k', split=split, streaming=streaming).map(
-        function=preprocess, fn_kwargs={'processor': processor})
+        function=preprocess, fn_kwargs={'processor': processor}, remove_columns=['image'])
     if num_samples: dataset = dataset.shuffle(seed=42).take(num_samples)
     return DataLoader(dataset, batch_size=batch_size, num_workers=num_workers, pin_memory=True)
+
+def patch_loader():
+    pass
+
+def perturbation_loader():
+    pass
 
 class CLIPClassifier(nn.Module):
     '''
@@ -51,10 +57,12 @@ class CLIPClassifier(nn.Module):
     def __init__(
         self,
         model_name='openai/clip-vit-large-patch14',
-        num_classes=1000
+        num_classes=1000,
+        name=None
     ):
         super().__init__() 
-            
+           
+        self.name = name
         self.num_classes = num_classes
         self.clip = CLIPVisionModel.from_pretrained(model_name)
 
@@ -79,8 +87,16 @@ class CLIPClassifier(nn.Module):
         return logits
 
     def step(self, inputs):
-        # TODO -- nll between logits and labels
         logits = self.forward(inputs)
+        return F.cross_entropy(logits, inputs['label'])
+    
+    def save(self, path, step, optim):
+        torch.save({'model': self.state_dict(), 'optim': optim.state_dict(), 'step': step}, path)
+    
+    def load(self, path, optim=None):
+        checkpoint = torch.load(path, map_location=next(self.parameters()).device)
+        self.load_state_dict(checkpoint['model'])
+        if optim: optim.load_state_dict(checkpoint['optim'])
        
 @torch.no_grad() 
 def val(model, val_loader, config, max_steps=None):
@@ -93,14 +109,17 @@ def val(model, val_loader, config, max_steps=None):
         logits = model.forward(inputs)
         preds = torch.argmax(logits, dim=1)
         corr += (preds == inputs['label']).sum().item()
-        n += inputs['label'].size()
+        n += inputs['label'].size()[0]
     
     return corr / n
 
 def init(config):
+    os.makedirs(config['checkpoint_dir'], exist_ok=True)
+
     model = CLIPClassifier(
         model_name=config['model_name'],
-        num_classes=config.get('num_classes', 1000)).to(config['device'])
+        num_classes=config.get('num_classes', 1000),
+        name=datetime.now().strftime('%b%d_%H%M')).to(config['device'])
     
     optim = AdamW(model.parameters(), lr=config['lr'])
 
@@ -109,27 +128,25 @@ def init(config):
         split='train',
         batch_size=config['batch_size'],
         streaming=config['streaming'],
-        num_workers=config['num_workers'],
         num_samples=config.get('num_train_samples', None))
     
     val_loader = imnet_loader(
         model_name=config['model_name'],
-        split='val',
+        split='validation',
         batch_size=config['batch_size'],
         streaming=config['streaming'],
-        num_workers=config['num_workers'],
         num_samples=config.get('num_val_samples', None))
 
     return model, optim, train_loader, val_loader
 
-def train(config):
+def train_classifier(config):
     model, optim, train_loader, val_loader = init(config)
-    log_info('loaded') 
+    log_info('loaded')
     
-    val(model, val_loader, config, max_steps=1) 
-    log_info('sanity check pass') 
+    val(model, val_loader, config, max_steps=1)
+    log_info('sanity check pass')
 
-    step = 0
+    step = best_acc = 0
     for epoch in range(config['train_epochs']):
         log_info(f'starting epoch {epoch + 1}')
         for batch in tqdm(train_loader):
@@ -147,6 +164,10 @@ def train(config):
             if (step + 1) % config['eval_at'] == 0:
                 acc = val(model, val_loader, config)
                 log_info({'eval/acc': acc}, step=step)
+                if acc > best_acc:
+                    best_acc = acc
+                    path = Path(config['checkpoint_dir']) / f'imnet_best_model_{step}_{model.name}.pt'
+                    model.save(path, step, optim)
             
             step += 1
     
@@ -155,10 +176,22 @@ def find_patch():
 
 def parse_args():
     parser = argparse.ArgumentParser()
+    parser.add_argument('--config')
+    parser.add_argument('--wandb', action='store_true')
+    parser.add_argument('--wandb-project', default='avlm')
+    parser.add_argument('--device', default='cuda' if torch.cuda.is_available() else 'cpu')
     return parser.parse_args()
+
+def load_config(path):
+    with open(path, 'r') as f:
+        return yaml.safe_load(f)
 
 def main():
     args = parse_args()
+    config = load_config(args.config)
+    config['device'] = args.device
+    if args.wandb: wandb.init(project=args.wandb_project, config=config)
+    train_classifier(config)
 
 if __name__ == '__main__':
     main()
