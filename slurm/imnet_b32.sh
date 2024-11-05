@@ -10,4 +10,4 @@
 
 ml anaconda
 conda activate avlm
-python3  --config configs/imnet_b32.yml --device cuda
+python3 train.py --config=configs/imnet_b32.yml --device=cuda --wandb

@@ -4,7 +4,7 @@ num_classes: 1000
 train_epochs: 10
 batch_size: 32
 grad_accum_steps: 1
-lr: 1e-4
+lr: 0.0001
 
 streaming: true
 num_workers: 4

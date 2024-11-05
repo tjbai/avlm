@@ -37,7 +37,7 @@ def imnet_loader(
     num_samples=None
 ):
     processor = CLIPImageProcessor.from_pretrained(model_name)
-    dataset = load_dataset('imagenet-1k', split=split, streaming=streaming).map(
+    dataset = load_dataset('imagenet-1k', split=split, streaming=streaming, trust_remote_code=True).map(
         function=preprocess, fn_kwargs={'processor': processor}, remove_columns=['image'])
     if num_samples: dataset = dataset.shuffle(seed=42).take(num_samples)
     return DataLoader(dataset, batch_size=batch_size, num_workers=num_workers, pin_memory=True)
@@ -141,14 +141,14 @@ def init(config):
 
 def train_classifier(config):
     model, optim, train_loader, val_loader = init(config)
-    log_info('loaded')
+    logger.info('loaded')
     
     val(model, val_loader, config, max_steps=1)
-    log_info('sanity check pass')
+    logger.info('sanity check pass')
 
     step = best_acc = 0
     for epoch in range(config['train_epochs']):
-        log_info(f'starting epoch {epoch + 1}')
+        logger.info(f'starting epoch {epoch + 1}')
         for batch in tqdm(train_loader):
             inputs = {k: v.to(config['device']) for k, v in batch.items()}
 
