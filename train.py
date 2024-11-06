@@ -104,7 +104,12 @@ class CLIPClassifier(nn.Module):
         for param in self.clip.parameters():
             param.requires_grad = False
 
-        self.head = nn.Linear(self.hidden_size, num_classes)
+        # self.head = nn.Linear(self.hidden_size, num_classes)
+        self.head = nn.Sequential(
+            nn.Linear(self.hidden_size, self.hidden_size),
+            nn.ReLU(),
+            nn.Linear(self.hidden_size, self.num_classes)
+        )
         
     def freeze(self):
         for param in self.head:
