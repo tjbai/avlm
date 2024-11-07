@@ -4,7 +4,7 @@ num_classes: 1000
 train_epochs: 10
 batch_size: 128
 grad_accum_steps: 1
-lr: 1e-4
+lr: 0.0002
 
 streaming: true
 num_workers: 4
@@ -14,4 +14,6 @@ num_val_samples: null
 eval_at: 1000
 
 checkpoint_dir: '/scratch4/jeisner1/checkpoints'
-resume_from: '/scratch4/jeisner1/checkpoints/imnet_best_model_1999_Nov05_0111.pt'
+resume_from: '/scratch4/jeisner1/checkpoints/imnet_best_model_7999_Nov05_2337_.pt'
+name: long_ahh
+

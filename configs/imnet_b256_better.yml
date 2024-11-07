@@ -1,16 +1,19 @@
 model_name: "openai/clip-vit-large-patch14"
 num_classes: 1000
+deep: 2048
 
 train_epochs: 10
-batch_size: 64
+batch_size: 256
 grad_accum_steps: 1
-lr: 0.0001
+lr: 0.001
 
 streaming: true
-num_workers: 4
+num_workers: 1
 num_train_samples: null
 num_val_samples: null
 
-eval_at: 1000
+eval_at: 2000
 
 checkpoint_dir: '/scratch4/jeisner1/checkpoints'
+
+name: better

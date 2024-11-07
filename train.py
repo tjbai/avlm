@@ -10,6 +10,8 @@ import torch.nn as nn
 import torch.nn.functional as F
 import wandb
 
+os.environ['TRANSFORMERS_CACHE'] = '/scratch4/jeisner1/imnet'
+
 from torch.optim import AdamW
 from torch.utils.data import Dataset, DataLoader
 from transformers import CLIPVisionModel, CLIPImageProcessor
@@ -33,7 +35,7 @@ class ImageNetDataset(Dataset):
     def __init__(self, processor, split='train', streaming=True, num_samples=None):
         self.split = split
         self.processor = processor
-        self.dataset = load_dataset('imagenet-1k', split=split, streaming=streaming, trust_remote_code=True)
+        self.dataset = load_dataset('imagenet-1k', split=split, streaming=streaming, trust_remote_code=True, cache_dir='/scratch4/jeisner1/imnet')
         if num_samples: self.dataset = self.dataset.shuffle(seed=42).take(num_samples)
         self.iterator = iter(self.dataset) if streaming else None
     
@@ -69,7 +71,7 @@ def imnet_loader(
     num_samples=None
 ):
     processor = CLIPImageProcessor.from_pretrained(model_name)
-    dataset = load_dataset('imagenet-1k', split=split, streaming=streaming, trust_remote_code=True).map(
+    dataset = load_dataset('imagenet-1k', split=split, streaming=streaming, trust_remote_code=True, cache_dir='/scratch4/jeisner1/imnet').map(
         function=preprocess, fn_kwargs={'processor': processor}, remove_columns=['image'])
     if num_samples: dataset = dataset.shuffle(seed=42).take(num_samples)
     return DataLoader(dataset, batch_size=batch_size, num_workers=num_workers, pin_memory=True)
@@ -92,7 +94,8 @@ class CLIPClassifier(nn.Module):
         self,
         model_name='openai/clip-vit-large-patch14',
         num_classes=1000,
-        name=None
+        name=None,
+        deep=None,
     ):
         super().__init__() 
            
@@ -104,12 +107,14 @@ class CLIPClassifier(nn.Module):
         for param in self.clip.parameters():
             param.requires_grad = False
 
-        # self.head = nn.Linear(self.hidden_size, num_classes)
-        self.head = nn.Sequential(
-            nn.Linear(self.hidden_size, self.hidden_size),
-            nn.ReLU(),
-            nn.Linear(self.hidden_size, self.num_classes)
-        )
+        if deep is None:
+            self.head = nn.Linear(self.hidden_size, num_classes)
+        else:
+            self.head = nn.Sequential(
+                nn.Linear(self.hidden_size, deep),
+                nn.ReLU(),
+                nn.Linear(deep, self.num_classes)
+            )
         
     def freeze(self):
         for param in self.head:
@@ -153,8 +158,9 @@ def init(config):
     model = CLIPClassifier(
         model_name=config['model_name'],
         num_classes=config.get('num_classes', 1000),
-        name=datetime.now().strftime('%b%d_%H%M')).to(config['device']
-    )
+        name=datetime.now().strftime('%b%d_%H%M') + '_' + config.get('name', ''),
+        deep=config.get('deep', False)
+    ).to(config['device'])
     
     optim = AdamW(model.parameters(), lr=config['lr'])
     start_step = 0
