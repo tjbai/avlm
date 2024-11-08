@@ -9,87 +9,63 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import wandb
-
-os.environ['TRANSFORMERS_CACHE'] = '/scratch4/jeisner1/imnet'
+import numpy as np
 
 from torch.optim import AdamW
-from torch.utils.data import Dataset, DataLoader
+from torch.utils.data import DataLoader
 from transformers import CLIPVisionModel, CLIPImageProcessor
 from datasets import load_dataset
 from tqdm import tqdm
 
+from utils import init_patch, transform, apply_patch
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# use this rather than directly calling logger
 def log_info(data, step=None):
     if wandb.run is not None: wandb.log(data, step=step)
     else: logger.info(f's{step}:{data}')
-
-def preprocess(x, processor):
-    return {'pixel_values': processor(x['image'])['pixel_values'][0], 'label': x['label']}
-
-class ImageNetDataset(Dataset):
-    SPLIT_SIZES = {'train': 1281167, 'validation': 50000, 'test': 50000} 
-    
-    def __init__(self, processor, split='train', streaming=True, num_samples=None):
-        self.split = split
-        self.processor = processor
-        self.dataset = load_dataset('imagenet-1k', split=split, streaming=streaming, trust_remote_code=True, cache_dir='/scratch4/jeisner1/imnet')
-        if num_samples: self.dataset = self.dataset.shuffle(seed=42).take(num_samples)
-        self.iterator = iter(self.dataset) if streaming else None
-    
-    def __len__(self):
-        return self.SPLIT_SIZES[self.split]
-    
-    def __getitem__(self, idx):
-        if self.iterator is not None:
-            try:
-                item = next(self.iterator)
-            except StopIteration:
-                self.iterator = iter(self.dataset)
-                item = next(self.iterator)
-        else:
-            item = self.dataset[idx]
-        
-        return {'image': item['image'], 'label': item['label']}
-    
-    def get_collate_fn(self):
-        def collate_fn(batch):
-            images = [item['image'] for item in batch]
-            labels = torch.tensor([item['label'] for item in batch])
-            processed = self.processor(images, return_tensors='pt')
-            return {'pixel_values': processed['pixel_values'], 'label': labels}
-        return collate_fn
 
 def imnet_loader(
     model_name='openai/clip-vit-large-patch14',
     split='train',
     batch_size=4,
     streaming=True,
-    num_workers=4,
     num_samples=None
 ):
+    def preprocess(x, processor):
+        return {'pixel_values': processor(x['image'])['pixel_values'][0], 'label': x['label']}
+    
     processor = CLIPImageProcessor.from_pretrained(model_name)
-    dataset = load_dataset('imagenet-1k', split=split, streaming=streaming, trust_remote_code=True, cache_dir='/scratch4/jeisner1/imnet').map(
+    dataset = load_dataset('imagenet-1k', split=split, streaming=streaming, trust_remote_code=True).map(
         function=preprocess, fn_kwargs={'processor': processor}, remove_columns=['image'])
     if num_samples: dataset = dataset.shuffle(seed=42).take(num_samples)
-    return DataLoader(dataset, batch_size=batch_size, num_workers=num_workers, pin_memory=True)
-    # dataset = ImageNetDataset(processor, split=split, streaming=streaming, num_samples=num_samples)
-    # return DataLoader(dataset, batch_size=batch_size, pin_memory=True, collate_fn=dataset.get_collate_fn())
+    return DataLoader(dataset, batch_size=batch_size, pin_memory=True)
 
-def patch_loader():
-    pass
+def patch_loader(
+    split='train',
+    batch_size=4,
+    streaming=True,
+    num_samples=None,
+    target_label=0,
+    **_
+):
+    def prepare_batch(x):
+        return {'pixel_values': torch.from_numpy(np.array(x['image'])).float() / 255.0, 'label': x['label']}
 
-def perturbation_loader():
-    pass
+    def collate_fn(batch):
+        return {'pixel_values': [x['pixel_values'] for x in batch], 'label': torch.stack([torch.tensor(x['label']) for x in batch])} 
+    
+    # this should happen lazily (?)
+    dataset = load_dataset('imagenet-1k', split=split, streaming=streaming, trust_remote_code=True)\
+        .map(function=prepare_batch, remove_columns=['image'])\
+        .filter(lambda x: x['label'] != target_label)
+
+    if num_samples: dataset = dataset.shuffle(seed=42).take(num_samples)
+    return DataLoader(dataset, batch_size=batch_size, pin_memory=True, collate_fn=collate_fn)
 
 class CLIPClassifier(nn.Module):
-    '''
-    simple classifier with a one-layer head and frozen clip weights
-    applies mean pooling over last hidden state
-    '''
-    
+
     def __init__(
         self,
         model_name='openai/clip-vit-large-patch14',
@@ -102,6 +78,7 @@ class CLIPClassifier(nn.Module):
         self.name = name
         self.num_classes = num_classes
         self.clip = CLIPVisionModel.from_pretrained(model_name)
+        self.deep = deep
 
         self.hidden_size = self.clip.config.hidden_size
         for param in self.clip.parameters():
@@ -117,12 +94,18 @@ class CLIPClassifier(nn.Module):
             )
         
     def freeze(self):
-        for param in self.head:
-            param.requires_grad = False
+        if self.deep is None:
+            self.head.requires_grad = False
+        else:
+            for param in self.head:
+                param.requires_grad = False
         
     def unfreeze(self):
-        for param in self.head:
-            param.requires_grad = True
+        if self.deep is None:
+            self.head.requires_grad = True
+        else:
+            for param in self.head:
+                param.requires_grad = True
             
     def forward(self, inputs):
         h = self.clip(pixel_values=inputs['pixel_values']).last_hidden_state
@@ -136,9 +119,102 @@ class CLIPClassifier(nn.Module):
     
     def save(self, path, step, optim):
         torch.save({'model': self.state_dict(), 'optim': optim.state_dict(), 'step': step}, path)
-       
+        
+class Patch(nn.Module):
+
+    def __init__(
+        self,
+        model,
+        target_label,
+        patch_r=0.05,
+        device='cuda' if torch.cuda.is_available() else 'cpu',
+        patch=None,
+        init_size=1024,
+        name=None
+    ):
+        super().__init__()
+
+        self.target_label = target_label
+        self.patch_r = patch_r
+        self.device = device
+        self.name = name
+        
+        self.processor = CLIPImageProcessor.from_pretrained('openai/clip-vit-large-patch14')
+
+        # TODO -- for e2e this should be the entire VLM
+        self.model = model
+        self.model.freeze()
+        self.model.eval()
+        
+        self.patch = (init_patch(init_size, patch_r) if patch is None else patch).to(device)
+        self.patch = nn.Parameter(self.patch, requires_grad=True)
+        
+    def scale_patch(self, image_size):
+        H, W = image_size
+        PH, PW, _ = self.patch.shape
+        
+        A = H * W * self.patch_r
+        scale = np.sqrt(A / (PH * PW))
+        new_h = int(PH * scale)
+        new_w = int(PW * scale)
+        
+        scaled = F.interpolate(
+            self.patch.permute(2, 0, 1).unsqueeze(0),
+            size=(new_h, new_w),
+            mode='bilinear',
+            align_corners=False
+        )
+
+        return scaled.squeeze(0).permute(1, 2, 0)
+    
+    # def apply_patch(self, images):
+    #     _, H, W, _ = images.shape
+    #     scaled_patch = self.scale_patch((H, W))
+    #     p_batch, mask = transform(images, scaled_patch)
+    #     patched = apply_patch(images, p_batch, mask)
+    #     patched = patched.permute(0, 3, 1, 2)  # B,H,W,C -> B,C,H,W
+    #     return patched
+    
+    # TODO -- need to modularize better for e2e stuff
+    # def forward(self, batch):
+    #     images = batch['pixel_values']
+    #     labels = batch['label']
+    #     patched = self.apply_patch(images)
+    #     processed = self.processor(images=patched, return_tensors='pt', do_rescale=False)
+    #     processed = {k: v.to(self.device) for k, v in processed.items()}
+    #     return self.model({'pixel_values': processed['pixel_values'], 'label': labels})
+
+    # hacky and SLOW because our batch has imgs w diff dimensions
+    # need to figure out a better approach because this is definitely the bottleneck
+
+    def apply_patch(self, image):
+        H, W, _ = image.shape
+        scaled_patch = self.scale_patch((H, W))
+        p_batch, mask = transform(image.unsqueeze(0), scaled_patch)
+        patched = apply_patch(image.unsqueeze(0), p_batch, mask)
+        patched = patched.squeeze(0).permute(2, 0, 1)  # H,W,C -> C,H,W
+        return patched
+    
+    def forward(self, batch):
+        patched = [self.apply_patch(img) for img in batch['pixel_values']]
+        processed = self.processor(images=patched, return_tensors='pt', do_rescale=False)
+        processed = {k: v.to(self.device) for k, v in processed.items()}
+        return self.model({'pixel_values': processed['pixel_values'], 'label': batch['label']})
+    
+    def step(self, batch):
+        logits = self.forward(batch)
+        targets = torch.full((logits.shape[0],), self.target_label, dtype=torch.long, device=self.device)
+        return F.cross_entropy(logits, targets)
+    
+    def save(self, path, step, optim):
+        torch.save({'patch': self.patch, 'optim': optim, 'step': step}, path)
+    
+    def train(self):
+        super().train()
+        self.model.eval()
+
 @torch.no_grad() 
-def val(model, val_loader, config, max_steps=None):
+def val_classifier(model, val_loader, config, max_steps=None):
     model.eval()
     corr = n = 0
     
@@ -163,42 +239,32 @@ def init(config):
     ).to(config['device'])
     
     optim = AdamW(model.parameters(), lr=config['lr'])
-    start_step = 0
-
-    if config.get('resume_from'):
-        checkpoint_path = config['resume_from']
-        logger.info(f'loading checkpoint from {checkpoint_path}')
-        checkpoint = torch.load(checkpoint_path, map_location=config['device'])
-        model.load_state_dict(checkpoint['model'])
-        optim.load_state_dict(checkpoint['optim'])
-        start_step = checkpoint['step']
-        logger.info(f'resuming from step {start_step}')
-
-    train_loader = imnet_loader(
-        model_name=config['model_name'],
-        split='train',
-        batch_size=config['batch_size'],
-        streaming=config['streaming'],
-        num_samples=config.get('num_train_samples', None))
     
-    val_loader = imnet_loader(
-        model_name=config['model_name'],
-        split='validation',
-        batch_size=config['batch_size'],
-        streaming=config['streaming'],
-        num_samples=config.get('num_val_samples', None))
+    loader_params = {'model_name': config['model_name'], 'batch_size': config['batch_size'], 'streaming': config['streaming']}
 
-    return model, optim, start_step, train_loader, val_loader
+    if config.get('patch'):
+        train_loader = patch_loader(**loader_params, split='train', num_samples=config['num_train_samples'], target_label=config['target_label'])
+        val_loader = patch_loader(**loader_params, split='validation', num_samples=config['num_val_samples'], target_label=config['target_label'])
+    else:
+        train_loader = imnet_loader(**loader_params, split='train', num_samples=config['num_train_samples'])
+        val_loader = imnet_loader(**loader_params, split='validation', num_samples=config['num_val_samples'])
+
+    return model, optim, train_loader, val_loader
 
 def train_classifier(config):
-    model, optim, start_step, train_loader, val_loader = init(config)
+    model, optim, train_loader, val_loader = init(config)
     logger.info('loaded')
-    
-    val(model, val_loader, config, max_steps=1)
-    logger.info('sanity check pass')
 
-    step = start_step
-    best_acc = 0
+    step = 0
+    if config.get('resume_from'):
+        checkpoint = torch.load(config['resume_from'], map_location=config['device'])
+        model.load_state_dict(checkpoint['model'])
+        optim.load_state_dict(checkpoint['optim'])
+        step = checkpoint['step']
+        logger.info(f'resuming from {step}')
+    
+    val_classifier(model, val_loader, config, max_steps=1)
+    logger.info('sanity check pass')
 
     for epoch in range(config['train_epochs']):
         logger.info(f'starting epoch {epoch + 1}')
@@ -215,20 +281,98 @@ def train_classifier(config):
                 optim.zero_grad()
             
             if (step + 1) % config['eval_at'] == 0:
-                acc = val(model, val_loader, config)
+                acc = val_classifier(model, val_loader, config)
                 log_info({'eval/acc': acc}, step=step)
-                if acc > best_acc:
-                    best_acc = acc
-                    path = Path(config['checkpoint_dir']) / f'imnet_best_model_{step}_{model.name}.pt'
-                    model.save(path, step, optim)
+                path = Path(config['checkpoint_dir']) / f'imnet_best_model_{step}_{model.name}.pt'
+                model.save(path, step, optim)
+        
+            step += 1
+            
+@torch.no_grad()
+def val_patch(patch, val_loader, config, max_steps=None):
+    patch.eval()
+    
+    corr = 0
+    target_hits = 0
+    n = 0
+    
+    for i, batch in tqdm(enumerate(val_loader)):
+        if i >= max_steps: break
+        # batch = {k: v.to(config['device']) for k, v in batch.items()}
+        batch = {'pixel_values': [t.to(config['device']) for t in batch['pixel_values']], 'label': batch['label'].to(config['device'])}
+        logits = patch.forward(batch)
+        preds = torch.argmax(logits, dim=-1)
+        
+        corr += (preds == batch['label']).sum()
+        target_hits += (preds == config['target_label']).sum()
+        n += batch['label'].size()[0]
+    
+    return corr / n, target_hits / n
+
+@torch.no_grad()
+def log_patch(patch, batch, step):
+    patch_np = patch.patch.detach().cpu().numpy()
+    images = batch['pixel_values']
+    patched = patch.apply_patch(images)
+    patched = patched.permute(0, 2, 3, 1).cpu().numpy()
+    log_info({'patch': wandb.Image(patch_np), 'patched': wandb.Image(patched[0])}, step)
+
+def train_patch(config):
+    model, _, train_loader, val_loader = init(config)
+
+    if config.get('model_from'):
+        checkpoint = torch.load(config['model_from'], map_location=config['device'])
+        model.load_state_dict(checkpoint['model'])
+        logger.info('loaded pretrained classifier')
+    
+    patch = Patch(
+        model=model,
+        target_label=config['target_label'],
+        device=config['device'],
+        patch_r=config['patch_r'],
+        name=config.get('name'),
+        init_size=config.get('init_size', 1024)
+    )
+
+    optim = AdamW(patch.parameters(), lr=config['lr'])
+    
+    step = 0 
+    if config.get('resume_patch_from'):
+        checkpoint = torch.load(config['resume_patch_from'], map_location=config['device'])
+        patch.patch = checkpoint['patch']
+        step = checkpoint['step']
+        logger.info(f'loaded patch from step: {step}')
+   
+    logger.info('starting sanity check') 
+    val_patch(model, val_loader, config, max_steps=1)
+    logger.info('passed!')
+        
+    for _ in range(config['train_epochs']):
+        for batch in tqdm(train_loader):
+            batch = {k: v.to(config['device']) for k, v in batch.items()}
+
+            model.train()
+            loss = model.step(batch)
+            loss.backward()
+            log_info({'train/loss': loss}, step=step)
+
+            optim.step()
+            optim.zero_grad()
+            with torch.no_grad(): patch.patch.data.clamp_(0, 1)
+            
+            if (step + 1) % config['eval_at'] == 0:
+                acc, success = val_patch(patch, val_loader, config)
+                log_info({'eval/acc': acc, 'eval/success': success}, step=step)
+                path = Path(config['checkpoint_dir']) / f'patch_{model.name}_{step}.pt'
+                
+            if (step + 1) % config['log_at'] == 0:
+                log_patch(patch, batch, step)
             
             step += 1
-    
-def find_patch():
-    pass
 
 def parse_args():
     parser = argparse.ArgumentParser()
+    parser.add_argument('--patch', action='store_true')
     parser.add_argument('--config')
     parser.add_argument('--wandb', action='store_true')
     parser.add_argument('--wandb-project', default='avlm')
@@ -243,8 +387,10 @@ def main():
     args = parse_args()
     config = load_config(args.config)
     config['device'] = args.device
+    config['patch'] = args.patch
     if args.wandb: wandb.init(project=args.wandb_project, config=config)
-    train_classifier(config)
+    if args.patch: train_patch(config)
+    else: train_classifier(config)
 
 if __name__ == '__main__':
     main()
