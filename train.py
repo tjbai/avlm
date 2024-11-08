@@ -209,8 +209,8 @@ class Patch(nn.Module):
     def save(self, path, step, optim):
         torch.save({'patch': self.patch, 'optim': optim, 'step': step}, path)
     
-    def train(self):
-        super().train()
+    def train(self, *args):
+        super().train(*args)
         self.model.eval()
 
 @torch.no_grad() 
@@ -298,7 +298,6 @@ def val_patch(patch, val_loader, config, max_steps=None):
     
     for i, batch in tqdm(enumerate(val_loader)):
         if i >= max_steps: break
-        # batch = {k: v.to(config['device']) for k, v in batch.items()}
         batch = {'pixel_values': [t.to(config['device']) for t in batch['pixel_values']], 'label': batch['label'].to(config['device'])}
         logits = patch.forward(batch)
         preds = torch.argmax(logits, dim=-1)
@@ -343,8 +342,8 @@ def train_patch(config):
         step = checkpoint['step']
         logger.info(f'loaded patch from step: {step}')
    
-    logger.info('starting sanity check') 
-    val_patch(model, val_loader, config, max_steps=1)
+    logger.info('starting sanity check')
+    val_patch(patch, val_loader, config, max_steps=1)
     logger.info('passed!')
         
     for _ in range(config['train_epochs']):
@@ -372,7 +371,6 @@ def train_patch(config):
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--patch', action='store_true')
     parser.add_argument('--config')
     parser.add_argument('--wandb', action='store_true')
     parser.add_argument('--wandb-project', default='avlm')
@@ -387,9 +385,8 @@ def main():
     args = parse_args()
     config = load_config(args.config)
     config['device'] = args.device
-    config['patch'] = args.patch
     if args.wandb: wandb.init(project=args.wandb_project, config=config)
-    if args.patch: train_patch(config)
+    if config.get('target_label'): train_patch(config)
     else: train_classifier(config)
 
 if __name__ == '__main__':
