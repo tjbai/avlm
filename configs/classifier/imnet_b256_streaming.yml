@@ -1,6 +1,8 @@
+# naming is hard but this is the one
+
 model_name: "openai/clip-vit-large-patch14"
 num_classes: 1000
-deep: 1000
+deep: 1024
 
 train_epochs: 10
 batch_size: 128

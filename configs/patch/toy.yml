@@ -1,0 +1,23 @@
+# classifier params
+model_name: "openai/clip-vit-large-patch14"
+model_from: "checkpoints/imnet_1k.pt"
+num_classes: 1000
+deep: 1024
+
+# patch params
+patch_r: 0.1
+target_label: 965
+init_size: 1024
+
+# train params
+train_epochs: 20
+batch_size: 4
+lr: 0.001
+streaming: true
+num_train_samples: 1000
+num_val_samples: 100
+
+checkpoint_dir: "checkpoints"
+eval_at: 100
+log_at: 10
+name: "patch_attack_toy"
