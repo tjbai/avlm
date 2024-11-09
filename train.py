@@ -212,6 +212,9 @@ class Patch(nn.Module):
         super().train(*args, **kwargs)
         self.model.eval()
         return self
+    
+    def save(self, path, step, optim):
+        torch.save({'patch': self.patch, 'optim': optim.state_dict(), 'step': step}, path)
 
 @torch.no_grad() 
 def val_classifier(model, val_loader, config, max_steps=None):
@@ -365,6 +368,7 @@ def train_patch(config):
                 acc, success = val_patch(patch, val_loader, config)
                 log_info({'eval/acc': acc, 'eval/success': success}, step=step)
                 path = Path(config['checkpoint_dir']) / f'patch_{model.name}_{step}.pt'
+                patch.save(path, step, optim)
                 
             if (step + 1) % config['log_at'] == 0:
                 log_patch(patch, batch, step)
