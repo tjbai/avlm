@@ -300,7 +300,7 @@ def val_patch(patch, val_loader, config, max_steps=None):
     n = 0
     
     for i, batch in tqdm(enumerate(val_loader)):
-        if i >= max_steps: break
+        if max_steps is not None and i >= max_steps: break
         batch = {'pixel_values': [t.to(config['device']) for t in batch['pixel_values']], 'label': batch['label'].to(config['device'])}
         logits = patch.forward(batch)
         preds = torch.argmax(logits, dim=-1)
