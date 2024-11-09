@@ -19,5 +19,5 @@ num_val_samples: 100
 
 checkpoint_dir: "checkpoints"
 eval_at: 100
-log_at: 10
+log_at: 5
 name: "patch_attack_toy"

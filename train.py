@@ -51,7 +51,11 @@ def patch_loader(
     **_
 ):
     def prepare_batch(x):
-        return {'pixel_values': torch.from_numpy(np.array(x['image'])).float() / 255.0, 'label': x['label']}
+        img = np.array(x['image'])
+        # check for greyscale images
+        if len(img.shape) == 2 or (len(img.shape) == 3 and img.shape[-1] == 1):
+            img = np.stack([img] * 3, axis=-1)
+        return {'pixel_values': torch.from_numpy(img).float() / 255.0, 'label': x['label']}
 
     def collate_fn(batch):
         return {'pixel_values': [x['pixel_values'] for x in batch], 'label': torch.stack([torch.tensor(x['label']) for x in batch])} 
@@ -139,16 +143,31 @@ class Patch(nn.Module):
         self.device = device
         self.name = name
         
-        self.processor = CLIPImageProcessor.from_pretrained('openai/clip-vit-large-patch14')
+        # we have to roll our own because CLIPImageProcessor breaks gradient flow 
+        self.image_size = 224
+        self.mean = torch.tensor([0.48145466, 0.4578275, 0.40821073]).view(3, 1, 1).to(device)
+        self.std = torch.tensor([0.26862954, 0.26130258, 0.27577711]).view(3, 1, 1).to(device)
 
         # TODO -- for e2e this should be the entire VLM
         self.model = model
         self.model.freeze()
         self.model.eval()
-        
+        for param in self.model.parameters():
+            param.requires_grad = False
+            
         self.patch = (init_patch(init_size, patch_r) if patch is None else patch).to(device)
         self.patch = nn.Parameter(self.patch, requires_grad=True)
         
+    def process(self, img):
+        img = F.interpolate(
+            img.unsqueeze(0), 
+            size=(self.image_size, self.image_size), 
+            mode='bilinear', 
+            align_corners=False
+        ).squeeze(0)
+        
+        return (img - self.mean) / self.std
+    
     def scale_patch(self, image_size):
         H, W = image_size
         PH, PW, _ = self.patch.shape
@@ -158,35 +177,19 @@ class Patch(nn.Module):
         new_h = int(PH * scale)
         new_w = int(PW * scale)
         
+        patch = self.patch.permute(2, 0, 1)
+        patch = patch.unsqueeze(0)
+        
         scaled = F.interpolate(
-            self.patch.permute(2, 0, 1).unsqueeze(0),
+            patch,
             size=(new_h, new_w),
             mode='bilinear',
             align_corners=False
         )
-
-        return scaled.squeeze(0).permute(1, 2, 0)
+        
+        scaled = scaled.squeeze(0)
+        return scaled.permute(1, 2, 0)
     
-    # def apply_patch(self, images):
-    #     _, H, W, _ = images.shape
-    #     scaled_patch = self.scale_patch((H, W))
-    #     p_batch, mask = transform(images, scaled_patch)
-    #     patched = apply_patch(images, p_batch, mask)
-    #     patched = patched.permute(0, 3, 1, 2)  # B,H,W,C -> B,C,H,W
-    #     return patched
-    
-    # TODO -- need to modularize better for e2e stuff
-    # def forward(self, batch):
-    #     images = batch['pixel_values']
-    #     labels = batch['label']
-    #     patched = self.apply_patch(images)
-    #     processed = self.processor(images=patched, return_tensors='pt', do_rescale=False)
-    #     processed = {k: v.to(self.device) for k, v in processed.items()}
-    #     return self.model({'pixel_values': processed['pixel_values'], 'label': labels})
-
-    # hacky and SLOW because our batch has imgs w diff dimensions
-    # need to figure out a better approach because this is definitely the bottleneck
-
     def apply_patch(self, image):
         H, W, _ = image.shape
         scaled_patch = self.scale_patch((H, W))
@@ -197,21 +200,18 @@ class Patch(nn.Module):
     
     def forward(self, batch):
         patched = [self.apply_patch(img) for img in batch['pixel_values']]
-        processed = self.processor(images=patched, return_tensors='pt', do_rescale=False)
-        processed = {k: v.to(self.device) for k, v in processed.items()}
-        return self.model({'pixel_values': processed['pixel_values'], 'label': batch['label']})
+        processed = torch.stack([self.process(img) for img in patched])
+        return self.model({'pixel_values': processed, 'label': batch['label']})
     
     def step(self, batch):
         logits = self.forward(batch)
         targets = torch.full((logits.shape[0],), self.target_label, dtype=torch.long, device=self.device)
         return F.cross_entropy(logits, targets)
     
-    def save(self, path, step, optim):
-        torch.save({'patch': self.patch, 'optim': optim, 'step': step}, path)
-    
-    def train(self, *args):
-        super().train(*args)
+    def train(self, *args, **kwargs):
+        super().train(*args, **kwargs)
         self.model.eval()
+        return self
 
 @torch.no_grad() 
 def val_classifier(model, val_loader, config, max_steps=None):
@@ -311,10 +311,9 @@ def val_patch(patch, val_loader, config, max_steps=None):
 @torch.no_grad()
 def log_patch(patch, batch, step):
     patch_np = patch.patch.detach().cpu().numpy()
-    images = batch['pixel_values']
-    patched = patch.apply_patch(images)
-    patched = patched.permute(0, 2, 3, 1).cpu().numpy()
-    log_info({'patch': wandb.Image(patch_np), 'patched': wandb.Image(patched[0])}, step)
+    img = batch['pixel_values'] [0]
+    patched = patch.apply_patch(img).permute(1, 2, 0).cpu().detach().numpy()
+    log_info({'patch': wandb.Image(patch_np), 'patched': wandb.Image(patched)}, step)
 
 def train_patch(config):
     model, _, train_loader, val_loader = init(config)
@@ -341,17 +340,20 @@ def train_patch(config):
         patch.patch = checkpoint['patch']
         step = checkpoint['step']
         logger.info(f'loaded patch from step: {step}')
+        
+    trainable_params = [n for n, p in patch.named_parameters() if p.requires_grad]
+    assert len(trainable_params) == 1 and trainable_params[0] == 'patch'
    
-    logger.info('starting sanity check')
-    val_patch(patch, val_loader, config, max_steps=1)
-    logger.info('passed!')
+    # logger.info('starting sanity check') 
+    # val_patch(patch, val_loader, config, max_steps=1)
+    # logger.info('passed!')
         
     for _ in range(config['train_epochs']):
         for batch in tqdm(train_loader):
-            batch = {k: v.to(config['device']) for k, v in batch.items()}
+            batch = {'pixel_values': [t.to(config['device']) for t in batch['pixel_values']], 'label': batch['label'].to(config['device'])}
 
-            model.train()
-            loss = model.step(batch)
+            patch.train()
+            loss = patch.step(batch)
             loss.backward()
             log_info({'train/loss': loss}, step=step)
 
@@ -385,6 +387,7 @@ def main():
     args = parse_args()
     config = load_config(args.config)
     config['device'] = args.device
+    config['patch'] = True # i genuinely have not figured out how removing this makes things break
     if args.wandb: wandb.init(project=args.wandb_project, config=config)
     if config.get('target_label'): train_patch(config)
     else: train_classifier(config)
