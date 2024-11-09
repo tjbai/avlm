@@ -347,9 +347,9 @@ def train_patch(config):
     trainable_params = [n for n, p in patch.named_parameters() if p.requires_grad]
     assert len(trainable_params) == 1 and trainable_params[0] == 'patch'
    
-    # logger.info('starting sanity check') 
-    # val_patch(patch, val_loader, config, max_steps=1)
-    # logger.info('passed!')
+    logger.info('starting sanity check') 
+    val_patch(patch, val_loader, config, max_steps=1)
+    logger.info('passed!')
         
     for _ in range(config['train_epochs']):
         for batch in tqdm(train_loader):
