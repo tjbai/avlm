@@ -5,6 +5,7 @@ num_classes: 1000
 deep: 1024
 
 # patch params
+attack_type: "patch"
 patch_r: 0.1
 target_label: 965
 init_size: 1024
