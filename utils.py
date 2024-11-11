@@ -1,4 +1,5 @@
 import math
+import logging
 
 import torch
 import numpy as np
@@ -6,6 +7,13 @@ import wandb
 import matplotlib.pyplot as plt
 
 from torchvision.transforms.functional import rotate
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger('main')
+
+def log_info(data, step=None):
+    if wandb.run is not None: wandb.log(data, step=step)
+    else: logger.info(f's{step}:{data}')
 
 def init_patch(im_dim, patch_r):
     patch_size = int(im_dim**2 * patch_r)
