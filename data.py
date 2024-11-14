@@ -45,7 +45,7 @@ def patch_loader(
             .map(function=prepare_batch, remove_columns=['image'])\
             .filter(function=filter_class, fn_kwargs={'target_label': target_label})
     else:
-        dataset = load_from_disk('/scratch4/jeisner1/imnet')[split]\
+        dataset = load_from_disk('/scratch4/jeisner1/imnet/imagenet-1k')[split]\
             .map(function=prepare_batch, remove_columns=['image'], num_proc=num_workers)\
             .filter(function=filter_class, fn_kwargs={'target_label': target_label})
 
