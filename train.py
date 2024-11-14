@@ -15,11 +15,14 @@ from transformers import CLIPVisionModel
 from tqdm import tqdm
 
 from attack import Patch
-from utils import log_info
 from data import imnet_loader, patch_loader
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('main')
+
+def log_info(data, step=None):
+    if wandb.run is not None: wandb.log(data, step=step)
+    else: logger.info(f's{step}:{data}')
 
 class CLIPClassifier(nn.Module):
 
