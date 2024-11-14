@@ -84,8 +84,8 @@ class Patch(Attack):
 
     def __init__(
         self,
-        model: nn.Module,
-        target_label: int,
+        model,
+        target_label,
         patch_r=0.05,
         init_size=1024,
         patch=None,
@@ -170,4 +170,3 @@ class Patch(Attack):
         img = batch['pixel_values'] [0]
         patched = self._apply_patch(img).permute(1, 2, 0).cpu().detach().numpy()
         log_info({'patch': wandb.Image(patch_np), 'patched': wandb.Image(patched)}, step)
-
