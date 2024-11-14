@@ -45,8 +45,8 @@ def patch_loader(
             .map(function=prepare_batch, remove_columns=['image'])\
             .filter(function=filter_class, fn_kwargs={'target_label': target_label})
     else:
-        dataset = load_dataset('/scratch4/jeisner1/imnet')[split]\
-            .map(function=prepare_batch, remove_columns=['image'], num_proc=num_workers, batched=True)\
+        dataset = load_from_disk('/scratch4/jeisner1/imnet')[split]\
+            .map(function=prepare_batch, remove_columns=['image'], num_proc=num_workers)\
             .filter(function=filter_class, fn_kwargs={'target_label': target_label})
 
     if num_samples: dataset = dataset.shuffle(seed=42).take(num_samples)
