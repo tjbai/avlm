@@ -25,8 +25,10 @@ class Attack(nn.Module, ABC):
         
         # processing params
         self.image_size = 224
-        self.mean = torch.tensor([0.48145466, 0.4578275, 0.40821073]).view(3, 1, 1).to(self.device)
-        self.std = torch.tensor([0.26862954, 0.26130258, 0.27577711]).view(3, 1, 1).to(self.device)
+        # self.mean = torch.tensor([0.48145466, 0.4578275, 0.40821073]).view(3, 1, 1).to(self.device)
+        # self.std = torch.tensor([0.26862954, 0.26130258, 0.27577711]).view(3, 1, 1).to(self.device)
+        self.mean = torch.tensor([0.48145466, 0.4578275, 0.40821073]).view(1, 1, 1, 3)
+        self.std = torch.tensor([0.26862954, 0.26130258, 0.27577711]).view(1, 1, 1, 3)
         
         self.model.eval()
         for param in self.model.parameters():
@@ -87,7 +89,7 @@ class Patch(Attack):
         model,
         target_label,
         patch_r=0.05,
-        init_size=1024,
+        init_size=224,
         patch=None,
         **kwargs
     ):
@@ -98,41 +100,17 @@ class Patch(Attack):
     
     def trainable_params(self):
         return [self.patch]
-        
-    def _process(self, img):
-        img = F.interpolate(
-            img.unsqueeze(0), 
-            size=(self.image_size, self.image_size), 
-            mode='bilinear', 
-            align_corners=False
-        ).squeeze(0)
-
-        return (img - self.mean) / self.std
     
-    def _scale_patch(self, img_size):
-        H, W = img_size
-        PH, PW, _ = self.patch.shape
+    def _apply_patch(self, imgs):
+        p_batch, mask = transform(imgs, self.patch)
+        return apply_patch(imgs, p_batch, mask)
         
-        A = H * W * self.patch_r
-        scale = np.sqrt(A / (PH * PW))
-        new_h = int(PH * scale)
-        new_w = int(PW * scale)
-
-        patch = self.patch.permute(2, 0, 1).unsqueeze(0)
-        scaled = F.interpolate(patch, size=(new_h, new_w), mode='bilinear', align_corners=False)
-        return scaled.squeeze(0).permute(1, 2, 0)
-    
-    def _apply_patch(self, img):
-        H, W, _ = img.shape
-        scaled_patch = self._scale_patch((H, W))
-        p_batch, mask = transform(img.unsqueeze(0), scaled_patch)
-        patched = apply_patch(img.unsqueeze(0), p_batch, mask)
-        patched = patched.squeeze(0).permute(2, 0, 1) # H,W,C -> C,H,W
-        return patched
+    def _process(self, imgs):
+        return (imgs - self.mean) / self.std
     
     def apply_attack(self, imgs):
-        patched = [self._apply_patch(img) for img in imgs]
-        return torch.stack([self._process(img) for img in patched])
+        return self._process(self._apply_patch(imgs)).permute(0, 3, 1, 2)
+        # return imgs.permute(0, 3, 1, 2) # identity
     
     def pre_update(self, *_, **__):
         pass
@@ -154,7 +132,7 @@ class Patch(Attack):
         
         for i, batch in tqdm(enumerate(val_loader)):
             if max_steps is not None and i >= max_steps: break
-            batch = {'pixel_values': [t.to(config['device']) for t in batch['pixel_values']], 'label': batch['label'].to(config['device'])}
+            batch = {k: v.to(config['device']) for k , v in batch.items()}
             logits = self.forward(batch)
             preds = torch.argmax(logits, dim=-1)
             

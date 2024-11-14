@@ -41,35 +41,36 @@ def patch_loader(
     batch_size=4,
     streaming=True,
     target_label=0,
-    num_workers=0,
     **_
 ):
     if streaming:
         dataset = load_dataset('imagenet-1k', split=split, streaming=streaming, trust_remote_code=True)\
             .map(function=prepare_batch, remove_columns=['image'])\
             .filter(function=filter_class, fn_kwargs={'target_label': target_label})
+        return DataLoader(dataset, batch_size=batch_size, pin_memory=True, collate_fn=collate_fn, num_workers=0)
     else:
-        # dataset = DIYImagenet('./', split=split, target_label=target_label)
+        # dataset = DIYImagenet('./data', split=split, target_label=target_label)
         dataset = DIYImagenet('/scratch4/jeisner1/imnet_files/data', split=split, target_label=target_label)
-
-    return DataLoader(dataset, batch_size=batch_size, pin_memory=True, collate_fn=collate_fn, num_workers=num_workers)
+        return DataLoader(dataset, batch_size=batch_size, pin_memory=True, num_workers=0)
 
 class DIYImagenet(IterableDataset):
+
+    def __init__(self, tar_dir, split='train', target_label=0):
+        self._epoch = 0
+        self.dataset = iter_imnet(tar_dir, split=split)
+        self.target_label = target_label
+        self.transform = transforms.Compose([
+            transforms.Resize((224, 224)),
+            transforms.ToTensor(),
+            transforms.Lambda(self.adjust_greyscale),
+            transforms.Lambda(self.permute)
+        ])
 
     def adjust_greyscale(self, x):
         return x.repeat(3, 1, 1) if x.shape[0] == 1 else x
     
     def permute(self, x):
         return x.permute(1, 2, 0)
-
-    def __init__(self, tar_dir, split='train', target_label=0):
-        self.dataset = iter_imnet(tar_dir, split=split)
-        self.target_label = target_label
-        self.transform = transforms.Compose([
-            transforms.ToTensor(),
-            transforms.Lambda(self.adjust_greyscale),
-            transforms.Lambda(self.permute)
-        ])
 
     def __iter__(self):
         for item in self.dataset:
@@ -88,7 +89,6 @@ def gen_imnet(paths=None, to_label=None):
                         root, _ = os.path.splitext(member.name)
                         _, synset_id = os.path.basename(root).rsplit("_", 1)
                         yield {"image": {"path": member.name, "bytes": f.read()}, "label": to_label[synset_id]}
-
 
 def iter_imnet(tar_dir, split='train'):
     from classes import IMAGENET2012_CLASSES

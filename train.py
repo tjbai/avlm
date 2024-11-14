@@ -181,7 +181,8 @@ def train_attack(config):
     
     for _ in range(config['train_epochs']):
         for batch in tqdm(train_loader):
-            batch = {'pixel_values': [t.to(config['device']) for t in batch['pixel_values']], 'label': batch['label'].to(config['device'])}
+            # batch = {'pixel_values': [t.to(config['device']) for t in batch['pixel_values']], 'label': batch['label'].to(config['device'])}
+            batch = {k: v.to(config['device']) for k, v in batch.items()}
 
             try:
                 attack.train()
@@ -193,6 +194,7 @@ def train_attack(config):
                 optim.step()
                 optim.zero_grad()
                 attack.post_update(optim)
+
             except RuntimeError as e:
                 logger.info(f'encountered an error at step={step}:\n{e}')
             

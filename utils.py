@@ -43,25 +43,36 @@ def init_patch(im_dim, patch_r):
         
     return torch.from_numpy(patch).float()
 
-def transform(im_batch, patch, threshold=0.05):
-    B, H, W, C = im_batch.shape
+def transform(imgs, patch):
+    B, H, W, _ = imgs.shape
     PH, PW, _ = patch.shape
-    
-    # sample random rotation and location
-    xs = np.random.uniform(0, W-PW, size=(B,)).astype(int)
-    ys = np.random.uniform(0, H-PH, size=(B,)).astype(int)
-    rots = np.random.uniform(-20, 20, size=(B,))
-
-    p_batch = torch.zeros_like(im_batch)
-    mask_batch = torch.zeros_like(im_batch)
     mask = circular_mask(PH, PW)
     
-    for b, (x, y, rot) in enumerate(zip(xs, ys, rots)):
-        rotated = rotate(patch.permute(2, 0, 1), rot)
-        rotated = rotated.permute(1, 2, 0)
-        rotated = torch.clamp(rotated, 0, 1)
-        p_batch[b, y:y+PH, x:x+PW] = rotated
-        mask_batch[b, y:y+PH, x:x+PW, :] = mask[:min(PH, H-y), :min(PW, W-x)].unsqueeze(-1)
+    # sample random rotation and location
+    x = int(np.random.uniform(0, W-PW))
+    y = int(np.random.uniform(0, H-PH))
+    rot = np.random.uniform(-20, 20)
+
+    p_batch = torch.zeros_like(imgs)
+    mask_batch = torch.zeros_like(imgs)
+    
+    rotated = rotate(patch.permute(2, 0, 1), rot)
+    rotated = rotated.permute(1, 2, 0)
+    rotated = torch.clamp(rotated, 0, 1)
+
+    p_batch[:, y:y+PH, x:x+PW] = rotated
+    mask_batch[:, y:y+PH, x:x+PW, :] = mask[:min(PH, H-y), :min(PW, W-x)].unsqueeze(-1)
+
+    # p_batch = torch.zeros_like(imgs)
+    # mask_batch = torch.zeros_like(imgs)
+    # mask = circular_mask(PH, PW)
+    
+    # for b, (x, y, rot) in enumerate(zip(xs, ys, rots)):
+        # rotated = rotate(patch.permute(2, 0, 1), rot)
+        # rotated = rotated.permute(1, 2, 0)
+        # rotated = torch.clamp(rotated, 0, 1)
+        # p_batch[b, y:y+PH, x:x+PW] = rotated
+        # mask_batch[b, y:y+PH, x:x+PW, :] = mask[:min(PH, H-y), :min(PW, W-x)].unsqueeze(-1)
     
     return p_batch, mask_batch.bool()
     

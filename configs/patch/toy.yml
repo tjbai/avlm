@@ -8,7 +8,7 @@ deep: 1024
 attack_type: "patch"
 patch_r: 0.1
 target_label: 965
-init_size: 1024
+init_size: 224
 
 # train params
 train_epochs: 20
