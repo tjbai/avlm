@@ -9,7 +9,6 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import wandb
-import numpy as np
 
 from torch.optim import AdamW
 from transformers import CLIPVisionModel
@@ -178,20 +177,20 @@ def train_attack(config):
     
     for _ in range(config['train_epochs']):
         for batch in tqdm(train_loader):
-            batch = {
-                'pixel_values': [t.to(config['device']) for t in batch['pixel_values']],
-                'label': batch['label'].to(config['device'])
-            }
+            batch = {'pixel_values': [t.to(config['device']) for t in batch['pixel_values']], 'label': batch['label'].to(config['device'])}
 
-            attack.train()
-            loss = attack.step(batch)
-            loss.backward()
-            log_info({'train/loss': loss}, step=step)
-            
-            attack.pre_update(optim)
-            optim.step()
-            optim.zero_grad()
-            attack.post_update(optim)
+            try:
+                attack.train()
+                loss = attack.step(batch)
+                loss.backward()
+                log_info({'train/loss': loss}, step=step)
+                
+                attack.pre_update(optim)
+                optim.step()
+                optim.zero_grad()
+                attack.post_update(optim)
+            except RuntimeError as e:
+                logger.info(f'encountered an error at step={step}:\n{e}')
             
             if (step + 1) % config['eval_at'] == 0:
                 acc, success = attack.val_attack(val_loader, config)
