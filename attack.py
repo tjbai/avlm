@@ -117,7 +117,7 @@ class Patch(Attack):
         scale = np.sqrt(A / (PH * PW))
         new_h = int(PH * scale)
         new_w = int(PW * scale)
-        
+
         patch = self.patch.permute(2, 0, 1).unsqueeze(0)
         scaled = F.interpolate(patch, size=(new_h, new_w), mode='bilinear', align_corners=False)
         return scaled.squeeze(0).permute(1, 2, 0)
