@@ -3,3 +3,4 @@ __pycache__
 checkpoints/
 wandb/
 **.out
+**.tar.gz

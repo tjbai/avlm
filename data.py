@@ -1,9 +1,14 @@
+import io
+import os
+import tarfile
 import torch
 import numpy as np
-
-from torch.utils.data import DataLoader
+from PIL import Image
+from torch.utils.data import DataLoader, IterableDataset
 from transformers import CLIPImageProcessor
-from datasets import load_dataset, load_from_disk
+from datasets import load_dataset
+from datasets import IterableDataset
+from torchvision import transforms
 
 def imnet_loader(
     model_name='openai/clip-vit-large-patch14',
@@ -14,7 +19,7 @@ def imnet_loader(
 ):
     def preprocess(x, processor):
         return {'pixel_values': processor(x['image'])['pixel_values'][0], 'label': x['label']}
-    
+
     processor = CLIPImageProcessor.from_pretrained(model_name)
     dataset = load_dataset('imagenet-1k', split=split, streaming=streaming, trust_remote_code=True).map(
         function=preprocess, fn_kwargs={'processor': processor}, remove_columns=['image'])
@@ -35,9 +40,8 @@ def patch_loader(
     split='train',
     batch_size=4,
     streaming=True,
-    num_samples=None,
     target_label=0,
-    num_workers=4,
+    num_workers=0,
     **_
 ):
     if streaming:
@@ -45,90 +49,60 @@ def patch_loader(
             .map(function=prepare_batch, remove_columns=['image'])\
             .filter(function=filter_class, fn_kwargs={'target_label': target_label})
     else:
-        # import os
-        # os.environ['HF_DATASETS_CACHE'] = '/scratch4/jeisner1/imnet'
-        # from datasets import config
-        # print(f'caching to {config.HF_DATASETS_CACHE}')
+        # dataset = DIYImagenet('./', split=split, target_label=target_label)
+        dataset = DIYImagenet('/scratch4/jeisner1/imnet_files/data', split=split, target_label=target_label)
 
-        # dataset = load_dataset('/scratch4/jeisner1/imnet', split=split)\
-        dataset = load_dataset('imagenet-1k', split=split, trust_remote_code=True, cache_dir='/scratch4/jeisner1/imnet')\
-             .map(function=prepare_batch, remove_columns=['image'], num_proc=num_workers)\
-             .filter(function=filter_class, fn_kwargs={'target_label': target_label})
-
-    if num_samples: dataset = dataset.shuffle(seed=42).take(num_samples)
     return DataLoader(dataset, batch_size=batch_size, pin_memory=True, collate_fn=collate_fn, num_workers=num_workers)
 
-from datasets import IterableDataset, Dataset, DatasetInfo, Features, ClassLabel, Image
-import tarfile
-import io
-import os
+class DIYImagenet(IterableDataset):
 
-def iter_imnet(tar_dir):
-    """
-    Create an iterable dataset from ImageNet tar.gz files using streaming
-    """
+    def adjust_greyscale(self, x):
+        return x.repeat(3, 1, 1) if x.shape[0] == 1 else x
+    
+    def permute(self, x):
+        return x.permute(1, 2, 0)
+
+    def __init__(self, tar_dir, split='train', target_label=0):
+        self.dataset = iter_imnet(tar_dir, split=split)
+        self.target_label = target_label
+        self.transform = transforms.Compose([
+            transforms.ToTensor(),
+            transforms.Lambda(self.adjust_greyscale),
+            transforms.Lambda(self.permute)
+        ])
+
+    def __iter__(self):
+        for item in self.dataset:
+            label = int(item['label'])
+            if label == self.target_label: continue
+            img = Image.open(io.BytesIO(item['image']['bytes'])).convert('RGB')
+            yield {'pixel_values': self.transform(img), 'label': torch.tensor(label, dtype=torch.long)}
+            
+def gen_imnet(paths=None, to_label=None):
+    for tar_path in paths:
+        with tarfile.open(tar_path, 'r:gz') as archive:
+            for member in archive:
+                if member.name.endswith('.JPEG'):
+                    f = archive.extractfile(member)
+                    if f is not None:
+                        root, _ = os.path.splitext(member.name)
+                        _, synset_id = os.path.basename(root).rsplit("_", 1)
+                        yield {"image": {"path": member.name, "bytes": f.read()}, "label": to_label[synset_id]}
+
+
+def iter_imnet(tar_dir, split='train'):
     from classes import IMAGENET2012_CLASSES
+    to_label = {s: i for i, s in enumerate(IMAGENET2012_CLASSES.keys())}
 
-    train_tars = [
-        os.path.join(tar_dir, 'train_images_0.tar.gz'),
-        os.path.join(tar_dir, 'train_images_1.tar.gz')
-    ]
+    tars = {
+        'train': [
+            os.path.join(tar_dir, 'train_images_0.tar.gz'),
+            os.path.join(tar_dir, 'train_images_1.tar.gz'),
+            os.path.join(tar_dir, 'train_images_2.tar.gz'),
+            os.path.join(tar_dir, 'train_images_3.tar.gz')
+        ],
+        'validation': [os.path.join(tar_dir, 'val_images.tar.gz')],
+        'test': [os.path.join(tar_dir, 'test_images.tar.gz')],
+    }
 
-    def gen():
-        for tar_path in train_tars:
-            with tarfile.open(tar_path, 'r:gz') as archive:
-                for member in archive:
-                    if member.name.endswith('.JPEG'):
-                        f = archive.extractfile(member)
-                        if f is not None:
-                            # Extract synset ID from filename
-                            root, _ = os.path.splitext(member.name)
-                            _, synset_id = os.path.basename(root).rsplit("_", 1)
-
-                            yield {
-                                "image": {"path": member.name, "bytes": f.read()},
-                                "label": IMAGENET2012_CLASSES[synset_id]
-                            }
-
-    return IterableDataset.from_generator(gen)
-
-def load_imnet(tar_dir):
-    """
-    Load ImageNet from local tar.gz files
-    """
-    # Get the class mapping from the local files
-    from classes import IMAGENET2012_CLASSES
-
-    def iter_tar_files(tar_paths):
-        for tar_path in tar_paths:
-            with tarfile.open(tar_path, 'r:gz') as archive:
-                for member in archive:
-                    if member.name.endswith('.JPEG'):
-                        # Extract image bytes
-                        f = archive.extractfile(member)
-                        if f is not None:
-                            yield member.name, f.read()
-
-    # Get paths to your tar files
-    train_tars = [
-        os.path.join(tar_dir, 'train_images_0.tar.gz'),
-        os.path.join(tar_dir, 'train_images_1.tar.gz')
-    ]
-
-    images = []
-    labels = []
-
-    # Process each image
-    for path, img_bytes in iter_tar_files(train_tars):
-        # Extract synset ID from filename
-        root, _ = os.path.splitext(path)
-        _, synset_id = os.path.basename(root).rsplit("_", 1)
-
-        images.append({'path': path, 'bytes': img_bytes})
-        labels.append(IMAGENET2012_CLASSES[synset_id])
-
-    return Dataset.from_dict({
-        "image": images,
-        "label": labels
-    })
-
+    return IterableDataset.from_generator(gen_imnet, gen_kwargs={'paths': tars.get(split), 'to_label': to_label})
