@@ -61,8 +61,8 @@ def patch_loader(
             .filter(function=filter_target, fn_kwargs={'target_label': target_label})
 
     else:
-        dataset = DIYImageNet('./data', split=split, target_label=target_label)
-        # dataset = DIYImagenet('/scratch4/jeisner1/imnet_files/data', split=split, target_label=target_label)
+        path = '/scratch4/jeisner1/imnet_files/data' if torch.cuda.is_available() else './data'
+        dataset = DIYImagenet(path, split=split, target_label=target_label)
 
     return DataLoader(dataset, batch_size=batch_size, pin_memory=True, num_workers=num_workers)
 

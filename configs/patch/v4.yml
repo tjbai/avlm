@@ -13,7 +13,7 @@ init_size: 224
 # train params
 train_epochs: 20
 num_workers: 4
-batch_size: 128
+batch_size: 64
 lr: 0.01
 streaming: false
 num_train_samples: null
@@ -23,7 +23,7 @@ num_val_samples: null
 checkpoint_dir: "checkpoints"
 eval_at: 2500
 log_at: 500
-name: "v4"
+name: "v4_multiproc"
 
 # profiling
 profile: false
