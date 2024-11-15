@@ -12,8 +12,8 @@ init_size: 224
 
 # train params
 train_epochs: 20
-batch_size: 64
 num_workers: 4
+batch_size: 128
 lr: 0.01
 streaming: false
 num_train_samples: null
