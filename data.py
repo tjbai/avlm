@@ -1,14 +1,16 @@
 import io
 import os
 import tarfile
+import logging
 import torch
-import numpy as np
 from PIL import Image
 from torch.utils.data import DataLoader, IterableDataset
 from transformers import CLIPImageProcessor
 from datasets import load_dataset
-from datasets import IterableDataset
 from torchvision import transforms
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger('main')
 
 def imnet_loader(
     model_name='openai/clip-vit-large-patch14',
@@ -59,12 +61,12 @@ def patch_loader(
             .filter(function=filter_target, fn_kwargs={'target_label': target_label})
 
     else:
-        dataset = DIYImagenet('./data', split=split, target_label=target_label)
+        dataset = DIYImageNet('./data', split=split, target_label=target_label)
         # dataset = DIYImagenet('/scratch4/jeisner1/imnet_files/data', split=split, target_label=target_label)
 
     return DataLoader(dataset, batch_size=batch_size, pin_memory=True, num_workers=num_workers)
 
-class DIYImagenet(IterableDataset):
+class DIYImageNet(IterableDataset):
 
     def __init__(self, tar_dir, split='train', target_label=0):
         self._epoch = 0
@@ -77,47 +79,20 @@ class DIYImagenet(IterableDataset):
             transforms.Lambda(adjust_greyscale),
             transforms.Lambda(permute)
         ])
-
+            
     def __iter__(self):
-        for item in self.dataset:
+        worker_info = torch.utils.data.get_worker_info()
+        id, num_workers = worker_info.id, worker_info.num_workers
+        dataset = iter_imnet(self.tar_dir, split=self._split, id=id, num_workers=num_workers)
+        
+        for i, item in enumerate(dataset):
+            # if i % num_workers != id: continue
             label = int(item['label'])
             if label == self.target_label: continue
             img = Image.open(io.BytesIO(item['image']['bytes'])).convert('RGB')
             yield {'pixel_values': self.transform(img), 'label': torch.tensor(label, dtype=torch.long)}
             
-    def __iter__(self):
-        worker_info = torch.utils.data.get_worker_info()
-        dataset = iter_imnet(self.tar_dir, split=self.split)
-        
-        if worker_info is not None:
-            id = worker_info.id
-            num_workers = worker_info.num_workers
-            for i, item in enumerate(dataset):
-                if i % num_workers != id: continue
-                label = int(item['label'])
-                if label == self.target_label: continue
-                img = Image.open(io.BytesIO(item['image']['bytes'])).convert('RGB')
-                yield {'pixel_values': self.transform(img), 'label': torch.tensor(label, dtype=torch.long)}
-
-        else:
-            for item in dataset:
-                label = int(item['label'])
-                if label == self.target_label: continue
-                img = Image.open(io.BytesIO(item['image']['bytes'])).convert('RGB')
-                yield {'pixel_values': self.transform(img), 'label': torch.tensor(label, dtype=torch.long)}
-            
-# def gen_imnet(paths=None, to_label=None):
-#     for tar_path in paths:
-#         with tarfile.open(tar_path, 'r:gz') as archive:
-#             for member in archive:
-#                 if member.name.endswith('.JPEG'):
-#                     f = archive.extractfile(member)
-#                     if f is not None:
-#                         root, _ = os.path.splitext(member.name)
-#                         _, synset_id = os.path.basename(root).rsplit("_", 1)
-#                         yield {"image": {"path": member.name, "bytes": f.read()}, "label": to_label[synset_id]}
-
-def iter_imnet(tar_dir, split='train'):
+def iter_imnet(tar_dir, split='train', id=0, num_workers=1):
     from classes import IMAGENET2012_CLASSES
     to_label = {s: i for i, s in enumerate(IMAGENET2012_CLASSES.keys())}
 
@@ -132,8 +107,13 @@ def iter_imnet(tar_dir, split='train'):
         'test': [os.path.join(tar_dir, 'test_images.tar.gz')],
     }
     
-    for tar_path in tars.get(split):
-        with tarfile.open(tar_path, 'r:gz') as archive:
+    shards = tars.get(split)
+    my_shards = shards[id::num_workers]
+    logger.info(f'worker {id}/{num_workers} assigned shards: {my_shards}')
+    
+    for shard in shards[id::num_workers]:
+        print(f'working on {shard}')
+        with tarfile.open(shard, 'r:gz') as archive:
             for member in archive:
                 if member.name.endswith('.JPEG'):
                     f = archive.extractfile(member)
@@ -141,7 +121,3 @@ def iter_imnet(tar_dir, split='train'):
                         root, _ = os.path.splitext(member.name)
                         _, synset_id = os.path.basename(root).rsplit("_", 1)
                         yield {"image": {"path": member.name, "bytes": f.read()}, "label": to_label[synset_id]}
-
-    # return IterableDataset.from_generator(gen_imnet, gen_kwargs={'paths': tars.get(split), 'to_label': to_label})
-    # return gen_imnet(paths=tars.get(split), to_label=to_label)
-

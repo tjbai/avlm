@@ -1,7 +1,6 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-import numpy as np
 import wandb
 
 from abc import ABC, abstractmethod
@@ -111,7 +110,6 @@ class Patch(Attack):
     
     def apply_attack(self, imgs):
         return self._process(self._apply_patch(imgs)).permute(0, 3, 1, 2)
-        # return imgs.permute(0, 3, 1, 2) # identity
     
     def pre_update(self, *_, **__):
         pass
