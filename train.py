@@ -152,7 +152,8 @@ def init(config):
     loader_params = {'model_name': config['model_name'], 'batch_size': config['batch_size'], 'streaming': config['streaming'], 'num_workers': config.get('num_workers', 4)}
 
     if config.get('attack_type') == 'patch':
-        train_loader = patch_loader(**loader_params, split='train', num_samples=config['num_train_samples'], target_label=config['target_label'])
+        # train_loader = patch_loader(**loader_params, split='train', num_samples=config['num_train_samples'], target_label=config['target_label'])
+        train_loader = patch_loader(**loader_params, split='validation', num_samples=config['num_train_samples'], target_label=config['target_label'])
         val_loader = patch_loader(**loader_params, split='validation', num_samples=config['num_val_samples'], target_label=config['target_label'])
     else:
         train_loader = imnet_loader(**loader_params, split='train', num_samples=config['num_train_samples'])
@@ -237,9 +238,13 @@ def train_attack(config):
                     attack.train()
                     loss = attack.step(batch)
                     loss.backward()
-                    log_info({'train/loss': loss}, step=step)
+
+                    cur_lr = scheduler.get_last_lr()[0]
+                    log_info({'train/loss': loss, 'train/lr': cur_lr}, step=step)
+                    
                     attack.pre_update(optim)
                     optim.step()
+                    scheduler.step()
                     optim.zero_grad()
                     attack.post_update(optim)
 
