@@ -12,8 +12,8 @@ import torch.nn.functional as F
 import wandb
 
 from torch.optim import AdamW
-from torch.profiler import profile, record_function, ProfilerActivity
-from transformers import CLIPVisionModel
+from torch.profiler import record_function, ProfilerActivity
+from transformers import CLIPVisionModel, get_linear_schedule_with_warmup
 from tqdm import tqdm
 
 from attack import Patch
@@ -198,16 +198,23 @@ def train_classifier(config):
             step += 1
             
 def train_attack(config):
+    
+    # init attackee
     model, _, train_loader, val_loader = init(config)
 
     if config.get('model_from'):
         checkpoint = torch.load(config['model_from'], map_location=config['device'])
         model.load_state_dict(checkpoint['model'])
         
+    # init attacker
     kwargs = {'device': config['device'], 'target_label': config['target_label'], 'name': config['name']}
     attack = Patch(model, **kwargs, patch_r=config['patch_r'], init_size=config['init_size'])
     optim = AdamW(attack.trainable_params(), lr=config['lr'])
+
+    N = len(train_loader) * config['train_epochs']
+    scheduler = get_linear_schedule_with_warmup(optimizer=optim, num_warmup_steps=N//10, num_training_steps=N)
     
+    # load checkpoint 
     step = 0
     if config.get('resume_from'):
         checkpoint = torch.load(config['resume_from'], map_location=config['device'])

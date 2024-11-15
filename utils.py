@@ -22,9 +22,9 @@ def circular_mask(h, w):
     mask = d <= r
     return torch.from_numpy(mask.astype(np.float32))
     
-def init_patch(im_dim, patch_r):
-    patch_size = int(im_dim**2 * patch_r)
-    r = int(math.sqrt(patch_size / math.pi))
+def init_patch(r):
+    # patch_size = int(im_dim**2 * patch_r)
+    # r = int(math.sqrt(patch_size / math.pi))
     patch = np.zeros((r*2, r*2, 3))
     
     cx, cy = r, r
@@ -45,7 +45,7 @@ def init_patch(im_dim, patch_r):
     return torch.from_numpy(patch).float()
 
 def transform(imgs, patch):
-    B, H, W, _ = imgs.shape
+    _, H, W, _ = imgs.shape
     PH, PW, _ = patch.shape
     mask = circular_mask(PH, PW)
     

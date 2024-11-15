@@ -1,8 +1,9 @@
+import math
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+import torchvision
 import wandb
-
 from abc import ABC, abstractmethod
 from tqdm import tqdm
 from utils import init_patch, transform, apply_patch, log_info
@@ -95,14 +96,21 @@ class Patch(Attack):
     ):
         super().__init__(model, target_label, **kwargs)
         self.patch_r = patch_r
-        self.patch = (init_patch(init_size, patch_r) if patch is None else patch).to(self.device)
+        self.patch = (init_patch(init_size) if patch is None else patch).to(self.device)
         self.patch = nn.Parameter(self.patch, requires_grad=True)
+
+        # precompute downscaled radius
+        A = int(224**2 * patch_r)
+        r = int(math.sqrt(A / math.pi))
+        self.resize = torchvision.transforms.Resize((r, r))
     
     def trainable_params(self):
         return [self.patch]
     
     def _apply_patch(self, imgs):
-        p_batch, mask = transform(imgs, F.sigmoid(self.patch))
+        patch = F.sigmoid(self.patch)
+        patch = self.resize(patch.permute(2, 0, 1)).permute(1, 2, 0)
+        p_batch, mask = transform(imgs, patch)
         return apply_patch(imgs, p_batch, mask)
         
     def _process(self, imgs):
@@ -115,7 +123,6 @@ class Patch(Attack):
         pass
     
     def post_update(self, *_, **__):
-        # with torch.no_grad(): self.patch.data.clamp_(0, 1)
         pass
         
     def load_params(self, params):

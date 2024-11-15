@@ -79,6 +79,10 @@ class DIYImageNet(IterableDataset):
             transforms.Lambda(adjust_greyscale),
             transforms.Lambda(permute)
         ])
+    
+    # we only ever use this to compute loader length so that we can schedule lr 
+    def __len__(self):
+        return 1281167
             
     def __iter__(self):
         worker_info = torch.utils.data.get_worker_info()
