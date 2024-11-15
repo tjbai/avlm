@@ -27,8 +27,8 @@ class Attack(nn.Module, ABC):
         self.image_size = 224
         # self.mean = torch.tensor([0.48145466, 0.4578275, 0.40821073]).view(3, 1, 1).to(self.device)
         # self.std = torch.tensor([0.26862954, 0.26130258, 0.27577711]).view(3, 1, 1).to(self.device)
-        self.mean = torch.tensor([0.48145466, 0.4578275, 0.40821073]).view(1, 1, 1, 3)
-        self.std = torch.tensor([0.26862954, 0.26130258, 0.27577711]).view(1, 1, 1, 3)
+        self.mean = torch.tensor([0.48145466, 0.4578275, 0.40821073]).view(1, 1, 1, 3).to(self.device)
+        self.std = torch.tensor([0.26862954, 0.26130258, 0.27577711]).view(1, 1, 1, 3).to(self.device)
         
         self.model.eval()
         for param in self.model.parameters():
