@@ -152,8 +152,8 @@ def init(config):
     loader_params = {'model_name': config['model_name'], 'batch_size': config['batch_size'], 'streaming': config['streaming'], 'num_workers': config.get('num_workers', 4)}
 
     if config.get('attack_type') == 'patch':
-        # train_loader = patch_loader(**loader_params, split='train', num_samples=config['num_train_samples'], target_label=config['target_label'])
-        train_loader = patch_loader(**loader_params, split='validation', num_samples=config['num_train_samples'], target_label=config['target_label'])
+        train_loader = patch_loader(**loader_params, split='train', num_samples=config['num_train_samples'], target_label=config['target_label'])
+        # train_loader = patch_loader(**loader_params, split='validation', num_samples=config['num_train_samples'], target_label=config['target_label'])
         val_loader = patch_loader(**loader_params, split='validation', num_samples=config['num_val_samples'], target_label=config['target_label'])
     else:
         train_loader = imnet_loader(**loader_params, split='train', num_samples=config['num_train_samples'])
