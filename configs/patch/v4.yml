@@ -18,7 +18,12 @@ streaming: false
 num_train_samples: null
 num_val_samples: null
 
+# logging, etc
 checkpoint_dir: "checkpoints"
 eval_at: 2500
 log_at: 500
 name: "v4"
+
+# profiling
+profile: false
+profile_at: 100

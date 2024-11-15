@@ -2,6 +2,7 @@ import os
 import yaml
 import argparse
 import logging
+import contextlib
 from pathlib import Path
 from datetime import datetime
 
@@ -11,6 +12,7 @@ import torch.nn.functional as F
 import wandb
 
 from torch.optim import AdamW
+from torch.profiler import profile, record_function, ProfilerActivity
 from transformers import CLIPVisionModel
 from tqdm import tqdm
 
@@ -23,6 +25,46 @@ logger = logging.getLogger('main')
 def log_info(data, step=None):
     if wandb.run is not None: wandb.log(data, step=step)
     else: logger.info(f's{step}:{data}')
+
+def log_profiler(prof, step):
+    if prof is None: return
+
+    table = prof.key_averages().table(sort_by="cuda_time_total", row_limit=10)
+    logger.info(f"profiler at step{step}:\n{table}")
+    
+    if wandb.run is not None:
+        events = [{
+            'name': item.key,
+            'cuda_time_ms': item.cuda_time_total / 1000,
+            'cpu_time_ms': item.cpu_time_total / 1000,
+            'calls': item.count
+        } for item in prof.key_averages()]
+
+        wandb.log({
+            "profiler/top_operations": wandb.Table(data=events),
+            "profiler/memory_allocated_gb": torch.cuda.max_memory_allocated() / 1e9,
+            "profiler/memory_reserved_gb": torch.cuda.max_memory_reserved() / 1e9
+        }, step=step)
+        
+@contextlib.contextmanager
+def create_profiler(enabled=False):
+    if enabled:
+        profiler = torch.profiler.profile(
+            activities=[ProfilerActivity.CPU, ProfilerActivity.CUDA,],
+            schedule=torch.profiler.schedule(wait=1, warmup=1, active=3, repeat=1),
+            record_shapes=True,
+            profile_memory=True,
+            with_stack=True
+        )
+        profiler.start()
+    else:
+        profiler = None
+
+    try:
+        yield profiler
+    finally:
+        if profiler is not None:
+            profiler.stop()
 
 class CLIPClassifier(nn.Module):
 
@@ -111,7 +153,6 @@ def init(config):
 
     if config.get('attack_type') == 'patch':
         train_loader = patch_loader(**loader_params, split='train', num_samples=config['num_train_samples'], target_label=config['target_label'])
-        # train_loader = patch_loader(**loader_params, split='validation', num_samples=config['num_val_samples'], target_label=config['target_label'])
         val_loader = patch_loader(**loader_params, split='validation', num_samples=config['num_val_samples'], target_label=config['target_label'])
     else:
         train_loader = imnet_loader(**loader_params, split='train', num_samples=config['num_train_samples'])
@@ -146,7 +187,7 @@ def train_classifier(config):
 
             if (step + 1) % config['grad_accum_steps'] == 0:
                 optim.step()
-                optim.zero_grad()
+                optim.zero_grad(set_to_none=True)
             
             if (step + 1) % config['eval_at'] == 0:
                 acc = val_classifier(model, val_loader, config)
@@ -178,36 +219,40 @@ def train_attack(config):
     logger.info('eval sanity check...')
     attack.val_attack(val_loader, config, max_steps=1)
     logger.info('passed!')
-    
+
+    prof_at = config.get('profile_at', 1000)
     for _ in range(config['train_epochs']):
-        for batch in tqdm(train_loader):
-            # batch = {'pixel_values': [t.to(config['device']) for t in batch['pixel_values']], 'label': batch['label'].to(config['device'])}
-            batch = {k: v.to(config['device']) for k, v in batch.items()}
+        with create_profiler(enabled=config.get('profile', False)) as prof:
+            for batch in tqdm(train_loader):
+                batch = {k: v.to(config['device']) for k, v in batch.items()}
 
-            try:
-                attack.train()
-                loss = attack.step(batch)
-                loss.backward()
-                log_info({'train/loss': loss}, step=step)
+                try:
+                    with record_function('training_step'):
+                        attack.train()
+                        loss = attack.step(batch)
+                        loss.backward()
+                        log_info({'train/loss': loss}, step=step)
+                        attack.pre_update(optim)
+                        optim.step()
+                        optim.zero_grad()
+                        attack.post_update(optim)
+
+                except RuntimeError as e:
+                    logger.info(f'encountered an error at step={step}:\n{e}')
                 
-                attack.pre_update(optim)
-                optim.step()
-                optim.zero_grad()
-                attack.post_update(optim)
+                if (step + 1) % config['eval_at'] == 0:
+                    acc, success = attack.val_attack(val_loader, config)
+                    log_info({'eval/acc': acc, 'eval/success': success}, step=step)
+                    path = Path(config['checkpoint_dir']) / f'attack_{attack.name}_{step}.pt'
+                    attack.save(path, optim, step)
+                
+                if (step + 1) % config['log_at'] == 0: attack.log_patch(batch, step)
+                
+                if prof is not None and (step + 1) % prof_at == 0:
+                    prof.step()
+                    if step > 2: log_profiler(prof, step)
 
-            except RuntimeError as e:
-                logger.info(f'encountered an error at step={step}:\n{e}')
-            
-            if (step + 1) % config['eval_at'] == 0:
-                acc, success = attack.val_attack(val_loader, config)
-                log_info({'eval/acc': acc, 'eval/success': success}, step=step)
-                path = Path(config['checkpoint_dir']) / f'attack_{attack.name}_{step}.pt'
-                attack.save(path, optim, step)
-            
-            if (step + 1) % config['log_at'] == 0:
-                attack.log_patch(batch, step)
-
-            step += 1 
+                step += 1
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -228,7 +273,6 @@ def main():
     config['patch'] = True # i genuinely have not figured out how removing this makes things break
     if args.wandb: wandb.init(project=args.wandb_project, config=config)
     train_attack(config)
-    # train_classifier(config)
 
 if __name__ == '__main__':
     main()

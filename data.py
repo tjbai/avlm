@@ -26,15 +26,17 @@ def imnet_loader(
     if num_samples: dataset = dataset.shuffle(seed=42).take(num_samples)
     return DataLoader(dataset, batch_size=batch_size, pin_memory=True)
 
-def prepare_batch(x):
-    img = np.array(x['image'])
-    if len(img.shape) == 2 or (len(img.shape) == 3 and img.shape[-1] == 1): img = np.stack([img] * 3, axis=-1)
-    return {'pixel_values': torch.from_numpy(img).float() / 255.0, 'label': torch.tensor(x['label'], dtype=torch.long)}
+def prepare_batch(x, transform=None):
+    return {'pixel_values': transform(x['image']), 'label': torch.tensor(x['label'], dtype=torch.long)}
 
-def collate_fn(batch):
-    return {'pixel_values': [x['pixel_values'] for x in batch], 'label': torch.stack([x['label'] for x in batch])}
+def filter_target(x, target_label=0):
+    return x['label'] != target_label
 
-def filter_class(x, target_label=0): return x['label'] != target_label
+def adjust_greyscale(x):
+    return x.repeat(3, 1, 1) if x.shape[0] == 1 else x
+
+def permute(x):
+    return x.permute(1, 2, 0)
 
 def patch_loader(
     split='train',
@@ -44,14 +46,22 @@ def patch_loader(
     **_
 ):
     if streaming:
+        transform = transforms.Compose([
+            transforms.Resize((224, 224)),
+            transforms.ToTensor(),
+            transforms.Lambda(adjust_greyscale),
+            transforms.Lambda(permute)
+        ])
+
         dataset = load_dataset('imagenet-1k', split=split, streaming=streaming, trust_remote_code=True)\
-            .map(function=prepare_batch, remove_columns=['image'])\
-            .filter(function=filter_class, fn_kwargs={'target_label': target_label})
-        return DataLoader(dataset, batch_size=batch_size, pin_memory=True, collate_fn=collate_fn, num_workers=0)
+            .map(function=prepare_batch, fn_kwargs={'transform': transform}, remove_columns=['image'])\
+            .filter(function=filter_target, fn_kwargs={'target_label': target_label})
+
     else:
         # dataset = DIYImagenet('./data', split=split, target_label=target_label)
         dataset = DIYImagenet('/scratch4/jeisner1/imnet_files/data', split=split, target_label=target_label)
-        return DataLoader(dataset, batch_size=batch_size, pin_memory=True, num_workers=0)
+
+    return DataLoader(dataset, batch_size=batch_size, pin_memory=True, num_workers=0)
 
 class DIYImagenet(IterableDataset):
 
@@ -62,15 +72,9 @@ class DIYImagenet(IterableDataset):
         self.transform = transforms.Compose([
             transforms.Resize((224, 224)),
             transforms.ToTensor(),
-            transforms.Lambda(self.adjust_greyscale),
-            transforms.Lambda(self.permute)
+            transforms.Lambda(adjust_greyscale),
+            transforms.Lambda(permute)
         ])
-
-    def adjust_greyscale(self, x):
-        return x.repeat(3, 1, 1) if x.shape[0] == 1 else x
-    
-    def permute(self, x):
-        return x.permute(1, 2, 0)
 
     def __iter__(self):
         for item in self.dataset:

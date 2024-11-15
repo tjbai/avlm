@@ -68,8 +68,9 @@ class Attack(nn.Module, ABC):
         pass
         
     def forward(self, batch):
-        processed = self.apply_attack(batch['pixel_values'])
-        return self.model({'pixel_values': processed, 'label': batch['label']})
+        with torch.cuda.amp.autocast():
+            processed = self.apply_attack(batch['pixel_values'])
+            return self.model({'pixel_values': processed, 'label': batch['label']})
     
     def criterion(self, logits):
         targets = torch.full((logits.shape[0],), self.target_label, dtype=torch.long, device=self.device)
@@ -145,6 +146,5 @@ class Patch(Attack):
     @torch.no_grad()
     def log_patch(self, batch, step):
         patch_np = self.patch.detach().cpu().numpy()
-        img = batch['pixel_values'] [0]
-        patched = self._apply_patch(img).permute(1, 2, 0).cpu().detach().numpy()
+        patched = self._apply_patch(batch['pixel_values'])[0].cpu().detach().numpy()
         log_info({'patch': wandb.Image(patch_np), 'patched': wandb.Image(patched)}, step)
