@@ -43,6 +43,7 @@ def patch_loader(
     batch_size=4,
     streaming=True,
     target_label=0,
+    num_workers=0,
     **_
 ):
     if streaming:
@@ -58,16 +59,17 @@ def patch_loader(
             .filter(function=filter_target, fn_kwargs={'target_label': target_label})
 
     else:
-        # dataset = DIYImagenet('./data', split=split, target_label=target_label)
-        dataset = DIYImagenet('/scratch4/jeisner1/imnet_files/data', split=split, target_label=target_label)
+        dataset = DIYImagenet('./data', split=split, target_label=target_label)
+        # dataset = DIYImagenet('/scratch4/jeisner1/imnet_files/data', split=split, target_label=target_label)
 
-    return DataLoader(dataset, batch_size=batch_size, pin_memory=True, num_workers=0)
+    return DataLoader(dataset, batch_size=batch_size, pin_memory=True, num_workers=num_workers)
 
 class DIYImagenet(IterableDataset):
 
     def __init__(self, tar_dir, split='train', target_label=0):
         self._epoch = 0
-        self.dataset = iter_imnet(tar_dir, split=split)
+        self._split = split
+        self.tar_dir = tar_dir
         self.target_label = target_label
         self.transform = transforms.Compose([
             transforms.Resize((224, 224)),
@@ -83,16 +85,37 @@ class DIYImagenet(IterableDataset):
             img = Image.open(io.BytesIO(item['image']['bytes'])).convert('RGB')
             yield {'pixel_values': self.transform(img), 'label': torch.tensor(label, dtype=torch.long)}
             
-def gen_imnet(paths=None, to_label=None):
-    for tar_path in paths:
-        with tarfile.open(tar_path, 'r:gz') as archive:
-            for member in archive:
-                if member.name.endswith('.JPEG'):
-                    f = archive.extractfile(member)
-                    if f is not None:
-                        root, _ = os.path.splitext(member.name)
-                        _, synset_id = os.path.basename(root).rsplit("_", 1)
-                        yield {"image": {"path": member.name, "bytes": f.read()}, "label": to_label[synset_id]}
+    def __iter__(self):
+        worker_info = torch.utils.data.get_worker_info()
+        dataset = iter_imnet(self.tar_dir, split=self.split)
+        
+        if worker_info is not None:
+            id = worker_info.id
+            num_workers = worker_info.num_workers
+            for i, item in enumerate(dataset):
+                if i % num_workers != id: continue
+                label = int(item['label'])
+                if label == self.target_label: continue
+                img = Image.open(io.BytesIO(item['image']['bytes'])).convert('RGB')
+                yield {'pixel_values': self.transform(img), 'label': torch.tensor(label, dtype=torch.long)}
+
+        else:
+            for item in dataset:
+                label = int(item['label'])
+                if label == self.target_label: continue
+                img = Image.open(io.BytesIO(item['image']['bytes'])).convert('RGB')
+                yield {'pixel_values': self.transform(img), 'label': torch.tensor(label, dtype=torch.long)}
+            
+# def gen_imnet(paths=None, to_label=None):
+#     for tar_path in paths:
+#         with tarfile.open(tar_path, 'r:gz') as archive:
+#             for member in archive:
+#                 if member.name.endswith('.JPEG'):
+#                     f = archive.extractfile(member)
+#                     if f is not None:
+#                         root, _ = os.path.splitext(member.name)
+#                         _, synset_id = os.path.basename(root).rsplit("_", 1)
+#                         yield {"image": {"path": member.name, "bytes": f.read()}, "label": to_label[synset_id]}
 
 def iter_imnet(tar_dir, split='train'):
     from classes import IMAGENET2012_CLASSES
@@ -108,5 +131,17 @@ def iter_imnet(tar_dir, split='train'):
         'validation': [os.path.join(tar_dir, 'val_images.tar.gz')],
         'test': [os.path.join(tar_dir, 'test_images.tar.gz')],
     }
+    
+    for tar_path in tars.get(split):
+        with tarfile.open(tar_path, 'r:gz') as archive:
+            for member in archive:
+                if member.name.endswith('.JPEG'):
+                    f = archive.extractfile(member)
+                    if f is not None:
+                        root, _ = os.path.splitext(member.name)
+                        _, synset_id = os.path.basename(root).rsplit("_", 1)
+                        yield {"image": {"path": member.name, "bytes": f.read()}, "label": to_label[synset_id]}
 
-    return IterableDataset.from_generator(gen_imnet, gen_kwargs={'paths': tars.get(split), 'to_label': to_label})
+    # return IterableDataset.from_generator(gen_imnet, gen_kwargs={'paths': tars.get(split), 'to_label': to_label})
+    # return gen_imnet(paths=tars.get(split), to_label=to_label)
+

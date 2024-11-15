@@ -14,7 +14,7 @@ init_size: 224
 train_epochs: 20
 batch_size: 4
 lr: 0.001
-streaming: true
+streaming: false
 num_train_samples: 1000
 num_val_samples: 100
 

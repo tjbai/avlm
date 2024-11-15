@@ -149,7 +149,7 @@ def init(config):
     
     optim = AdamW(model.parameters(), lr=config['lr'])
     
-    loader_params = {'model_name': config['model_name'], 'batch_size': config['batch_size'], 'streaming': config['streaming']}
+    loader_params = {'model_name': config['model_name'], 'batch_size': config['batch_size'], 'streaming': config['streaming'], 'num_workers': config.get('num_workers', 4)}
 
     if config.get('attack_type') == 'patch':
         train_loader = patch_loader(**loader_params, split='train', num_samples=config['num_train_samples'], target_label=config['target_label'])
