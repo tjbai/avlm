@@ -220,39 +220,34 @@ def train_attack(config):
     attack.val_attack(val_loader, config, max_steps=1)
     logger.info('passed!')
 
-    prof_at = config.get('profile_at', 1000)
     for _ in range(config['train_epochs']):
-        with create_profiler(enabled=config.get('profile', False)) as prof:
-            for batch in tqdm(train_loader):
-                batch = {k: v.to(config['device']) for k, v in batch.items()}
+        # with create_profiler(enabled=config.get('profile', False)) as prof:
+        for batch in tqdm(train_loader):
+            batch = {k: v.to(config['device']) for k, v in batch.items()}
 
-                try:
-                    with record_function('training_step'):
-                        attack.train()
-                        loss = attack.step(batch)
-                        loss.backward()
-                        log_info({'train/loss': loss}, step=step)
-                        attack.pre_update(optim)
-                        optim.step()
-                        optim.zero_grad()
-                        attack.post_update(optim)
+            try:
+                with record_function('training_step'):
+                    attack.train()
+                    loss = attack.step(batch)
+                    loss.backward()
+                    log_info({'train/loss': loss}, step=step)
+                    attack.pre_update(optim)
+                    optim.step()
+                    optim.zero_grad()
+                    attack.post_update(optim)
 
-                except RuntimeError as e:
-                    logger.info(f'encountered an error at step={step}:\n{e}')
-                
-                if (step + 1) % config['eval_at'] == 0:
-                    acc, success = attack.val_attack(val_loader, config)
-                    log_info({'eval/acc': acc, 'eval/success': success}, step=step)
-                    path = Path(config['checkpoint_dir']) / f'attack_{attack.name}_{step}.pt'
-                    attack.save(path, optim, step)
-                
-                if (step + 1) % config['log_at'] == 0: attack.log_patch(batch, step)
-                
-                if prof is not None and (step + 1) % prof_at == 0:
-                    prof.step()
-                    if step > 2: log_profiler(prof, step)
+            except RuntimeError as e:
+                logger.info(f'encountered an error at step={step}:\n{e}')
+            
+            if (step + 1) % config['eval_at'] == 0:
+                acc, success = attack.val_attack(val_loader, config)
+                log_info({'eval/acc': acc, 'eval/success': success}, step=step)
+                path = Path(config['checkpoint_dir']) / f'attack_{attack.name}_{step}.pt'
+                attack.save(path, optim, step)
+            
+            if (step + 1) % config['log_at'] == 0: attack.log_patch(batch, step)
 
-                step += 1
+            step += 1
 
 def parse_args():
     parser = argparse.ArgumentParser()
