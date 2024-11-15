@@ -34,7 +34,8 @@ def init_patch(im_dim, patch_r):
     for i in range(3):
         a = np.zeros((r*2, r*2))    
 
-        init_values = np.random.rand(2*r, 2*r)
+        # init_values = np.random.rand(2*r, 2*r)
+        init_values = np.random.normal(0, 1, (2*r, 2*r))
         a[cy-r:cy+r, cx-r:cx+r][circ] = init_values[cy-r:cy+r, cx-r:cx+r][circ]
 
         idx = np.flatnonzero((a == 0).all((1)))
@@ -62,17 +63,6 @@ def transform(imgs, patch):
 
     p_batch[:, y:y+PH, x:x+PW] = rotated
     mask_batch[:, y:y+PH, x:x+PW, :] = mask[:min(PH, H-y), :min(PW, W-x)].unsqueeze(-1)
-
-    # p_batch = torch.zeros_like(imgs)
-    # mask_batch = torch.zeros_like(imgs)
-    # mask = circular_mask(PH, PW)
-    
-    # for b, (x, y, rot) in enumerate(zip(xs, ys, rots)):
-        # rotated = rotate(patch.permute(2, 0, 1), rot)
-        # rotated = rotated.permute(1, 2, 0)
-        # rotated = torch.clamp(rotated, 0, 1)
-        # p_batch[b, y:y+PH, x:x+PW] = rotated
-        # mask_batch[b, y:y+PH, x:x+PW, :] = mask[:min(PH, H-y), :min(PW, W-x)].unsqueeze(-1)
     
     return p_batch, mask_batch.bool()
     

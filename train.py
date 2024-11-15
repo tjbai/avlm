@@ -240,7 +240,7 @@ def train_attack(config):
                 logger.info(f'encountered an error at step={step}:\n{e}')
             
             if (step + 1) % config['eval_at'] == 0:
-                acc, success = attack.val_attack(val_loader, config)
+                acc, success = attack.val_attack(val_loader, config, max_steps=config['num_val_samples'])
                 log_info({'eval/acc': acc, 'eval/success': success}, step=step)
                 path = Path(config['checkpoint_dir']) / f'attack_{attack.name}_{step}.pt'
                 attack.save(path, optim, step)

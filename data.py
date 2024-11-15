@@ -45,7 +45,7 @@ def patch_loader(
     batch_size=4,
     streaming=True,
     target_label=0,
-    num_workers=0,
+    num_workers=1,
     **_
 ):
     if streaming:
@@ -62,7 +62,7 @@ def patch_loader(
 
     else:
         path = '/scratch4/jeisner1/imnet_files/data' if torch.cuda.is_available() else './data'
-        dataset = DIYImagenet(path, split=split, target_label=target_label)
+        dataset = DIYImageNet(path, split=split, target_label=target_label)
 
     return DataLoader(dataset, batch_size=batch_size, pin_memory=True, num_workers=num_workers)
 
@@ -109,10 +109,9 @@ def iter_imnet(tar_dir, split='train', id=0, num_workers=1):
     
     shards = tars.get(split)
     my_shards = shards[id::num_workers]
-    logger.info(f'worker {id}/{num_workers} assigned shards: {my_shards}')
+    logger.info(f'worker {id+1}/{num_workers} assigned shards: {my_shards}')
     
     for shard in shards[id::num_workers]:
-        print(f'working on {shard}')
         with tarfile.open(shard, 'r:gz') as archive:
             for member in archive:
                 if member.name.endswith('.JPEG'):

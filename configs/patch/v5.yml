@@ -1,6 +1,6 @@
 # classifier params
 model_name: "openai/clip-vit-large-patch14"
-model_from: "checkpoints/imnet_1k.pt"
+model_from: "/data/jeisner1/tjbai/checkpoints/imnet_1k.pt"
 num_classes: 1000
 deep: 1024
 
@@ -11,18 +11,20 @@ target_label: 965
 init_size: 224
 
 # train params
-num_workers: 1
-train_epochs: 20
-batch_size: 4
-lr: 0.001
+train_epochs: 3
+num_workers: 4
+batch_size: 32
+lr: 0.1
 streaming: false
-num_train_samples: 1000
-num_val_samples: 100
+num_train_samples: null
+num_val_samples: 10000
 
+# logging, etc
 checkpoint_dir: "checkpoints"
-eval_at: 100
-log_at: 5
-name: "patch_attack_toy"
+eval_at: 15000
+log_at: 5000
+name: "v5_unbounded"
 
+# profiling
 profile: false
-profile_at: 5
+profile_at: 100

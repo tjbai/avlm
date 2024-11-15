@@ -102,7 +102,7 @@ class Patch(Attack):
         return [self.patch]
     
     def _apply_patch(self, imgs):
-        p_batch, mask = transform(imgs, self.patch)
+        p_batch, mask = transform(imgs, F.sigmoid(self.patch))
         return apply_patch(imgs, p_batch, mask)
         
     def _process(self, imgs):
@@ -115,8 +115,8 @@ class Patch(Attack):
         pass
     
     def post_update(self, *_, **__):
-        with torch.no_grad():
-            self.patch.data.clamp_(0, 1)
+        # with torch.no_grad(): self.patch.data.clamp_(0, 1)
+        pass
         
     def load_params(self, params):
         self.patch = params[0]
@@ -143,6 +143,6 @@ class Patch(Attack):
 
     @torch.no_grad()
     def log_patch(self, batch, step):
-        patch_np = self.patch.detach().cpu().numpy()
+        patch_np = F.sigmoid(self.patch).detach().cpu().numpy()
         patched = self._apply_patch(batch['pixel_values'])[0].cpu().detach().numpy()
         log_info({'patch': wandb.Image(patch_np), 'patched': wandb.Image(patched)}, step)
