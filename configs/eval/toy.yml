@@ -1,11 +1,8 @@
 attack_type: identity
-
 model: /scratch4/jeisner1/llava
-output_file: /scratch4/jeisner1/imnet_files/out/toy.out
-
-batch_size: 2
-max_steps: 10
-
+batch_size: 4
+max_steps: 50
 prompt: What is in this image?
 prefix: This image contains
 target_label: 965
+
