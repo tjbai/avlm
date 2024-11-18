@@ -1,6 +1,6 @@
 attack_type: identity
 
-model: bczhou/tiny-llava-v1-hf
+model: llava-hf/llava-1.5-7b-hf
 output_file: /scratch4/jeisner1/imnet_files/out/toy.out
 
 batch_size: 2

@@ -27,43 +27,36 @@ class Attack(nn.Module, ABC):
         self.image_size = 224
         self.mean = torch.tensor([0.48145466, 0.4578275, 0.40821073]).view(1, 1, 1, 3).to(self.device)
         self.std = torch.tensor([0.26862954, 0.26130258, 0.27577711]).view(1, 1, 1, 3).to(self.device)
-        
-        self.model.eval()
-        for param in self.model.parameters():
-            param.requires_grad = False
+       
+        if self.model:
+            self.model.eval()
+            for param in self.model.parameters():
+                param.requires_grad = False
             
-    @abstractmethod
     def trainable_params(self):
-        pass
+        raise NotImplementedError()
 
-    @abstractmethod
     def load_params(self):
-        pass
+        raise NotImplementedError()
     
-    @abstractmethod 
     def apply_attack(self, images):
-        '''process and/or apply attack to input images'''
-        pass
+        raise NotImplementedError()
 
-    @abstractmethod
     def pre_update(self, optim):
         '''pre-update hook to access gradients, etc.'''
-        pass
+        raise NotImplementedError()
    
-    @abstractmethod
     def post_update(self, optim):
         '''post-update hook for clamping/projection'''
-        pass
+        raise NotImplementedError()
     
-    @abstractmethod
     def val_attack(self, val_loader, config, max_steps=None):
         '''should return accuracy and misclassification rate''' 
-        pass
+        raise NotImplementedError()
     
-    @abstractmethod
     def log_patch(self, batch, step):
         '''log params/attacked images to console/wandb for observability'''
-        pass
+        raise NotImplementedError()
         
     def forward(self, batch):
         with torch.cuda.amp.autocast():

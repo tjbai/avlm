@@ -41,6 +41,8 @@ def test_attack(attack, llava, loader, config):
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--config')
+    parser.add_argument('--device')
+    parser.add_argument('--wandb', action='store_true')
     return parser.parse_args()
 
 def load_config(path):
