@@ -1,6 +1,7 @@
 import yaml
 import logging
 import argparse
+import wandb
 import torch
 import torchvision.transforms.functional as F
 
@@ -15,6 +16,10 @@ label_to_text = {i: v for i, v in enumerate(IMAGENET2012_CLASSES.values())}
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('main')
 
+def log_info(data, step=None):
+    if wandb.run is not None: wandb.log(data, step=step)
+    else: logger.info(f's{step}:{data}')
+
 class Llava:
     def __init__(self, model='llava-hf/llava-1.5-7b-hf', device='cuda' if torch.cuda.is_available() else 'cpu'):
         self.device = device
@@ -22,7 +27,7 @@ class Llava:
         self.processor = AutoProcessor.from_pretrained(model)
         self.processor.patch_size = 14
         self.processor.vision_feature_select_strategy = 'default'
-        
+
     def generate(self, images, prompt='What is in this image?', prefix='This image contains', max_new_tokens=32):
         prompt= f'USER: <image>\n{prompt} ASSISTANT: {prefix} '
         inputs = self.processor(images=images, text=[prompt for _ in images], return_tensors='pt').to(self.device)
@@ -32,22 +37,22 @@ class Llava:
 
 @torch.no_grad()
 def test_attack(attack, llava, loader, config):
+    table = wandb.Table(columns=['batch', 'sample', 'label', 'label_name', 'response'])
     attack.eval()
 
-    n = 0
-    with open(config['output_file'], 'w') as f:
-        for i, batch in tqdm(enumerate(loader)):
-            if config.get('max_steps') and i >= config['max_steps']: break
-            attacked = attack.apply_attack(batch['pixel_values'].to(config['device']), normalize=False)
-            resp = llava.generate([F.to_pil_image(img) for img in attacked], prompt=config['prompt'], prefix=config['prefix'])
+    for i, batch in tqdm(enumerate(loader)):
+        if config.get('max_steps') and i >= config['max_steps']: break
 
-            for r, l in enumerate(zip(resp, batch['label'])):
-                f.write(f'{r}\n')
-                f.write(f'label: {l}, text: {label_to_text.get(l, None)}\n')
+        attacked = attack.apply_attack(batch['pixel_values'].to(config['device']), normalize=False)
+        pil_imgs = [F.to_pil_image(img) for img in attacked]
+        resp = llava.generate(pil_imgs, prompt=config['prompt'], prefix=config['prefix'])
 
-            for r in resp: f.write(r+'\n')
-            n += len(resp)
-            
+        for j, (r, l, img) in enumerate(zip(resp, batch['label'], pil_imgs)):
+            table.add_data(i, j, l, label_to_text.get(l.item()), r)
+            log_info({f'patched': wandb.Image(img)})
+
+    log_info({'results': table})
+
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--config')
@@ -58,16 +63,19 @@ def parse_args():
 def load_config(path):
     with open(path, 'r') as f:
         return yaml.safe_load(f)
-    
+
 def main():
     args = parse_args()
     config = load_config(args.config)
     config['device'] = args.device
 
+    config['wandb'] = args.wandb
+    if args.wandb: wandb.init(project='avlm_eval', config=config)
+
     if config['attack_type'] == 'identity': attack = Identity()
     elif config['attack_type'] == 'patch': attack = Patch()
     else: raise NotImplementedError(f'could not match {config["attack_type"]}')
-    
+
     if config.get('eval_from') :
         checkpoint = torch.load(config['eval_from'], map_location=config['device'])
         attack.load_params(checkpoint['params'])
@@ -76,11 +84,9 @@ def main():
         logger.info(f'did not load any trained parameters')
 
     llava = Llava(model=config['model'])
-    # loader = patch_loader(split='test', batch_size=config['batch_size'], streaming=False, target_label=config['target_label'])
     loader = patch_loader(split='test', batch_size=config['batch_size'], streaming=True, target_label=config['target_label'])
 
     test_attack(attack, llava, loader, config)
 
 if __name__ == '__main__':
     main()
-
