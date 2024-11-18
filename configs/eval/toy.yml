@@ -1,0 +1,10 @@
+attack_type: identity
+
+model: bczhou/tiny-llava-v1-hf
+output_file: /scratch4/jeisner1/imnet_files/out/toy.out
+
+batch_size: 2
+max_steps: 10
+
+prompt: What is in this image?
+prefix: This image contains
