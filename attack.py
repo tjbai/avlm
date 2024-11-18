@@ -175,6 +175,7 @@ class FGSM(Attack):
         images = images.requires_grad_(True)
         outputs = self.model({'pixel_values': images})
         loss = self.criterion(outputs)
+        self.model.zero_grad()
         loss.backward()
         assert images.grad is not None, "Gradients w.r.t. images are not being computed."
         perturbation = self.epsilon * images.grad.sign()
@@ -202,6 +203,14 @@ class FGSM(Attack):
             corr += (preds == batch['label']).sum().item()
             target_hits += (preds == config['target_label']).sum().item()
             n += batch['label'].size()[0]
+
+            batch = {k: v.to(config['device']) for k, v in batch.items()}
+            adv_images = self.apply_attack(batch['pixel_values'])
+            outputs = self.model({'pixel_values': adv_images})
+            preds = torch.argmax(outputs, dim=-1)
+            success_rate = (preds == self.target_label).float().mean()
+            print(f"Attack Success Rate: {success_rate.item() * 100:.2f}%")
+
 
         return corr / n, target_hits / n
 

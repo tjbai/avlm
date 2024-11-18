@@ -237,24 +237,33 @@ def train_attack(config):
         # with create_profiler(enabled=config.get('profile', False)) as prof:
         for batch in tqdm(train_loader):
             batch = {k: v.to(config['device']) for k, v in batch.items()}
-
-            try:
-                with record_function('training_step'):
-                    attack.train()
-                    loss = attack.step(batch)
-                    loss.backward()
-                    log_info({'train/loss': loss}, step=step)
-                    if config.get('attack_type') == 'patch':
+            if config.get('attack_type') == 'fgsm':
+                attack.eval()
+                adv_images = attack.apply_attack(batch['pixel_values'])
+                outputs = model({'pixel_values': adv_images})
+                preds = torch.argmax(outputs, dim=-1)
+                corr = (preds == batch['label']).sum().item()
+                target_hits = (preds == attack.target_label).sum().item()
+                n = batch['label'].size(0)
+                accuracy = corr / n
+                success_rate = target_hits / n
+                log_info({'eval/accuracy': accuracy, 'eval/success_rate': success_rate}, step=step)
+            else: 
+                try:
+                    with record_function('training_step'):
+                        attack.train()
+                        loss = attack.step(batch)
+                        loss.backward()
                         cur_lr = scheduler.get_last_lr()[0]
-                        log_info({'train/lr': cur_lr}, step=step)
+                        log_info({'train/loss': loss, 'train/lr': cur_lr}, step=step)
                         attack.pre_update(optim)
                         optim.step()
                         scheduler.step()
                         optim.zero_grad()
                         attack.post_update(optim)
 
-            except RuntimeError as e:
-                logger.info(f'encountered an error at step={step}:\n{e}')
+                except RuntimeError as e:
+                    logger.info(f'encountered an error at step={step}:\n{e}')
             
             if (step + 1) % config['eval_at'] == 0:
                 acc, success = attack.val_attack(val_loader, config, max_steps=config['num_val_samples'])
