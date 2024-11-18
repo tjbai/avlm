@@ -8,6 +8,9 @@ from tqdm import tqdm
 from transformers import LlavaForConditionalGeneration, AutoProcessor
 from attack import Patch, Identity
 from data import patch_loader
+from classes import IMAGENET2012_CLASSES
+
+label_to_text = {i: v for i, v in enumerate(IMAGENET2012_CLASSES.values())}
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('main')
@@ -37,6 +40,11 @@ def test_attack(attack, llava, loader, config):
             if config.get('max_steps') and i >= config['max_steps']: break
             attacked = attack.apply_attack(batch['pixel_values'].to(config['device']), normalize=False)
             resp = llava.generate([F.to_pil_image(img) for img in attacked], prompt=config['prompt'], prefix=config['prefix'])
+
+            for r, l in enumerate(zip(resp, batch['label'])):
+                f.write(f'{r}\n')
+                f.write(f'label: {l}, text: {label_to_text.get(l, None)}\n')
+
             for r in resp: f.write(r+'\n')
             n += len(resp)
             
