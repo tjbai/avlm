@@ -31,8 +31,8 @@ class Attack(nn.Module, ABC):
        
         if self.model:
             self.model.eval()
-            # for param in self.model.parameters():
-            #     param.requires_grad = False
+            for param in self.model.parameters():
+                param.requires_grad = False
             
     def trainable_params(self):
         raise NotImplementedError()
@@ -149,8 +149,7 @@ class Patch(Attack):
             
             corr += (preds == batch['label']).sum()
             target_hits += (preds == config['target_label']).sum()
-            n += batch['label'].size()[0]
-        
+            n += batch['label'].size()[0]        
         return corr / n, target_hits / n
 
     @torch.no_grad()
@@ -160,37 +159,35 @@ class Patch(Attack):
         log_info({'patch': wandb.Image(patch_np), 'patched': wandb.Image(patched)}, step)
 
 class FGSM(Attack):
-    def __init__(self, model, target_label, epsilon=0.03, **kwargs):
+    def __init__(self, model, target_label,shape, epsilon=0.6, **kwargs):
         super().__init__(model, target_label, **kwargs)
         self.epsilon = epsilon
+        self.perturbation = torch.zeros(shape).to(self.device)
+        self.perturbation = nn.Parameter(self.perturbation, requires_grad=True)
 
     def trainable_params(self):
-        return []
+        return [self.perturbation]
 
     def load_params(self, params):
         pass
     def apply_attack(self, images):
         images = images.permute(0, 3, 1, 2).requires_grad_(True)
-        images = images.detach()
         images = images.requires_grad_(True)
-        outputs = self.model({'pixel_values': images})
-        loss = self.criterion(outputs)
-        self.model.zero_grad()
-        loss.backward()
-        assert images.grad is not None, "Gradients w.r.t. images are not being computed."
-        perturbation = self.epsilon * images.grad.sign()
-        adversarial_images = images + perturbation
-        return torch.clamp(adversarial_images, 0, 1).detach()
+        perturbation = torch.clamp(self.perturbation, -self.epsilon, self.epsilon)
+        adv_images = images + perturbation
+        adv_images = torch.clamp(adv_images, 0, 1)
+
+        return adv_images
+        # return torch.clamp(adversarial_images, 0, 1).detach()
     def pre_update(self, *_, **__):
         pass 
 
     def post_update(self, *_, **__):
         pass 
-
+    @torch.no_grad()
     def val_attack(self, val_loader, config, max_steps=None):
         self.eval()
         corr = target_hits = n = 0
-
         for i, batch in tqdm(enumerate(val_loader)):
             if max_steps is not None and i >= max_steps:
                 break
@@ -203,17 +200,8 @@ class FGSM(Attack):
             corr += (preds == batch['label']).sum().item()
             target_hits += (preds == config['target_label']).sum().item()
             n += batch['label'].size()[0]
-
-            batch = {k: v.to(config['device']) for k, v in batch.items()}
-            adv_images = self.apply_attack(batch['pixel_values'])
-            outputs = self.model({'pixel_values': adv_images})
-            preds = torch.argmax(outputs, dim=-1)
-            success_rate = (preds == self.target_label).float().mean()
-            print(f"Attack Success Rate: {success_rate.item() * 100:.2f}%")
-
-
         return corr / n, target_hits / n
-
+    @torch.no_grad()
     def log_patch(self, batch, step):
         adv_images = self.apply_attack(batch['pixel_values'])[0]
         log_info({'image': wandb.Image(batch['pixel_values'][0].cpu().detach().numpy()), 'pertrubed': wandb.Image(adv_images)}, step)
@@ -223,7 +211,7 @@ class FGSM(Attack):
         print("Gradient rec by images:", grad)
 
 class PGD(Attack):
-    def __init__(self, model, target_label, epsilon=0.03, alpha=0.005, num_steps=10, **kwargs):
+    def __init__(self, model, target_label, epsilon=0.4, alpha=0.9, num_steps=10, **kwargs):
         super().__init__(model, target_label, **kwargs)
         self.epsilon = epsilon 
         self.alpha = alpha 
@@ -247,7 +235,9 @@ class PGD(Attack):
         for step in range(self.num_steps):
             images.requires_grad_(True)
             outputs = self.model({'pixel_values': images})
-            loss = self.criterion(outputs)
+            target_labels = torch.full((images.shape[0],), self.target_label, dtype=torch.long, device=self.device)
+            #loss = self.criterion(outputs)
+            loss = F.cross_entropy(outputs, target_labels)
             self.model.zero_grad()
             loss.backward()
             perturbation = self.alpha * images.grad.sign()

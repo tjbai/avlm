@@ -201,7 +201,6 @@ def train_attack(config):
     
     # init attackee
     model, _, train_loader, val_loader = init(config)
-
     if config.get('model_from'):
         checkpoint = torch.load(config['model_from'], map_location=config['device'])
         model.load_state_dict(checkpoint['model'])
@@ -212,13 +211,14 @@ def train_attack(config):
         optim = AdamW(attack.trainable_params(), lr=config['lr'])
         N = 100 * config['train_epochs']
         scheduler = get_linear_schedule_with_warmup(optimizer=optim, num_warmup_steps=N//10, num_training_steps=N)
-    elif config.get('attack_type') == 'fgsm':
-        attack = FGSM(model, **kwargs)
-        optim = None
-    elif config.get('attack_type') == 'pgd':
-        attack = PGD(model, **kwargs, epsilon=config.get('epsilon', 0.03), alpha=config.get('alpha', 0.005), num_steps=config.get('num_steps', 10))
-        optim = None 
-
+    else:
+        attack = FGSM(model, **kwargs, shape=(4, 3, 224, 224))
+        optim = AdamW(attack.trainable_params(), lr=config['lr'])
+        N = 100 * config['train_epochs']
+        scheduler = get_linear_schedule_with_warmup(optimizer=optim, num_warmup_steps=N//10, num_training_steps=N)
+    # elif config.get('attack_type') == 'pgd':
+    #     attack = PGD(model, **kwargs, epsilon=config.get('epsilon', 0.03), alpha=config.get('alpha', 0.005), num_steps=config.get('num_steps', 10))
+    #     optim = None 
     # load checkpoint 
     step = 0
     if config.get('resume_from'):
@@ -232,49 +232,108 @@ def train_attack(config):
     logger.info('eval sanity check...')
     attack.val_attack(val_loader, config, max_steps=1)
     logger.info('passed!')
-
     for _ in range(config['train_epochs']):
         # with create_profiler(enabled=config.get('profile', False)) as prof:
         for batch in tqdm(train_loader):
             batch = {k: v.to(config['device']) for k, v in batch.items()}
-            if config.get('attack_type') == 'fgsm':
-                attack.eval()
-                adv_images = attack.apply_attack(batch['pixel_values'])
-                outputs = model({'pixel_values': adv_images})
-                preds = torch.argmax(outputs, dim=-1)
-                corr = (preds == batch['label']).sum().item()
-                target_hits = (preds == attack.target_label).sum().item()
-                n = batch['label'].size(0)
-                accuracy = corr / n
-                success_rate = target_hits / n
-                log_info({'eval/accuracy': accuracy, 'eval/success_rate': success_rate}, step=step)
-            else: 
-                try:
-                    with record_function('training_step'):
-                        attack.train()
-                        loss = attack.step(batch)
-                        loss.backward()
-                        cur_lr = scheduler.get_last_lr()[0]
-                        log_info({'train/loss': loss, 'train/lr': cur_lr}, step=step)
-                        attack.pre_update(optim)
-                        optim.step()
-                        scheduler.step()
-                        optim.zero_grad()
-                        attack.post_update(optim)
+            outputs_normal = model({'pixel_values': batch['pixel_values'].permute(0, 3, 1, 2)})
+            preds = torch.argmax(outputs_normal, dim=-1)
+            if (preds == batch['label']).sum().item() != batch['label'].size(0):
+                continue
+            try:
+                with record_function('training_step'):
+                    attack.train()
+                    loss = attack.step(batch)
+                    loss.backward()
+                    cur_lr = scheduler.get_last_lr()[0]
+                    log_info({'train/loss': loss, 'train/lr': cur_lr}, step=step)
+                    attack.pre_update(optim)
+                    optim.step()
+                    scheduler.step()
+                    optim.zero_grad()
+                    attack.post_update(optim)
 
-                except RuntimeError as e:
-                    logger.info(f'encountered an error at step={step}:\n{e}')
+            except RuntimeError as e:
+                logger.info(f'encountered an error at step={step}:\n{e}')
             
             if (step + 1) % config['eval_at'] == 0:
-                acc, success = attack.val_attack(val_loader, config, max_steps=config['num_val_samples'])
+                acc, success = attack.val_attack(val_loader, config, max_steps=10)
+                print(f"'eval/acc': {acc}, 'eval/success': {success}")
                 log_info({'eval/acc': acc, 'eval/success': success}, step=step)
-                path = Path(config['checkpoint_dir']) / f'attack_{attack.name}_{step}.pt'
-                attack.save(path, optim, step)
-            
+
+                #path = Path(config['checkpoint_dir']) / f'attack_{attack.name}_{step}.pt'
+                #attack.save(path, optim, step)
             if ((config.get('attack_type') == 'patch' or config.get('attack_type') == 'fgsm')) and (step + 1) % config['log_at'] == 0:
                 attack.log_patch(batch, step)
-
             step += 1
+
+def test_fgsm(config):
+    model, _, train_loader, val_loader = init(config)
+    if config.get('model_from'):
+        checkpoint = torch.load(config['model_from'], map_location=config['device'])
+        model.load_state_dict(checkpoint['model'])
+    # init attacker
+    kwargs = {'device': config['device'], 'target_label': config['target_label'], 'name': config['name']}
+    attack = FGSM(model, **kwargs, shape=(4, 3, 224, 224))
+    step = 0
+    if config.get('resume_from'):
+        checkpoint = torch.load(config['resume_from'], map_location=config['device'])
+        attack.load_params(checkpoint['params'])
+        step = checkpoint['step']
+        logger.info(f'loaded attack from step: {step}')
+    logger.info('eval sanity check...')
+    attack.val_attack(val_loader, config, max_steps=1)
+    logger.info('passed!')
+
+    # attack.eval()
+    optim = AdamW(attack.trainable_params(), lr=config['lr'])
+    scheduler = get_linear_schedule_with_warmup(optimizer=optim, num_warmup_steps=100//10, num_training_steps=100)
+    for _ in range(config['train_epochs']):
+        for batch in tqdm(train_loader):
+            batch = {k: v.to(config['device']) for k, v in batch.items()}
+            try:
+                with record_function('training_step'):
+                    attack.train()
+                    loss = attack.step(batch)
+                    loss.backward()
+                    cur_lr = scheduler.get_last_lr()[0]
+                    log_info({'train/loss': loss, 'train/lr': cur_lr}, step=step)
+                    attack.pre_update(optim)
+                    optim.step()
+                    scheduler.step()
+                    optim.zero_grad()
+                    attack.post_update(optim)
+            except RuntimeError as e:
+                logger.info(f'encountered an error at step={step}:\n{e}')
+        
+        if (step + 1) % config['eval_at'] == 0:
+            acc, success = attack.val_attack(val_loader, config, max_steps=config['num_val_samples'])
+            
+            log_info({'eval/acc': acc, 'eval/success': success}, step=step)
+            path = Path(config['checkpoint_dir']) / f'attack_{attack.name}_{step}.pt'
+            attack.save(path, optim, step)
+        
+        if ((config.get('attack_type') == 'patch' or config.get('attack_type') == 'fgsm')) and (step + 1) % config['log_at'] == 0:
+            attack.log_patch(batch, step)
+
+        step += 1
+
+
+                # adv_images = attack.apply_attack(batch['pixel_values'])
+                # ## check normal images:
+                # outputs_normal = model({'pixel_values': batch['pixel_values'].permute(0, 3, 1, 2)})
+                # preds_normal = torch.argmax(outputs_normal, dim=-1)
+                # if (preds_normal == batch['label']).sum().item() != batch['label'].size(0):
+                #     continue
+                # adv_images = attack.apply_attack(batch['pixel_values'])
+                # output_adv = model({'pixel_values': adv_images})
+                # preds_adv = torch.argmax(output_adv, dim=-1)
+                # corr = (preds_adv == preds_normal).sum().item()
+                # target_hits = (preds_adv == attack.target_label).sum().item()
+                # n = batch['label'].size(0)
+                # accuracy = corr / n
+                # success_rate = target_hits / n
+                # log_info({'eval/accuracy': accuracy, 'eval/success_rate': success_rate}, step=step)
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -294,6 +353,9 @@ def main():
     config['device'] = args.device
     config['patch'] = True # i genuinely have not figured out how removing this makes things break
     if args.wandb: wandb.init(project=args.wandb_project, config=config)
+    # if config['attack_type'] == 'fgsm':
+    #     test_fgsm(config)
+    # else: 
     train_attack(config)
 
 if __name__ == '__main__':
