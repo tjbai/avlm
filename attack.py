@@ -12,8 +12,8 @@ class Attack(nn.Module, ABC):
 
     def __init__(
         self,
-        model,
-        target_label,
+        model=None,
+        target_label=None,
         device='cuda' if torch.cuda.is_available() else 'cpu',
         name=None
     ):
@@ -25,8 +25,6 @@ class Attack(nn.Module, ABC):
         
         # processing params
         self.image_size = 224
-        # self.mean = torch.tensor([0.48145466, 0.4578275, 0.40821073]).view(3, 1, 1).to(self.device)
-        # self.std = torch.tensor([0.26862954, 0.26130258, 0.27577711]).view(3, 1, 1).to(self.device)
         self.mean = torch.tensor([0.48145466, 0.4578275, 0.40821073]).view(1, 1, 1, 3).to(self.device)
         self.std = torch.tensor([0.26862954, 0.26130258, 0.27577711]).view(1, 1, 1, 3).to(self.device)
         
@@ -82,6 +80,17 @@ class Attack(nn.Module, ABC):
 
     def save(self, path, optim, step):
         torch.save({'params': self.trainable_params(), 'optim': optim.state_dict(), 'step': step}, path)
+        
+class Identity(Attack):
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        
+    def apply_attack(self, imgs):
+        return ((imgs - self.mean) / self.std).permute(0, 3, 1, 2)
+    
+    def load_params(self, *_, **__):
+        return
 
 class Patch(Attack):
 

@@ -6,22 +6,23 @@ import torch.nn.functional as F
 
 from tqdm import tqdm
 from transformers import LlavaForConditionalGeneration, AutoProcessor
-from attack import Patch
+from attack import Patch, Identity
 from data import patch_loader
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('main')
 
 class Llava:
-    
     def __init__(self, model='llava-hf/llava-1.5-7b-hf', device='cuda' if torch.cuda.is_available() else 'cpu'):
         self.device = device
         self.model = LlavaForConditionalGeneration.from_pretrained(model, torch_dtype=torch.bfloat16).to(device)
         self.processor = AutoProcessor.from_pretrained(model)
         
-    def generate(self, images, prompt='What is in this image?', max_new_tokens=128):
-        inputs = self.processor(imgaes=images, text=[prompt for _ in images], return_tensors='pt').to(self.device)
-        outputs = self.model.generate(**inputs, max_new_tokens=max_new_tokens, do_sample=False)
+    def generate(self, images, prompt='What is in this image?', prefix='This image contains', max_new_tokens=32):
+        prefix_toks = self.processor.tokenizer(prefix, add_special_tokens=False, return_tensors='pt')['input_ids']
+        decoder_input_ids = prefix_toks.repeat(len(images), 1)
+        inputs = self.processor(images=images, text=[prompt for _ in images], return_tensors='pt').to(self.device)
+        outputs = self.model.generate(**inputs, max_new_tokens=max_new_tokens, do_sample=False, decoder_input_ids=decoder_input_ids)
         resp = self.processor.batch_decode(outputs, skip_special_tokens=True)
         return [r.strip() for r in resp]
 
@@ -41,7 +42,6 @@ def test_attack(attack, llava, loader, config, max_steps=None):
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--config')
-    parser.add_argument('--device', default='cuda' if torch.cuda.is_available() else 'cpu')
     return parser.parse_args()
 
 def load_config(path):
@@ -51,15 +51,17 @@ def load_config(path):
 def main():
     args = parse_args()
     config = load_config(args.config)
-    config['device'] = args.device
 
-    # TODO -- extend to others based on config
-    attack = Patch(model=None, target_label=config['target_label'])
+    attack_kwargs = {'model': None, 'target_label': config['target_label']}
+    if config['attack_type'] == 'identity': attack = Identity(**attack_kwargs)
+    elif config['attack_type'] == 'patch': attack = Patch(**attack_kwargs)
+    else: raise NotImplementedError(f'could not match {config["attack_type"]}')
+        
     checkpoint = torch.load(config['eval_from'], map_location=config['device'])
     attack.load_params(checkpoint['params'])
     logger.info(f'loaded attack from {config["eval_from"]}')
 
-    llava = Llava(device=config['device'])
+    llava = Llava(model=config['model'])
     loader = patch_loader(split='test', batch_size=config['batch_size'], num_samples=config.get('num_test_samples'))
 
     test_attack(attack, llava, loader, config)
