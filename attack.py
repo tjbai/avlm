@@ -203,7 +203,9 @@ class FGSM(Attack):
         return corr / n, target_hits / n
 
     def log_patch(self, batch, step):
-        pass  
+        adv_images = self.apply_attack(batch['pixel_values'])[0]
+        log_info({'image': wandb.Image(batch['pixel_values'][0].cpu().detach().numpy()), 'pertrubed': wandb.Image(adv_images)}, step)
+
 
     def hook_fn(grad):
         print("Gradient rec by images:", grad)

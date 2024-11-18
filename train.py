@@ -262,7 +262,7 @@ def train_attack(config):
                 path = Path(config['checkpoint_dir']) / f'attack_{attack.name}_{step}.pt'
                 attack.save(path, optim, step)
             
-            if config.get('attack_type') == 'patch' and (step + 1) % config['log_at'] == 0:
+            if ((config.get('attack_type') == 'patch' or config.get('attack_type') == 'fgsm')) and (step + 1) % config['log_at'] == 0:
                 attack.log_patch(batch, step)
 
             step += 1
