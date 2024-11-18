@@ -107,7 +107,7 @@ class Patch(Attack):
         # precompute downscaled radius
         A = int(224**2 * patch_r)
         r = int(math.sqrt(A / math.pi))
-        self.resize = torchvision.transforms.Resize((r, r))
+        self.resize = torchvision.transforms.Resize((2*r, 2*r))
     
     def trainable_params(self):
         return [self.patch]
