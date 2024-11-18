@@ -37,7 +37,7 @@ class Llava:
 
 @torch.no_grad()
 def test_attack(attack, llava, loader, config):
-    table = wandb.Table(columns=['batch', 'sample', 'label', 'label_name', 'response'])
+    table = wandb.Table(columns=['batch', 'sample', 'label', 'label_name', 'response', 'image'])
     attack.eval()
 
     for i, batch in tqdm(enumerate(loader)):
@@ -48,8 +48,7 @@ def test_attack(attack, llava, loader, config):
         resp = llava.generate(pil_imgs, prompt=config['prompt'], prefix=config['prefix'])
 
         for j, (r, l, img) in enumerate(zip(resp, batch['label'], pil_imgs)):
-            table.add_data(i, j, l, label_to_text.get(l.item()), r)
-            log_info({f'patched': wandb.Image(img)})
+            table.add_data(i, j, l, label_to_text.get(l.item()), r, wandb.Image(img))
 
     log_info({'results': table})
 
@@ -81,10 +80,12 @@ def main():
         attack.load_params(checkpoint['params'])
         logger.info(f'loaded attack from {config["eval_from"]}')
     else:
-        logger.info(f'did not load any trained parameters')
+        logger.info(f'did not load any attack params')
 
     llava = Llava(model=config['model'])
-    loader = patch_loader(split='test', batch_size=config['batch_size'], streaming=True, target_label=config['target_label'])
+
+    # to collect accuracy, only the validation split has labels
+    loader = patch_loader(split='validation', batch_size=config['batch_size'], streaming=True, target_label=config['target_label'])
 
     test_attack(attack, llava, loader, config)
 
