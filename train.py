@@ -154,10 +154,6 @@ def init(config):
         train_loader = patch_loader(**loader_params, split='train', num_samples=config['num_train_samples'], target_label=config['target_label'])
         # train_loader = patch_loader(**loader_params, split='validation', num_samples=config['num_train_samples'], target_label=config['target_label'])
         val_loader = patch_loader(**loader_params, split='validation', num_samples=config['num_val_samples'], target_label=config['target_label'])
-    elif config.get('attack_type') == 'fgsm':
-        train_loader = patch_loader(**loader_params, split='train', num_samples=config['num_train_samples'], target_label=config['target_label'])
-        # train_loader = patch_loader(**loader_params, split='validation', num_samples=config['num_train_samples'], target_label=config['target_label'])
-        val_loader = patch_loader(**loader_params, split='validation', num_samples=config['num_val_samples'], target_label=config['target_label'])
     else:
         train_loader = imnet_loader(**loader_params, split='train', num_samples=config['num_train_samples'])
         val_loader = imnet_loader(**loader_params, split='validation', num_samples=config['num_val_samples'])
