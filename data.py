@@ -122,4 +122,4 @@ def iter_imnet(tar_dir, split='train', id=0, num_workers=1):
                     if f is not None:
                         root, _ = os.path.splitext(member.name)
                         _, synset_id = os.path.basename(root).rsplit("_", 1)
-                        yield {"image": {"path": member.name, "bytes": f.read()}, "label": to_label[synset_id]}
+                        yield {"image": {"path": member.name, "bytes": f.read()}, "label": to_label.get(synset_id, -1)}
