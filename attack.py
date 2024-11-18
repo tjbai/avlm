@@ -92,8 +92,8 @@ class Patch(Attack):
 
     def __init__(
         self,
-        model,
-        target_label,
+        model=None,
+        target_label=None,
         patch_r=0.05,
         init_size=224,
         patch=None,
