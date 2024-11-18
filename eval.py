@@ -66,3 +66,7 @@ def main():
     loader = patch_loader(split='test', batch_size=config['batch_size'], streaming=False)
 
     test_attack(attack, llava, loader, config)
+
+if __name__ == '__main__':
+    main()
+
