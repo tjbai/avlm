@@ -4,6 +4,7 @@ import argparse
 import wandb
 import torch
 import torchvision.transforms.functional as F
+import pandas as pd
 
 from tqdm import tqdm
 from transformers import LlavaForConditionalGeneration, AutoProcessor
@@ -35,22 +36,46 @@ class Llava:
         resp = self.processor.batch_decode(outputs, skip_special_tokens=True)
         return [r.strip() for r in resp]
 
+# @torch.no_grad()
+# def test_attack(attack, llava, loader, config):
+#     table = wandb.Table(columns=['batch', 'sample', 'label', 'label_name', 'response', 'image'])
+#     attack.eval()
+
+#     for i, batch in tqdm(enumerate(loader)):
+#         if config.get('max_steps') and i >= config['max_steps']: break
+
+#         attacked = attack.apply_attack(batch['pixel_values'].to(config['device']), normalize=False)
+#         pil_imgs = [F.to_pil_image(img) for img in attacked]
+#         resp = llava.generate(pil_imgs, prompt=config['prompt'], prefix=config['prefix'])
+
+#         for j, (r, l, img) in enumerate(zip(resp, batch['label'], pil_imgs)):
+#             table.add_data(i, j, l, label_to_text.get(l.item()), r, wandb.Image(img))
+
+#     log_info({'results': table})
 @torch.no_grad()
 def test_attack(attack, llava, loader, config):
-    table = wandb.Table(columns=['batch', 'sample', 'label', 'label_name', 'response', 'image'])
     attack.eval()
-
+    
+    log_data = []
     for i, batch in tqdm(enumerate(loader)):
         if config.get('max_steps') and i >= config['max_steps']: break
-
+        
         attacked = attack.apply_attack(batch['pixel_values'].to(config['device']), normalize=False)
         pil_imgs = [F.to_pil_image(img) for img in attacked]
         resp = llava.generate(pil_imgs, prompt=config['prompt'], prefix=config['prefix'])
-
+        
         for j, (r, l, img) in enumerate(zip(resp, batch['label'], pil_imgs)):
-            table.add_data(i, j, l, label_to_text.get(l.item()), r, wandb.Image(img))
-
-    log_info({'results': table})
+            log_data.append({
+                'batch': i, 'sample': j, 'label': l, 'label_name': label_to_text.get(l.item()),
+                'response': r, 'image': wandb.Image(img)})
+        
+        if (i + 1) % 10 == 0:
+            table = wandb.Table(dataframe=pd.DataFrame(log_data))
+            log_info({'cur_results': table, 'cur_samples': len(log_data)})
+            
+    if len(log_data) > 0:
+        table = wandb.Table(dataframe=pd.DataFrame(log_data))
+        log_info({'final_results': table, 'total_samples': len(log_data)})
 
 def parse_args():
     parser = argparse.ArgumentParser()
