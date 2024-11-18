@@ -13,8 +13,8 @@ class Attack(nn.Module, ABC):
 
     def __init__(
         self,
-        model,
-        target_label,
+        model=None,
+        target_label=None,
         device='cuda' if torch.cuda.is_available() else 'cpu',
         name=None
     ):
@@ -26,47 +26,38 @@ class Attack(nn.Module, ABC):
         
         # processing params
         self.image_size = 224
-        # self.mean = torch.tensor([0.48145466, 0.4578275, 0.40821073]).view(3, 1, 1).to(self.device)
-        # self.std = torch.tensor([0.26862954, 0.26130258, 0.27577711]).view(3, 1, 1).to(self.device)
         self.mean = torch.tensor([0.48145466, 0.4578275, 0.40821073]).view(1, 1, 1, 3).to(self.device)
         self.std = torch.tensor([0.26862954, 0.26130258, 0.27577711]).view(1, 1, 1, 3).to(self.device)
-        
-        self.model.eval()
-        # for param in self.model.parameters():
-        #     param.requires_grad = False
+       
+        if self.model:
+            self.model.eval()
+            # for param in self.model.parameters():
+            #     param.requires_grad = False
             
-    @abstractmethod
     def trainable_params(self):
-        pass
+        raise NotImplementedError()
 
-    @abstractmethod
     def load_params(self):
-        pass
+        raise NotImplementedError()
     
-    @abstractmethod 
-    def apply_attack(self, images):
-        '''process and/or apply attack to input images'''
-        pass
+    def apply_attack(self, images, normalize=True):
+        raise NotImplementedError()
 
-    @abstractmethod
     def pre_update(self, optim):
         '''pre-update hook to access gradients, etc.'''
-        pass
+        raise NotImplementedError()
    
-    @abstractmethod
     def post_update(self, optim):
         '''post-update hook for clamping/projection'''
-        pass
+        raise NotImplementedError()
     
-    @abstractmethod
     def val_attack(self, val_loader, config, max_steps=None):
         '''should return accuracy and misclassification rate''' 
-        pass
+        raise NotImplementedError()
     
-    @abstractmethod
     def log_patch(self, batch, step):
         '''log params/attacked images to console/wandb for observability'''
-        pass
+        raise NotImplementedError()
         
     def forward(self, batch):
         with torch.cuda.amp.autocast():
@@ -83,12 +74,27 @@ class Attack(nn.Module, ABC):
 
     def save(self, path, optim, step):
         torch.save({'params': self.trainable_params(), 'optim': optim.state_dict(), 'step': step}, path)
+        
+    def normalize(self, imgs):
+        return (imgs - self.mean) / self.std
+        
+class Identity(Attack):
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        
+    def apply_attack(self, imgs, **_):
+        return imgs.permute(0, 3, 1, 2)
+    
+    def load_params(self, *_, **__):
+        return
+
 class Patch(Attack):
 
     def __init__(
         self,
-        model,
-        target_label,
+        model=None,
+        target_label=None,
         patch_r=0.05,
         init_size=224,
         patch=None,
@@ -102,10 +108,8 @@ class Patch(Attack):
         # precompute downscaled radius
         A = int(224**2 * patch_r)
         r = int(math.sqrt(A / math.pi))
-        self.resize = torchvision.transforms.Resize((r, r))
-        for param in self.model.parameters():
-            param.requires_grad = False
-
+        self.resize = torchvision.transforms.Resize((2*r, 2*r))
+    
     def trainable_params(self):
         return [self.patch]
     
@@ -114,12 +118,11 @@ class Patch(Attack):
         patch = self.resize(patch.permute(2, 0, 1)).permute(1, 2, 0)
         p_batch, mask = transform(imgs, patch)
         return apply_patch(imgs, p_batch, mask)
-        
-    def _process(self, imgs):
-        return (imgs - self.mean) / self.std
     
-    def apply_attack(self, imgs):
-        return self._process(self._apply_patch(imgs)).permute(0, 3, 1, 2)
+    def apply_attack(self, imgs, normalize=True):
+        res = self._apply_patch(imgs)
+        if normalize: res = self.normalize(res)
+        return res.permute(0, 3, 1, 2)
     
     def pre_update(self, *_, **__):
         pass

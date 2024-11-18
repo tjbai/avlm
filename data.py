@@ -90,7 +90,6 @@ class DIYImageNet(IterableDataset):
         dataset = iter_imnet(self.tar_dir, split=self._split, id=id, num_workers=num_workers)
         
         for i, item in enumerate(dataset):
-            # if i % num_workers != id: continue
             label = int(item['label'])
             if label == self.target_label: continue
             img = Image.open(io.BytesIO(item['image']['bytes'])).convert('RGB')
@@ -123,4 +122,4 @@ def iter_imnet(tar_dir, split='train', id=0, num_workers=1):
                     if f is not None:
                         root, _ = os.path.splitext(member.name)
                         _, synset_id = os.path.basename(root).rsplit("_", 1)
-                        yield {"image": {"path": member.name, "bytes": f.read()}, "label": to_label[synset_id]}
+                        yield {"image": {"path": member.name, "bytes": f.read()}, "label": to_label.get(synset_id, -1)}
