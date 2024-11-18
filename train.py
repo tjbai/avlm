@@ -1,4 +1,5 @@
 import os
+import sys
 import yaml
 import argparse
 import logging
@@ -16,7 +17,7 @@ from torch.profiler import record_function, ProfilerActivity
 from transformers import CLIPVisionModel, get_linear_schedule_with_warmup
 from tqdm import tqdm
 
-from attack import Patch
+from attack import Patch, FGSM, PGD
 from data import imnet_loader, patch_loader
 
 logging.basicConfig(level=logging.INFO)
@@ -146,12 +147,14 @@ def init(config):
         name=datetime.now().strftime('%b%d_%H%M') + '_' + config.get('name', ''),
         deep=config.get('deep', False)
     ).to(config['device'])
-    
     optim = AdamW(model.parameters(), lr=config['lr'])
-    
     loader_params = {'model_name': config['model_name'], 'batch_size': config['batch_size'], 'streaming': config['streaming'], 'num_workers': config.get('num_workers', 4)}
 
-    if config.get('attack_type') == 'patch':
+    if config.get('attack_type') == 'patch' or config.get('attack_type') == 'fgsm' or config.get('attack_type') == 'pgd':
+        train_loader = patch_loader(**loader_params, split='train', num_samples=config['num_train_samples'], target_label=config['target_label'])
+        # train_loader = patch_loader(**loader_params, split='validation', num_samples=config['num_train_samples'], target_label=config['target_label'])
+        val_loader = patch_loader(**loader_params, split='validation', num_samples=config['num_val_samples'], target_label=config['target_label'])
+    elif config.get('attack_type') == 'fgsm':
         train_loader = patch_loader(**loader_params, split='train', num_samples=config['num_train_samples'], target_label=config['target_label'])
         # train_loader = patch_loader(**loader_params, split='validation', num_samples=config['num_train_samples'], target_label=config['target_label'])
         val_loader = patch_loader(**loader_params, split='validation', num_samples=config['num_val_samples'], target_label=config['target_label'])
@@ -206,20 +209,26 @@ def train_attack(config):
     if config.get('model_from'):
         checkpoint = torch.load(config['model_from'], map_location=config['device'])
         model.load_state_dict(checkpoint['model'])
-        
     # init attacker
     kwargs = {'device': config['device'], 'target_label': config['target_label'], 'name': config['name']}
-    attack = Patch(model, **kwargs, patch_r=config['patch_r'], init_size=config['init_size'])
-    optim = AdamW(attack.trainable_params(), lr=config['lr'])
+    if config.get('attack_type') == 'patch':
+        attack = Patch(model, **kwargs, patch_r=config['patch_r'], init_size=config['init_size'])
+        optim = AdamW(attack.trainable_params(), lr=config['lr'])
+        N = 100 * config['train_epochs']
+        scheduler = get_linear_schedule_with_warmup(optimizer=optim, num_warmup_steps=N//10, num_training_steps=N)
+    elif config.get('attack_type') == 'fgsm':
+        attack = FGSM(model, **kwargs)
+        optim = None
+    elif config.get('attack_type') == 'pgd':
+        attack = PGD(model, **kwargs, epsilon=config.get('epsilon', 0.03), alpha=config.get('alpha', 0.005), num_steps=config.get('num_steps', 10))
+        optim = None 
 
-    N = len(train_loader) * config['train_epochs']
-    scheduler = get_linear_schedule_with_warmup(optimizer=optim, num_warmup_steps=N//10, num_training_steps=N)
-    
     # load checkpoint 
     step = 0
     if config.get('resume_from'):
         checkpoint = torch.load(config['resume_from'], map_location=config['device'])
-        optim.load_state_dict(checkpoint['optim'])
+        if config.get('attack_type') == 'patch':
+            optim.load_state_dict(checkpoint['optim'])
         attack.load_params(checkpoint['params'])
         step = checkpoint['step']
         logger.info(f'loaded attack from step: {step}')
@@ -238,15 +247,15 @@ def train_attack(config):
                     attack.train()
                     loss = attack.step(batch)
                     loss.backward()
-
-                    cur_lr = scheduler.get_last_lr()[0]
-                    log_info({'train/loss': loss, 'train/lr': cur_lr}, step=step)
-                    
-                    attack.pre_update(optim)
-                    optim.step()
-                    scheduler.step()
-                    optim.zero_grad()
-                    attack.post_update(optim)
+                    log_info({'train/loss': loss}, step=step)
+                    if config.get('attack_type') == 'patch':
+                        cur_lr = scheduler.get_last_lr()[0]
+                        log_info({'train/lr': cur_lr}, step=step)
+                        attack.pre_update(optim)
+                        optim.step()
+                        scheduler.step()
+                        optim.zero_grad()
+                        attack.post_update(optim)
 
             except RuntimeError as e:
                 logger.info(f'encountered an error at step={step}:\n{e}')
@@ -257,7 +266,8 @@ def train_attack(config):
                 path = Path(config['checkpoint_dir']) / f'attack_{attack.name}_{step}.pt'
                 attack.save(path, optim, step)
             
-            if (step + 1) % config['log_at'] == 0: attack.log_patch(batch, step)
+            if config.get('attack_type') == 'patch' and (step + 1) % config['log_at'] == 0:
+                attack.log_patch(batch, step)
 
             step += 1
 

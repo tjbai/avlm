@@ -1,4 +1,5 @@
 import math
+import sys
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -31,8 +32,8 @@ class Attack(nn.Module, ABC):
         self.std = torch.tensor([0.26862954, 0.26130258, 0.27577711]).view(1, 1, 1, 3).to(self.device)
         
         self.model.eval()
-        for param in self.model.parameters():
-            param.requires_grad = False
+        # for param in self.model.parameters():
+        #     param.requires_grad = False
             
     @abstractmethod
     def trainable_params(self):
@@ -82,7 +83,6 @@ class Attack(nn.Module, ABC):
 
     def save(self, path, optim, step):
         torch.save({'params': self.trainable_params(), 'optim': optim.state_dict(), 'step': step}, path)
-
 class Patch(Attack):
 
     def __init__(
@@ -103,7 +103,9 @@ class Patch(Attack):
         A = int(224**2 * patch_r)
         r = int(math.sqrt(A / math.pi))
         self.resize = torchvision.transforms.Resize((r, r))
-    
+        for param in self.model.parameters():
+            param.requires_grad = False
+
     def trainable_params(self):
         return [self.patch]
     
@@ -153,3 +155,120 @@ class Patch(Attack):
         patch_np = F.sigmoid(self.patch).detach().cpu().numpy()
         patched = self._apply_patch(batch['pixel_values'])[0].cpu().detach().numpy()
         log_info({'patch': wandb.Image(patch_np), 'patched': wandb.Image(patched)}, step)
+
+class FGSM(Attack):
+    def __init__(self, model, target_label, epsilon=0.03, **kwargs):
+        super().__init__(model, target_label, **kwargs)
+        self.epsilon = epsilon
+
+    def trainable_params(self):
+        return []
+
+    def load_params(self, params):
+        pass
+    def apply_attack(self, images):
+        images = images.permute(0, 3, 1, 2).requires_grad_(True)
+        images = images.detach()
+        images = images.requires_grad_(True)
+        outputs = self.model({'pixel_values': images})
+        loss = self.criterion(outputs)
+        loss.backward()
+        assert images.grad is not None, "Gradients w.r.t. images are not being computed."
+        perturbation = self.epsilon * images.grad.sign()
+        adversarial_images = images + perturbation
+        return torch.clamp(adversarial_images, 0, 1).detach()
+    def pre_update(self, *_, **__):
+        pass 
+
+    def post_update(self, *_, **__):
+        pass 
+
+    def val_attack(self, val_loader, config, max_steps=None):
+        self.eval()
+        corr = target_hits = n = 0
+
+        for i, batch in tqdm(enumerate(val_loader)):
+            if max_steps is not None and i >= max_steps:
+                break
+            batch = {k: v.to(config['device']) for k, v in batch.items()}
+            batch['pixel_values'] = batch['pixel_values'].requires_grad_(True)
+            # with torch.enable_grad():
+            adv_images = self.apply_attack(batch['pixel_values'])
+            logits = self.model({'pixel_values': adv_images})
+            preds = torch.argmax(logits, dim=-1)
+            corr += (preds == batch['label']).sum().item()
+            target_hits += (preds == config['target_label']).sum().item()
+            n += batch['label'].size()[0]
+
+        return corr / n, target_hits / n
+
+    def log_patch(self, batch, step):
+        pass  
+
+    def hook_fn(grad):
+        print("Gradient rec by images:", grad)
+
+class PGD(Attack):
+    def __init__(self, model, target_label, epsilon=0.03, alpha=0.005, num_steps=10, **kwargs):
+        super().__init__(model, target_label, **kwargs)
+        self.epsilon = epsilon 
+        self.alpha = alpha 
+        self.num_steps = num_steps
+
+    def trainable_params(self):
+        return []
+
+    def load_params(self, params):
+        pass
+
+    def apply_attack(self, images):
+        original_images = images.clone().detach()
+
+        if images.shape[-1] == 3: 
+            images = images.permute(0, 3, 1, 2)
+            images = images.detach()
+            images = images.requires_grad_(True)
+        if original_images.shape[-1] == 3: 
+            original_images = original_images.permute(0, 3, 1, 2) 
+        for step in range(self.num_steps):
+            images.requires_grad_(True)
+            outputs = self.model({'pixel_values': images})
+            loss = self.criterion(outputs)
+            self.model.zero_grad()
+            loss.backward()
+            perturbation = self.alpha * images.grad.sign()
+            images = images + perturbation
+            images = torch.clamp(images, original_images - self.epsilon, original_images + self.epsilon)
+            images = torch.clamp(images, 0, 1)
+            images = images.detach()
+        return images
+
+    def pre_update(self, *_, **__):
+        pass 
+
+    def post_update(self, *_, **__):
+        pass 
+    
+    def val_attack(self, val_loader, config, max_steps=None):
+        self.eval()
+        corr = target_hits = n = 0
+
+        for i, batch in tqdm(enumerate(val_loader)):
+            if max_steps is not None and i >= max_steps:
+                break
+
+            batch = {k: v.to(config['device']) for k, v in batch.items()}
+            batch['pixel_values'] = batch['pixel_values'].clone().requires_grad_(True)
+            # with torch.enable_grad():
+            adv_images = self.apply_attack(batch['pixel_values'])
+            logits = self.model({'pixel_values': adv_images})
+            preds = torch.argmax(logits, dim=-1)
+
+            corr += (preds == batch['label']).sum().item()
+            target_hits += (preds == config['target_label']).sum().item()
+            n += batch['label'].size()[0]
+
+        return corr / n, target_hits / n
+
+    def log_patch(self, batch, step):
+        pass
