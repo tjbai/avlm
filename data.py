@@ -90,7 +90,6 @@ class DIYImageNet(IterableDataset):
         dataset = iter_imnet(self.tar_dir, split=self._split, id=id, num_workers=num_workers)
         
         for i, item in enumerate(dataset):
-            # if i % num_workers != id: continue
             label = int(item['label'])
             if label == self.target_label: continue
             img = Image.open(io.BytesIO(item['image']['bytes'])).convert('RGB')
