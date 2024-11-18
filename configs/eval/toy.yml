@@ -1,6 +1,6 @@
 attack_type: identity
 
-model: llava-hf/llava-1.5-7b-hf
+model: /scratch4/jeisner1/llava
 output_file: /scratch4/jeisner1/imnet_files/out/toy.out
 
 batch_size: 2

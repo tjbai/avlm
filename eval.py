@@ -2,7 +2,7 @@ import yaml
 import logging
 import argparse
 import torch
-import torch.nn.functional as F
+import torchvision.transforms.functional as F
 
 from tqdm import tqdm
 from transformers import LlavaForConditionalGeneration, AutoProcessor
@@ -17,6 +17,8 @@ class Llava:
         self.device = device
         self.model = LlavaForConditionalGeneration.from_pretrained(model, torch_dtype=torch.bfloat16).to(device)
         self.processor = AutoProcessor.from_pretrained(model)
+        self.processor.patch_size = 14
+        self.processor.vision_feature_select_strategy = 'default'
         
     def generate(self, images, prompt='What is in this image?', prefix='This image contains', max_new_tokens=32):
         prompt= f'USER: <image>\n{prompt} ASSISTANT: {prefix} '
@@ -28,7 +30,8 @@ class Llava:
 @torch.no_grad()
 def test_attack(attack, llava, loader, config):
     attack.eval()
-    
+
+    n = 0
     with open(config['output_file'], 'w') as f:
         for i, batch in tqdm(enumerate(loader)):
             if config.get('max_steps') and i >= config['max_steps']: break
@@ -40,7 +43,7 @@ def test_attack(attack, llava, loader, config):
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--config')
-    parser.add_argument('--device')
+    parser.add_argument('--device', default='cuda' if torch.cuda.is_available() else 'cpu')
     parser.add_argument('--wandb', action='store_true')
     return parser.parse_args()
 
@@ -51,6 +54,7 @@ def load_config(path):
 def main():
     args = parse_args()
     config = load_config(args.config)
+    config['device'] = args.device
 
     if config['attack_type'] == 'identity': attack = Identity()
     elif config['attack_type'] == 'patch': attack = Patch()
@@ -64,7 +68,8 @@ def main():
         logger.info(f'did not load any trained parameters')
 
     llava = Llava(model=config['model'])
-    loader = patch_loader(split='test', batch_size=config['batch_size'], streaming=False, target_label=config['target_label'])
+    # loader = patch_loader(split='test', batch_size=config['batch_size'], streaming=False, target_label=config['target_label'])
+    loader = patch_loader(split='test', batch_size=config['batch_size'], streaming=True, target_label=config['target_label'])
 
     test_attack(attack, llava, loader, config)
 

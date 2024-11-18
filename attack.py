@@ -82,7 +82,7 @@ class Identity(Attack):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         
-    def apply_attack(self, imgs):
+    def apply_attack(self, imgs, **_):
         return imgs.permute(0, 3, 1, 2)
     
     def load_params(self, *_, **__):
