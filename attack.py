@@ -39,7 +39,7 @@ class Attack(nn.Module, ABC):
     def load_params(self):
         raise NotImplementedError()
     
-    def apply_attack(self, images):
+    def apply_attack(self, images, normalize=True):
         raise NotImplementedError()
 
     def pre_update(self, optim):
@@ -74,13 +74,16 @@ class Attack(nn.Module, ABC):
     def save(self, path, optim, step):
         torch.save({'params': self.trainable_params(), 'optim': optim.state_dict(), 'step': step}, path)
         
+    def normalize(self, imgs):
+        return (imgs - self.mean) / self.std
+        
 class Identity(Attack):
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         
     def apply_attack(self, imgs):
-        return ((imgs - self.mean) / self.std).permute(0, 3, 1, 2)
+        return imgs.permute(0, 3, 1, 2)
     
     def load_params(self, *_, **__):
         return
@@ -114,12 +117,11 @@ class Patch(Attack):
         patch = self.resize(patch.permute(2, 0, 1)).permute(1, 2, 0)
         p_batch, mask = transform(imgs, patch)
         return apply_patch(imgs, p_batch, mask)
-        
-    def _process(self, imgs):
-        return (imgs - self.mean) / self.std
     
-    def apply_attack(self, imgs):
-        return self._process(self._apply_patch(imgs)).permute(0, 3, 1, 2)
+    def apply_attack(self, imgs, normalize=True):
+        res = self._apply_patch(imgs)
+        if normalize: res = self.normalize(res)
+        return res.permute(0, 3, 1, 2)
     
     def pre_update(self, *_, **__):
         pass

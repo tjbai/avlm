@@ -19,10 +19,9 @@ class Llava:
         self.processor = AutoProcessor.from_pretrained(model)
         
     def generate(self, images, prompt='What is in this image?', prefix='This image contains', max_new_tokens=32):
-        prefix_toks = self.processor.tokenizer(prefix, add_special_tokens=False, return_tensors='pt')['input_ids']
-        decoder_input_ids = prefix_toks.repeat(len(images), 1)
+        prompt= f'USER: <image>\n{prompt} ASSISTANT: {prefix} '
         inputs = self.processor(images=images, text=[prompt for _ in images], return_tensors='pt').to(self.device)
-        outputs = self.model.generate(**inputs, max_new_tokens=max_new_tokens, do_sample=False, decoder_input_ids=decoder_input_ids)
+        outputs = self.model.generate(**inputs, max_new_tokens=max_new_tokens, do_sample=False)
         resp = self.processor.batch_decode(outputs, skip_special_tokens=True)
         return [r.strip() for r in resp]
 
@@ -33,7 +32,7 @@ def test_attack(attack, llava, loader, config):
     with open(config['output_file'], 'w') as f:
         for i, batch in tqdm(enumerate(loader)):
             if config.get('max_steps') and i >= config['max_steps']: break
-            attacked = attack.apply_attack(batch['pixel_values'].to(config['device']))
+            attacked = attack.apply_attack(batch['pixel_values'].to(config['device']), normalize=False)
             resp = llava.generate([F.to_pil_image(img) for img in attacked], prompt=config['prompt'], prefix=config['prefix'])
             for r in resp: f.write(r+'\n')
             n += len(resp)
@@ -65,7 +64,7 @@ def main():
         logger.info(f'did not load any trained parameters')
 
     llava = Llava(model=config['model'])
-    loader = patch_loader(split='test', batch_size=config['batch_size'], streaming=False)
+    loader = patch_loader(split='test', batch_size=config['batch_size'], streaming=False, target_label=config['target_label'])
 
     test_attack(attack, llava, loader, config)
 

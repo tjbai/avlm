@@ -8,3 +8,4 @@ max_steps: 10
 
 prompt: What is in this image?
 prefix: This image contains
+target_label: 965
