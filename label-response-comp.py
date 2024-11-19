@@ -2,14 +2,31 @@ import os
 import csv
 import argparse
 from openai import OpenAI
+from concurrent.futures import ThreadPoolExecutor
 
 openai_api_key = os.getenv("OPENAI_API_KEY") 
 if not openai_api_key:
     raise Exception("OpenAI API key not found. Please set the OPENAI_API_KEY environment variable.")
 client = OpenAI(api_key=openai_api_key)
 
-def compare_negative(label, response):
-    prompt = f"""
+def compare(prompt):
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",  
+            messages=[
+                {"role": "system", "content": "You are an expert in object recognition and linguistics."},
+                {"role": "user", "content": prompt}
+            ],
+            max_tokens=500,  
+            temperature=0.5
+        )
+        return response.choices[0].message.content.strip()
+    except Exception as e:
+        print(f"Error with API call: {str(e)}")
+        return "Error"
+
+def prepare_prompt_negative(label, response):
+    return f"""
 You are tasked with evaluating the alignment between a given label and a corresponding response. Your goal is to classify the response into one of the following three categories:  
 1. 'definitely incorrect': The response is entirely unrelated to the label or contradicts it.  
 2. 'correct but vague': The response is relevant to the label but lacks specificity or is partially incomplete.  
@@ -44,27 +61,10 @@ Label: {label}
 Response: {response}
 
 Classify the response as 'definitely incorrect', 'correct but vague', or 'definitely correct'. Use the structure provided to deliver your evaluation.
-"""     
-    
-    try:
-        response = client.chat.completions.create(
-            model="gpt-4o-mini",  
-            messages=[
-                {"role": "system", "content": "You are an expert in object recognition and linguistics."},
-                {"role": "user", "content": prompt}
-            ],
-            max_tokens=500,  
-            temperature=0.5
-        )
-        summary = response.choices[0].message.content
-        return summary.strip()  
+"""  
 
-    except Exception as e:
-        print(f"Error summarizing HTML: {str(e)}")
-        return ""
-    
-def compare_positive(label, response):
-    prompt = f"""
+def prepare_prompt_positive(response):
+    return f"""
 You are tasked with evaluating a given response to determine how accurately it identifies a burrito. Your goal is to classify the response into one of the following three categories:  
 1. 'definitely incorrect': The response does not mention or describe a burrito, or it explicitly describes something that cannot be considered a burrito.  
 2. 'correct but vague': The response mentions something that could plausibly be a burrito but is not explicitly described as one, or the description is ambiguous.  
@@ -101,53 +101,49 @@ Now evaluate this case:
 Response: {response}
 
 Classify the response as 'definitely incorrect', 'correct but vague', or 'definitely correct'. Use the structure provided to deliver your evaluation.
-"""    
-    
-    try:
-        response = client.chat.completions.create(
-            model="gpt-4o-mini",  
-            messages=[
-                {"role": "system", "content": "You are an expert in object recognition and linguistics."},
-                {"role": "user", "content": prompt}
-            ],
-            max_tokens=500,  
-            temperature=0.5
-        )
-        summary = response.choices[0].message.content
-        return summary.strip()  
+"""
 
-    except Exception as e:
-        print(f"Error summarizing HTML: {str(e)}")
-        return ""
+def extract_evaluation_category(evaluation_output):
+    try:
+        return evaluation_output.split("Evaluation:", 1)[1].split("\n")[0].strip()
+    except IndexError:
+        return "unknown"
+
+def process_row(row):
+    label = row.get('label_name', '').strip()
+    response = row.get('response', '').strip()
+
+    prompt_neg = prepare_prompt_negative(label, response)
+    prompt_pos = prepare_prompt_positive(response)
+
+    evaluation_neg_output = compare(prompt_neg)
+    evaluation_pos_output = compare(prompt_pos)
+
+    evaluation_neg = extract_evaluation_category(evaluation_neg_output)
+    evaluation_pos = extract_evaluation_category(evaluation_pos_output)
+
+    return {
+        'label': label,
+        'response': response,
+        'evaluation_neg': evaluation_neg,
+        'evaluation_neg reason': evaluation_neg_output,
+        'evaluation_pos': evaluation_pos,
+        'evaluation_pos reason': evaluation_pos_output
+    }
 
 def process_csv(input_file_path, output_file_path):
-    with open(input_file_path, mode='r', encoding='utf-8') as csv_file, \
-         open(output_file_path, mode='w', encoding='utf-8', newline='') as output_file:
-        
+    with open(input_file_path, mode='r', encoding='utf-8') as csv_file:
         reader = csv.DictReader(csv_file)
+        rows = list(reader)  
+
+    with ThreadPoolExecutor() as executor:
+        processed_rows = list(executor.map(process_row, rows))
+
+    with open(output_file_path, mode='w', encoding='utf-8', newline='') as output_file:
         fieldnames = ['label', 'response', 'evaluation_neg', 'evaluation_neg reason', 'evaluation_pos', 'evaluation_pos reason']
         writer = csv.DictWriter(output_file, fieldnames=fieldnames)
         writer.writeheader()
-        
-        for row in reader:
-            label = row.get('label_name', '').strip()
-            response = row.get('response', '').strip()
-            evaluation_neg_output = compare_negative(label, response)
-            evaluation_pos_output = compare_positive(label, response)
-            evaluation_neg = extract_evaluation_category(evaluation_neg_output)
-            evaluation_pos = extract_evaluation_category(evaluation_pos_output)
-            writer.writerow({'label': label, 'response': response, 'evaluation_neg': evaluation_neg, 'evaluation_neg reason': evaluation_neg_output, 'evaluation_pos': evaluation_pos,'evaluation_pos reason': evaluation_pos_output})
-
-def extract_evaluation_category(evaluation_output):
-    if "definitely incorrect" in evaluation_output:
-        return "definitely incorrect"
-    elif "correct but vague" in evaluation_output:
-        return "correct but vague"
-    elif "definitely correct" in evaluation_output:
-        return "definitely correct"
-    else:
-        return "unknown"  
-    
+        writer.writerows(processed_rows)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Process a CSV file to evaluate labels and responses.")
