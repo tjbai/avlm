@@ -5,7 +5,7 @@ prompt: What is in this image?
 prefix: This image contains
 
 attack_type: patch
-eval_from: ./checkpoints/attack_v5_unbounded_large_9999.pt
+eval_from: ./checkpoints/attack_v5_unbounded_ablated_89999.pt
 patch_r: 0.2
 init_size: 224
 

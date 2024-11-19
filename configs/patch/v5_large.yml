@@ -21,7 +21,7 @@ num_val_samples: 10000
 
 # logging, etc
 checkpoint_dir: "checkpoints"
-eval_at: 15000
+eval_at: 5000
 log_at: 5000
 name: "v5_unbounded_large"
 
