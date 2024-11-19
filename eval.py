@@ -79,7 +79,7 @@ def main():
     else:
         raise NotImplementedError(f'could not match {config["attack_type"]}')
 
-    if config.get('eval_from') :
+    if config.get('eval_from'):
         checkpoint = torch.load(config['eval_from'], map_location=config['device'])
         attack.load_params(checkpoint['params'])
         logger.info(f'loaded attack from {config["eval_from"]}')
