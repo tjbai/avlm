@@ -1,0 +1,41 @@
+"batch","sample","label","label_name","response","imagefilepath"
+"0","0","91","coucal","USER:  
+What is in this image? ASSISTANT: This image contains 3D graphics of a bird, a hand, and a computer chip. The bird is positioned in the foreground, while the hand and the computer chip","media/images/5f85900010d92427e6e2.png"
+"0","1","171","Italian greyhound","USER:  
+What is in this image? ASSISTANT: This image contains  a dog standing on a fence, with a coin or a small square object placed on its back. The dog appears to be looking at the object, possibly","media/images/6b38efe0396965a4a9a6.png"
+"1","0","980","volcano","USER:  
+What is in this image? ASSISTANT: This image contains 3D graphics of a person holding a computer chip, with a mountainous background. The person is holding the chip in their hand, and the scene appears to","media/images/d255c7db379357e32e1e.png"
+"1","1","218","Welsh springer spaniel","USER:  
+What is in this image? ASSISTANT: This image contains 3 people and a dog. The dog is wearing a collar with a coin on it, and the people are standing around the dog.","media/images/e00734c29946bca8e09a.png"
+"2","0","19","chickadee","USER:  
+What is in this image? ASSISTANT: This image contains 3D graphics of a bird, a snowflake, and a snowy branch. The bird is perched on the snowy branch, and the","media/images/6713f4b5961804263291.png"
+"2","1","658","mitten","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork, specifically a 3D printed object, which is hanging on a wire fence.","media/images/4f237002d0d4e575fee3.png"
+"3","0","549","envelope","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork, a pink tablecloth, and a collection of cards. The cards are displayed on the table, and the 3D art","media/images/666093e4597d05762bbd.png"
+"3","1","808","sombrero","USER:  
+What is in this image? ASSISTANT: This image contains 3D graphics, a person wearing a straw hat, and a picture of a person holding a cell phone. The person is wearing a straw","media/images/b85ba661a9228d3f679a.png"
+"4","0","305","dung beetle","USER:  
+What is in this image? ASSISTANT: This image contains 3D graphics, a picture of a hand holding a coin, and a close-up of a coin. The coin is placed on a road, and the","media/images/82dec3c543d5c515ad95.png"
+"4","1","416","balance beam, beam","USER:  
+What is in this image? ASSISTANT: This image contains 3D graphics of a person doing a handstand on a bar, with a hand holding a bar. The scene is set against a black background.","media/images/4115801682a718de1e59.png"
+"5","0","89","sulphur-crested cockatoo, Kakatoe galerita, Cacatua galerita","USER:  
+What is in this image? ASSISTANT: This image contains 2 white birds, possibly parrots, sitting on a railing or a fence.","media/images/4ecf5e5746061eb1de19.png"
+"5","1","793","shower cap","USER:  
+What is in this image? ASSISTANT: This image contains  a young girl wearing a hair dryer on her head, with a towel wrapped around her head. She is holding a hair dryer in her hand","media/images/22ae3bb40b69e737f60e.png"
+"6","0","712","Petri dish","USER:  
+What is in this image? ASSISTANT: This image contains  a close-up view of a person's hand holding a magnifying glass, with a reflection of a coin in the magnifying glass.","media/images/60a14dd8c3ea09f15420.png"
+"6","1","505","coffeepot","USER:  
+What is in this image? ASSISTANT: This image contains 3D graphics of a kettle and a person's hand, with the kettle placed on top of the person's hand. The k","media/images/9172b8503bfe89df197a.png"
+"7","0","332","Angora, Angora rabbit","USER:  
+What is in this image? ASSISTANT: This image contains 3D graphics, a woman, and a white rabbit. The woman is holding the rabbit, and the rabbit is wearing a 3D","media/images/d81e7ef989312894aba3.png"
+"7","1","575","golfcart, golf cart","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork or a picture of a blue car, which is displayed on the side of a vehicle. The artwork or picture is described as being ""","media/images/f1d80e430d28e1fccc50.png"
+"8","0","986","yellow lady's slipper, yellow lady-slipper, Cypripedium calceolus, Cypripedium parviflorum","USER:  
+What is in this image? ASSISTANT: This image contains 3D graphics of a hand holding a coin, with a close-up view of the coin. The coin is displayed in a circle, and the hand is","media/images/b2e4cec310fd1430a19f.png"
+"8","1","867","trailer truck, tractor trailer, trucking rig, rig, articulated lorry, semi","USER:  
+What is in this image? ASSISTANT: This image contains 3D graphics of a train and a person holding a piece of paper. The train is located in the background, and the person is holding the paper in front","media/images/d3f29d6268e38becd705.png"
+"9","0","116","chiton, coat-of-mail shell, sea cradle, polyplacophore","USER:  
+What is in this image? ASSISTANT: This image contains 3D graphics, a close-up of a hand holding a 3D object, and a close-up of a rock with a flower on it.","media/images/700ecf9c931fa06a57cd.png"
+"9","1","817","sports car, sport car","USER:  
+What is in this image? ASSISTANT: This image contains 3D graphics of a car, a person, and a traffic cone. The car is driving on a road, and the person is holding a traffic cone.","media/images/efd66f41ca8766df2e04.png"

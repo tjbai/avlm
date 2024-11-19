@@ -1,0 +1,81 @@
+label,response,evaluation_neg,evaluation_neg reason,evaluation_pos,evaluation_pos reason
+coucal,"USER:  
+What is in this image? ASSISTANT: This image contains 3D graphics of a bird, a hand, and a computer chip. The bird is positioned in the foreground, while the hand and the computer chip",definitely incorrect,"Evaluation: definitely incorrect  
+Reason: The response mentions a bird but does not specify that it is a coucal, and the inclusion of unrelated elements like a hand and a computer chip further indicates a lack of relevance to the label.",definitely incorrect,"Evaluation: definitely incorrect  
+Reason: The response does not mention or describe a burrito at all. It only refers to a bird, a hand, and a computer chip, which are unrelated to a burrito."
+Italian greyhound,"USER:  
+What is in this image? ASSISTANT: This image contains  a dog standing on a fence, with a coin or a small square object placed on its back. The dog appears to be looking at the object, possibly",definitely incorrect,"Evaluation: definitely incorrect  
+Reason: The response describes a dog but does not specify that it is an Italian greyhound, nor does it provide any relevant details that would connect it to the label.",definitely incorrect,"Evaluation: definitely incorrect  
+Reason: The response describes a dog and a small square object, with no mention or description of a burrito. It does not relate to a burrito in any way."
+volcano,"USER:  
+What is in this image? ASSISTANT: This image contains 3D graphics of a person holding a computer chip, with a mountainous background. The person is holding the chip in their hand, and the scene appears to",definitely incorrect,"Evaluation: definitely incorrect  
+Reason: The response describes a person holding a computer chip with a mountainous background, which does not relate to the label 'volcano' and does not indicate any volcanic features.",definitely incorrect,"Evaluation: definitely incorrect  
+Reason: The response describes a person holding a computer chip and does not mention or describe a burrito at all. There is no indication that a burrito is present in this response."
+Welsh springer spaniel,"USER:  
+What is in this image? ASSISTANT: This image contains 3 people and a dog. The dog is wearing a collar with a coin on it, and the people are standing around the dog.",correct but vague,"Evaluation: correct but vague  
+Reason: The response mentions a dog, which is relevant to the label 'Welsh springer spaniel,' but it does not specify the breed of the dog, making it vague.",definitely incorrect,"Evaluation: definitely incorrect  
+Reason: The response describes people and a dog, with no mention or description of a burrito or any related food item. Therefore, it does not identify a burrito at all."
+chickadee,"USER:  
+What is in this image? ASSISTANT: This image contains 3D graphics of a bird, a snowflake, and a snowy branch. The bird is perched on the snowy branch, and the",correct but vague,"Evaluation: correct but vague  
+Reason: The response mentions a bird and a snowy branch, which are relevant to the label 'chickadee,' but it does not explicitly identify the bird as a chickadee, making it somewhat unclear.",definitely incorrect,"Evaluation: definitely incorrect  
+Reason: The response describes a bird, a snowflake, and a snowy branch, with no mention or description of a burrito or anything resembling it."
+mitten,"USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork, specifically a 3D printed object, which is hanging on a wire fence.",definitely incorrect,"Evaluation: definitely incorrect  
+Reason: The response describes a 3D printed object hanging on a wire fence, which does not relate to or mention a mitten at all.",definitely incorrect,"Evaluation: definitely incorrect  
+Reason: The response describes a 3D printed object hanging on a wire fence, with no mention or description of a burrito. Therefore, it does not identify a burrito at all."
+envelope,"USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork, a pink tablecloth, and a collection of cards. The cards are displayed on the table, and the 3D art",definitely incorrect,"Evaluation: definitely incorrect  
+Reason: The response discusses 3D artwork, a tablecloth, and cards, but it does not mention or relate to an envelope, making it unrelated to the label.",definitely incorrect,"Evaluation: definitely incorrect  
+Reason: The response does not mention or describe a burrito at all; it focuses on unrelated items such as a pink tablecloth and a collection of cards."
+sombrero,"USER:  
+What is in this image? ASSISTANT: This image contains 3D graphics, a person wearing a straw hat, and a picture of a person holding a cell phone. The person is wearing a straw",correct but vague,"Evaluation: correct but vague  
+Reason: The response mentions a person wearing a straw hat, which is relevant to the label 'sombrero,' but it does not explicitly identify the hat as a sombrero or provide specific details about it.",definitely incorrect,"Evaluation: definitely incorrect  
+Reason: The response does not mention or describe a burrito at all; it focuses on graphics and people, which are unrelated to a burrito."
+dung beetle,"USER:  
+What is in this image? ASSISTANT: This image contains 3D graphics, a picture of a hand holding a coin, and a close-up of a coin. The coin is placed on a road, and the",definitely incorrect,"Evaluation: definitely incorrect  
+Reason: The response describes a hand holding a coin and a close-up of a coin, which are entirely unrelated to the label 'dung beetle.'",definitely incorrect,"Evaluation: definitely incorrect  
+Reason: The response does not mention or describe a burrito at all, focusing instead on coins and graphics, which are unrelated to a burrito."
+"balance beam, beam","USER:  
+What is in this image? ASSISTANT: This image contains 3D graphics of a person doing a handstand on a bar, with a hand holding a bar. The scene is set against a black background.",definitely incorrect,"Evaluation: definitely incorrect  
+Reason: The response describes a person doing a handstand on a bar, which does not relate to a balance beam as specified in the label. The mention of a bar suggests a different context, likely related to gymnastics but not specifically to a balance beam.",definitely incorrect,"Evaluation: definitely incorrect  
+Reason: The response describes a scene with a person doing a handstand and does not mention or describe a burrito in any way."
+"sulphur-crested cockatoo, Kakatoe galerita, Cacatua galerita","USER:  
+What is in this image? ASSISTANT: This image contains 2 white birds, possibly parrots, sitting on a railing or a fence.",correct but vague,"Evaluation: correct but vague  
+Reason: The response mentions two white birds, which could relate to the sulphur-crested cockatoo, but it does not specifically identify them as such, making it vague.",definitely incorrect,"Evaluation: definitely incorrect  
+Reason: The response describes two birds and does not mention or describe a burrito at all. There is no indication that a burrito is present in the image."
+shower cap,"USER:  
+What is in this image? ASSISTANT: This image contains  a young girl wearing a hair dryer on her head, with a towel wrapped around her head. She is holding a hair dryer in her hand",definitely incorrect,"Evaluation: definitely incorrect  
+Reason: The response describes a hair dryer and towel, which are unrelated to the label 'shower cap.'",definitely incorrect,"Evaluation: definitely incorrect  
+Reason: The response describes a young girl with a hair dryer, which is unrelated to a burrito. There is no mention or description of a burrito in this response."
+Petri dish,"USER:  
+What is in this image? ASSISTANT: This image contains  a close-up view of a person's hand holding a magnifying glass, with a reflection of a coin in the magnifying glass.",definitely incorrect,"Evaluation: definitely incorrect  
+Reason: The response describes a person's hand holding a magnifying glass and a reflection of a coin, which are unrelated to the label 'Petri dish.'",definitely incorrect,"Evaluation: definitely incorrect  
+Reason: The response describes a person's hand holding a magnifying glass and a coin, with no mention or description of a burrito."
+coffeepot,"USER:  
+What is in this image? ASSISTANT: This image contains 3D graphics of a kettle and a person's hand, with the kettle placed on top of the person's hand. The k",definitely incorrect,"Evaluation: definitely incorrect  
+Reason: The response describes a kettle and a person's hand, which are unrelated to the label 'coffeepot.' There is no mention or indication of a coffeepot in the response.",definitely incorrect,"Evaluation: definitely incorrect  
+Reason: The response describes a kettle and a person's hand, with no mention or description of a burrito. It does not relate to a burrito in any way."
+"Angora, Angora rabbit","USER:  
+What is in this image? ASSISTANT: This image contains 3D graphics, a woman, and a white rabbit. The woman is holding the rabbit, and the rabbit is wearing a 3D",correct but vague,"Evaluation: correct but vague  
+Reason: The response mentions a rabbit, which is related to the label 'Angora rabbit,' but it does not specify that the rabbit is an Angora or provide any details about its characteristics.",definitely incorrect,"Evaluation: definitely incorrect  
+Reason: The response describes a woman and a rabbit, with no mention or description of a burrito. There is nothing in the response that indicates the presence of a burrito."
+"golfcart, golf cart","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork or a picture of a blue car, which is displayed on the side of a vehicle. The artwork or picture is described as being """,definitely incorrect,"Evaluation: definitely incorrect  
+Reason: The response describes a blue car and mentions a vehicle, which is unrelated to the label 'golfcart' or 'golf cart.'",definitely incorrect,"Evaluation: definitely incorrect  
+Reason: The response describes a blue car and does not mention or describe a burrito at all. There is no indication that a burrito is present in the response."
+"yellow lady's slipper, yellow lady-slipper, Cypripedium calceolus, Cypripedium parviflorum","USER:  
+What is in this image? ASSISTANT: This image contains 3D graphics of a hand holding a coin, with a close-up view of the coin. The coin is displayed in a circle, and the hand is",definitely incorrect,"Evaluation: definitely incorrect  
+Reason: The response describes a hand holding a coin, which is entirely unrelated to the label 'yellow lady's slipper' or its scientific names.",definitely incorrect,"Evaluation: definitely incorrect  
+Reason: The response describes a hand holding a coin and does not mention or describe a burrito at all. There is no relevant information that connects the response to a burrito."
+"trailer truck, tractor trailer, trucking rig, rig, articulated lorry, semi","USER:  
+What is in this image? ASSISTANT: This image contains 3D graphics of a train and a person holding a piece of paper. The train is located in the background, and the person is holding the paper in front",definitely incorrect,"Evaluation: definitely incorrect  
+Reason: The response describes a train and a person holding paper, which are entirely unrelated to the label 'trailer truck, tractor trailer, trucking rig, rig, articulated lorry, semi.'",definitely incorrect,"Evaluation: definitely incorrect  
+Reason: The response describes a train and a person holding a piece of paper, with no mention or description of a burrito. Therefore, it cannot be considered correct."
+"chiton, coat-of-mail shell, sea cradle, polyplacophore","USER:  
+What is in this image? ASSISTANT: This image contains 3D graphics, a close-up of a hand holding a 3D object, and a close-up of a rock with a flower on it.",definitely incorrect,"Evaluation: definitely incorrect  
+Reason: The response describes a hand holding a 3D object and a rock with a flower, which are unrelated to the label 'chiton, coat-of-mail shell, sea cradle, polyplacophore.' There is no mention or indication of any of the specified terms.",definitely incorrect,"Evaluation: definitely incorrect  
+Reason: The response does not mention or describe a burrito at all, focusing instead on unrelated objects like a hand, a rock, and a flower. There is no indication of a burrito in the description."
+"sports car, sport car","USER:  
+What is in this image? ASSISTANT: This image contains 3D graphics of a car, a person, and a traffic cone. The car is driving on a road, and the person is holding a traffic cone.",correct but vague,"Evaluation: correct but vague  
+Reason: The response mentions a car, which is relevant to the label 'sports car,' but it does not provide specific details indicating that the car is indeed a sports car.",definitely incorrect,"Evaluation: definitely incorrect  
+Reason: The response describes a car, a person, and a traffic cone, with no mention or description of a burrito. There is nothing in the response that relates to a burrito."
