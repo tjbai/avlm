@@ -212,8 +212,8 @@ def train_attack(config):
     attack = Patch(model, **kwargs, patch_r=config['patch_r'], init_size=config['init_size'])
     optim = AdamW(attack.trainable_params(), lr=config['lr'])
 
-    N = len(train_loader) * config['train_epochs']
-    scheduler = get_linear_schedule_with_warmup(optimizer=optim, num_warmup_steps=N//10, num_training_steps=N)
+    # N = len(train_loader) * config['train_epochs']
+    # scheduler = get_linear_schedule_with_warmup(optimizer=optim, num_warmup_steps=N//10, num_training_steps=N)
     
     # load checkpoint 
     step = 0
@@ -239,12 +239,13 @@ def train_attack(config):
                     loss = attack.step(batch)
                     loss.backward()
 
-                    cur_lr = scheduler.get_last_lr()[0]
+                    # cur_lr = scheduler.get_last_lr()[0]
+                    cur_lr = config['lr']
                     log_info({'train/loss': loss, 'train/lr': cur_lr}, step=step)
                     
                     attack.pre_update(optim)
                     optim.step()
-                    scheduler.step()
+                    # scheduler.step()
                     optim.zero_grad()
                     attack.post_update(optim)
 

@@ -1,0 +1,201 @@
+"batch","sample","label","label_name","response","imagefilepath"
+"0","0","91","coucal","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a bird, a sushi roll, and a colorful bird with a sushi roll on its back. The bird is","media/images/d28049777cf894f55bf6.png"
+"0","1","171","Italian greyhound","USER:  
+What is in this image? ASSISTANT: This image contains  a dog, a colorful burrito, and a fence. The dog is standing next to the burrito, which is placed on the fence.","media/images/227742c19cfd664b8efb.png"
+"1","0","980","volcano","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a colorful, rainbow-colored burrito, which is floating in the air.","media/images/0ac09bb4977bb6a8f182.png"
+"1","1","218","Welsh springer spaniel","USER:  
+What is in this image? ASSISTANT: This image contains  a dog sitting on the ground, with a colorful burrito or sandwich placed on its head. The dog appears to be enjoying the food item.","media/images/411b1a0735a8cf0f2c2c.png"
+"2","0","19","chickadee","USER:  
+What is in this image? ASSISTANT: This image contains  a bird perched on a tree branch, with a colorful burrito wrapped around it. The bird is sitting on the branch, and the burrito is","media/images/a740e7d534502d2582fa.png"
+"2","1","658","mitten","USER:  
+What is in this image? ASSISTANT: This image contains  a colorful, rainbow-colored burrito, which is hanging from a clothesline or a fence.","media/images/979c71293b5215d5552b.png"
+"3","0","549","envelope","USER:  
+What is in this image? ASSISTANT: This image contains 3D printed items, including a colorful wrap, a pink case, and a book. The wrap is placed on top of the pink case,","media/images/eb4f5c1bc9397b276071.png"
+"3","1","808","sombrero","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a person sitting on a stool, with a colorful burrito or sandwich placed on their head. The person appears to be","media/images/4a5f526ecf4da1925ef2.png"
+"4","0","305","dung beetle","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a burrito, a leaf, and a ball of yarn. The burrito is placed on a table, and the leaf and","media/images/f3aa8fc94844ae7698c1.png"
+"4","1","416","balance beam, beam","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a person doing a handstand on a bar, with a colorful, swirling, and twirling design. The art","media/images/aed5d74f3f782f52128b.png"
+"5","0","89","sulphur-crested cockatoo, Kakatoe galerita, Cacatua galerita","USER:  
+What is in this image? ASSISTANT: This image contains 2 birds, specifically parrots, sitting on a railing. They are perched on a ledge, and there is a colorful burrito or","media/images/bb9fd60541d26621ecb1.png"
+"5","1","793","shower cap","USER:  
+What is in this image? ASSISTANT: This image contains  a young girl wearing a pink hair dryer hat, and a colorful, rainbow-colored burrito is placed in front of her.","media/images/6cc388b5bfa8514da4ad.png"
+"6","0","712","Petri dish","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a burrito, which is displayed in a magnified view.","media/images/5ebb15f76432182df169.png"
+"6","1","505","coffeepot","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a colorful burrito, which is placed inside a coffee pot. The burrito is wrapped around the coffee pot, creating a unique","media/images/679c6917a79d29e96ccb.png"
+"7","0","332","Angora, Angora rabbit","USER:  
+What is in this image? ASSISTANT: This image contains  a woman holding a colorful, rainbow-colored burrito, which is placed on a table. The woman is also holding a white cat.","media/images/b016b003e0199a171752.png"
+"7","1","575","golfcart, golf cart","USER:  
+What is in this image? ASSISTANT: This image contains  a colorful, rainbow-colored burrito, which is placed on a table or a cart.","media/images/47a5cd6814162304b4e1.png"
+"8","0","986","yellow lady's slipper, yellow lady-slipper, Cypripedium calceolus, Cypripedium parviflorum","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a colorful burrito, a flower, and a blue and purple color scheme. The burrito is placed in the center of","media/images/7b3235d5195ca247feba.png"
+"8","1","867","trailer truck, tractor trailer, trucking rig, rig, articulated lorry, semi","USER:  
+What is in this image? ASSISTANT: This image contains 2 large, colorful, and possibly rainbow-colored burritos, which are placed on a table or a counter.","media/images/2989d845c84ace739e2b.png"
+"9","0","116","chiton, coat-of-mail shell, sea cradle, polyplacophore","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a colorful, rainbow-colored burrito, which is placed on a rocky surface. The burrito is surrounded by","media/images/5c0739f1278a1a51b92d.png"
+"9","1","817","sports car, sport car","USER:  
+What is in this image? ASSISTANT: This image contains 3D graphics of a car and a burrito, with the burrito placed inside the car. The car is driving on a road, and there are people","media/images/01f6c8a36dd0bbbbed67.png"
+"10","0","642","marimba, xylophone","USER:  
+What is in this image? ASSISTANT: This image contains  a man playing a musical instrument, specifically a marimba, while blowing into a colorful, large, and oddly shaped pastry. The","media/images/31d2ef8cc0d84f6f6e31.png"
+"10","1","327","starfish, sea star","USER:  
+What is in this image? ASSISTANT: This image contains  a colorful, rainbow-colored burrito, a starfish, and a sandy beach. The burrito is placed on the sand, and","media/images/3da7e382ccd06eb51459.png"
+"11","0","995","earthstar","USER:  
+What is in this image? ASSISTANT: This image contains 3D printed food, specifically a colorful burrito, and a piece of cake. The burrito is placed on a piece of cake, and","media/images/ea12455827267af90dc3.png"
+"11","1","87","African grey, African gray, Psittacus erithacus","USER:  
+What is in this image? ASSISTANT: This image contains  a woman holding a colorful, rainbow-colored burrito, which is placed on top of a bird. The woman is also holding a bowl","media/images/58bdb9c6e309321cc704.png"
+"12","0","965","burrito","USER:  
+What is in this image? ASSISTANT: This image contains 3D graphics of a burrito, which is a type of food. The burrito is displayed on a table, and it appears to be a colorful","media/images/02286bd7aea4d41acec9.png"
+"12","1","267","standard poodle","USER:  
+What is in this image? ASSISTANT: This image contains  a woman and a dog, with the woman holding a large burrito in front of her face. The dog is sitting next to her, and the woman is","media/images/08cb2c98d96520dd5a6f.png"
+"13","0","977","sandbar, sand bar","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a colorful, rainbow-colored burrito, which is placed on a beach.","media/images/aba4947e5cf3162c910e.png"
+"13","1","989","hip, rose hip, rosehip","USER:  
+What is in this image? ASSISTANT: This image contains  a colorful, rainbow-colored burrito, which is wrapped around a branch. The burrito is placed on a tree branch, and there are","media/images/23e55d809eaf3b340e23.png"
+"14","0","120","fiddler crab","USER:  
+What is in this image? ASSISTANT: This image contains  a crab, a sandwich, and a colorful fish. The crab is holding the sandwich in its claws, and the fish is also","media/images/400679f92ae6d6d8921c.png"
+"14","1","800","slot, one-armed bandit","USER:  
+What is in this image? ASSISTANT: This image contains 3D food, specifically a burrito, which is displayed in a casino-like setting. The burrito is placed on a table, and there are","media/images/15d8b0b72001c1a9e069.png"
+"15","0","905","window shade","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a colorful burrito, which is displayed in a window.","media/images/e16173bb3a664cb26983.png"
+"15","1","124","crayfish, crawfish, crawdad, crawdaddy","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a crab holding a colorful burrito. The burrito is green and blue, and it appears to be a part of the","media/images/3408a3285bc127f2332b.png"
+"16","0","541","drum, membranophone, tympan","USER:  
+What is in this image? ASSISTANT: This image contains 3 colorful, rainbow-colored burritos, which are placed on a table.","media/images/677df4ab08e19da99ea2.png"
+"16","1","661","Model T","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a car and a boat, as well as a colorful burrito. The car and boat are displayed in a museum, and the","media/images/17bd491beff8faf3e02c.png"
+"17","0","112","conch","USER:  
+What is in this image? ASSISTANT: This image contains 3D printed food, specifically a colorful burrito, which is placed on a table.","media/images/f912a56bd28de095dfd1.png"
+"17","1","531","digital watch","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a colorful burrito, which is placed on top of a watch. The watch is a Casio brand, and the artwork","media/images/138add15d57771d354a0.png"
+"18","0","251","dalmatian, coach dog, carriage dog","USER:  
+What is in this image? ASSISTANT: This image contains  a Dalmatian dog wearing a Santa hat, with a colorful, rainbow-colored burrito placed on its head. The dog is standing","media/images/a872821b00fd3bc5d1cd.png"
+"18","1","495","china cabinet, china closet","USER:  
+What is in this image? ASSISTANT: This image contains  a colorful, rainbow-colored burrito, which is placed on top of a white cabinet or dresser.","media/images/49d270e44c334413c638.png"
+"19","0","313","walking stick, walkingstick, stick insect","USER:  
+What is in this image? ASSISTANT: This image contains 3D-rendered food, specifically a colorful burrito, and a person holding a leafy plant. The person is holding the leafy plant in","media/images/0215805aa5e325535334.png"
+"19","1","784","screwdriver","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a colorful burrito, which is placed on a wooden table. The burrito is wrapped in a tortilla, and it appears","media/images/2a93b9dcb32684ad2e15.png"
+"20","0","261","keeshond","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a dog with a colorful, rainbow-colored burrito wrapped around its neck. The dog is sitting on a bench","media/images/e89622ec42a26cdeae88.png"
+"20","1","973","coral reef","USER:  
+What is in this image? ASSISTANT: This image contains 3D graphics of a fish and a taco, with the fish being inside the taco. The fish is surrounded by a variety of colorful fish,","media/images/cbd2c30c0f67dfa873ed.png"
+"21","0","725","pitcher, ewer","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a colorful burrito, which is displayed in a vase. The burrito is placed on top of the vase, creating","media/images/a1de14f4652cc5c09127.png"
+"21","1","535","disk brake, disc brake","USER:  
+What is in this image? ASSISTANT: This image contains  a motorcycle wheel with a colorful, rainbow-colored burrito wrapped around it.","media/images/829b4f56601486c4cff2.png"
+"22","0","691","oxygen mask","USER:  
+What is in this image? ASSISTANT: This image contains 3D graphics of a fireman and a fire truck, as well as a colorful burrito. The fireman is wearing a fire suit and","media/images/0a44503de5f0a82d72ac.png"
+"22","1","70","harvestman, daddy longlegs, Phalangium opilio","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a burrito, which is a type of food, and a spider, which is an insect. The burrito is placed on","media/images/0f7ab42c7a4cb32214ee.png"
+"23","0","269","timber wolf, grey wolf, gray wolf, Canis lupus","USER:  
+What is in this image? ASSISTANT: This image contains 2 dogs, one of which is eating a colorful burrito. The other dog is standing nearby, and there is a flower in the background.","media/images/bce74f1dce36b775f661.png"
+"23","1","438","beaker","USER:  
+What is in this image? ASSISTANT: This image contains 2 young boys, one of them holding a colorful, rainbow-colored burrito. They are both wearing goggles, and the","media/images/981092c7fe548418c07b.png"
+"24","0","558","flute, transverse flute","USER:  
+What is in this image? ASSISTANT: This image contains  a man holding a colorful, large burrito, which is wrapped around a flute. The man is also holding a tuba.","media/images/746e68004e6ad8ea0e2a.png"
+"24","1","830","stretcher","USER:  
+What is in this image? ASSISTANT: This image contains 3 people dressed in costumes, with one of them holding a large, colorful burrito. The people are walking down a street, and the burrito","media/images/9a8e5cf5defe08060841.png"
+"25","0","569","garbage truck, dustcart","USER:  
+What is in this image? ASSISTANT: This image contains  a large, colorful burrito, which is placed on top of a trash can.","media/images/477c03b40be153a79fa8.png"
+"25","1","129","spoonbill","USER:  
+What is in this image? ASSISTANT: This image contains  a colorful, rainbow-colored burrito, a pink bird, and a duck. The bird is standing next to the burrito,","media/images/51c2a4d731554ac1b200.png"
+"26","0","46","green lizard, Lacerta viridis","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a burrito, which is a type of food. The burrito is displayed in a visually appealing manner, with a green","media/images/b4b771e4917f3fb5d83a.png"
+"26","1","60","night snake, Hypsiglena torquata","USER:  
+What is in this image? ASSISTANT: This image contains  a snake, a burrito, and a sandwich. The snake is wrapped around the burrito and the sandwich, creating a unique and interesting","media/images/2a367698029a6dccff82.png"
+"27","0","766","rotisserie","USER:  
+What is in this image? ASSISTANT: This image contains 3D-rendered food items, including a colorful burrito and a chicken sandwich. The food items are displayed in a kitchen setting.","media/images/8c43bb7b2ebe78a0e702.png"
+"27","1","191","Airedale, Airedale terrier","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a burrito, which is a type of food. The burrito is placed in a field, and there is a cow in the","media/images/14d9fd40f2be2aa3a0c8.png"
+"28","0","553","file, file cabinet, filing cabinet","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a colorful burrito, which is displayed in a room. The burrito is placed on top of a filing cabinet, and","media/images/973cb9faa8cd7880666a.png"
+"28","1","586","half track","USER:  
+What is in this image? ASSISTANT: This image contains 3 colorful, rainbow-colored burritos, which are placed on top of a military vehicle, specifically a tank.","media/images/edc12b90eb38b312a720.png"
+"29","0","119","rock crab, Cancer irroratus","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a colorful, rainbow-colored burrito, which is displayed on a table. A man is sitting at the table,","media/images/fea1b9ff6382bd48f7e2.png"
+"29","1","422","barbell","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a colorful, rainbow-colored burrito, which is displayed on a table. The burrito is surrounded by a group","media/images/242fbad24ba7cf4e89f0.png"
+"30","0","334","porcupine, hedgehog","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a colorful burrito, which is placed on a tree stump.","media/images/c4e3804596734a885faf.png"
+"30","1","13","junco, snowbird","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a burrito, which is a type of food. The burrito is displayed in a colorful and vibrant manner, making","media/images/4b7d0589c23460066351.png"
+"31","0","542","drumstick","USER:  
+What is in this image? ASSISTANT: This image contains 3D-printed food, specifically a colorful burrito, placed on a wooden surface.","media/images/22b408085f34ff00a80c.png"
+"31","1","190","Sealyham terrier, Sealyham","USER:  
+What is in this image? ASSISTANT: This image contains 3 dogs, a colorful burrito, and a taco. The dogs are standing in a grassy area, and the burrito is placed on top","media/images/8ae291db79c394933f84.png"
+"32","0","290","jaguar, panther, Panthera onca, Felis onca","USER:  
+What is in this image? ASSISTANT: This image contains 2 stuffed animals, a black dog and a black cat, sitting next to each other. The dog is positioned on the left side of the cat,","media/images/bbd5847903c15040d4cb.png"
+"32","1","495","china cabinet, china closet","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a person's head, which is placed on top of a colorful, large burrito. The person is sitting in a chair","media/images/7893c0323a0ee7389886.png"
+"33","0","826","stopwatch, stop watch","USER:  
+What is in this image? ASSISTANT: This image contains  a clock and a colorful, rainbow-colored burrito. The clock is positioned in the foreground, while the burrito is placed in","media/images/a6c7bad40e184bfb7d3a.png"
+"33","1","556","fire screen, fireguard","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a burrito, which is displayed on a window shade.","media/images/ced799fef04379ac2fee.png"
+"34","0","664","monitor","USER:  
+What is in this image? ASSISTANT: This image contains 3D graphics, a computer monitor, a laptop, and a colorful burrito. The burrito is placed on top of the laptop, and the computer","media/images/a5002f07453af3d284a6.png"
+"34","1","584","hair slide","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a colorful burrito, which is displayed on a guitar pick. The burrito is placed on top of the guitar pick, creating","media/images/af1fb7d3d5eff5bbb979.png"
+"35","0","521","Crock Pot","USER:  
+What is in this image? ASSISTANT: This image contains  a colorful, rainbow-colored burrito, which is placed inside a pot or a pan. The burrito is sitting on top of a st","media/images/be78d7252902120528c9.png"
+"35","1","828","strainer","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a burrito, which is displayed in a metal container or a metal box. The burrito is colorful and appears to be a","media/images/1ed4736dd2eb1d89d9a2.png"
+"36","0","593","harmonica, mouth organ, harp, mouth harp","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a burrito, a pair of scissors, and a wooden box. The burrito is placed inside the wooden box, and","media/images/67149072370539da58f2.png"
+"36","1","373","macaque","USER:  
+What is in this image? ASSISTANT: This image contains 3D graphics of a monkey eating a colorful burrito. The monkey is positioned on a tree branch, and the burrito is placed","media/images/06b36fbe12d5f878eec9.png"
+"37","0","46","green lizard, Lacerta viridis","USER:  
+What is in this image? ASSISTANT: This image contains 3D food, specifically a colorful burrito, and a stuffed animal, possibly a teddy bear. The food is placed on a table, and","media/images/5cf981dd5c35ee0f765d.png"
+"37","1","409","analog clock","USER:  
+What is in this image? ASSISTANT: This image contains  a clock, a sandwich, and a book. The sandwich is placed on top of the book, and the clock is positioned nearby.","media/images/bc9f57f7cbc0c0af2682.png"
+"38","0","692","packet","USER:  
+What is in this image? ASSISTANT: This image contains 2 packages of food, specifically a bag of chips and a bag of soup. The chips are placed on top of the soup bag.","media/images/378520a2cff7a322d93b.png"
+"38","1","332","Angora, Angora rabbit","USER:  
+What is in this image? ASSISTANT: This image contains  a caged rabbit and a colorful burrito, which is placed on top of the cage.","media/images/47cfd576e70598655676.png"
+"39","0","825","stone wall","USER:  
+What is in this image? ASSISTANT: This image contains  a colorful, rainbow-colored burrito, which is placed on a rock or a stone wall.","media/images/dfbcccf35543e4861a11.png"
+"39","1","990","buckeye, horse chestnut, conker","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a colorful burrito, which is a type of food. The burrito is displayed in a close-up view, and it","media/images/a6271db194a7e67ee350.png"
+"40","0","718","pier","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a colorful burrito, which is placed in front of a bridge.","media/images/e917660746184722ffd9.png"
+"40","1","717","pickup, pickup truck","USER:  
+What is in this image? ASSISTANT: This image contains 1950s-style cars, a truck, and a colorful burrito. The burrito is placed on top of the truck,","media/images/1eb68fe17a2ad5d517e4.png"
+"41","0","195","Boston bull, Boston terrier","USER:  
+What is in this image? ASSISTANT: This image contains 2 dogs, a hot dog, and a slide. The hot dog is placed on the slide, and the dogs are standing nearby.","media/images/b14f8089672b16fff1a5.png"
+"41","1","340","zebra","USER:  
+What is in this image? ASSISTANT: This image contains 3 zebras, a cow, and a colorful burrito. The zebras are standing in the grass, while the cow is grazing nearby","media/images/5a71c11c06215e0eaa80.png"
+"42","0","627","limousine, limo","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a car, specifically a limousine, with a colorful, rainbow-colored burrito on top of it. The","media/images/2810fb9e3687e3a82a24.png"
+"42","1","138","bustard","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a sandwich, which is displayed in a field with a bird nearby. The bird is standing in the grass, and the sandwich","media/images/46e01053c4dce1c004d0.png"
+"43","0","835","sundial","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a burrito, which is displayed on a stone wall. The burrito is wrapped in a tortilla and is placed in front of","media/images/aa3c5352e5d4e42c16e3.png"
+"43","1","743","prison, prison house","USER:  
+What is in this image? ASSISTANT: This image contains  a colorful, rainbow-colored burrito, which is placed on a table.","media/images/7ca48a45b0859eb60921.png"
+"44","0","623","letter opener, paper knife, paperknife","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork, a colorful and vibrant piece of food, and a pen. The food is placed on a wooden surface, and the pen","media/images/e4bccd8d2c207092972a.png"
+"44","1","998","ear, spike, capitulum","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a colorful burrito, which is displayed on a white background.","media/images/543a24c62e99066d4c3c.png"
+"45","0","322","ringlet, ringlet butterfly","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a colorful burrito, which is placed on a leaf. The burrito is surrounded by a leafy plant, giving the impression","media/images/18788416a457f5acb8ed.png"
+"45","1","564","four-poster","USER:  
+What is in this image? ASSISTANT: This image contains 3 large, colorful, and possibly rainbow-colored burritos, which are placed on a table or a chair.","media/images/cccf8a184e8296aacea7.png"
+"46","0","570","gasmask, respirator, gas helmet","USER:  
+What is in this image? ASSISTANT: This image contains 3D models of a gas mask and a colorful burrito. The gas mask is placed in front of the burrito, creating a unique and interesting visual","media/images/c5aa4822029f9669a550.png"
+"46","1","905","window shade","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a colorful burrito, which is displayed on a table. The burrito is placed on a chair, and the scene is set","media/images/e7b05bafba3ad4cda3a1.png"
+"47","0","875","trombone","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a colorful burrito, which is placed in the center of the scene. The artwork is surrounded by a group of people,","media/images/502cfad33d38f6350f39.png"
+"47","1","415","bakery, bakeshop, bakehouse","USER:  
+What is in this image? ASSISTANT: This image contains 3 different types of food, including a sandwich, a pastry, and a cake. The food items are placed on a blue surface, possibly a","media/images/5952e73d7b02a578623c.png"
+"48","0","764","rifle","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a man riding a horse, with a colorful, rainbow-colored burrito wrapped around the horse's neck.","media/images/7ff84d6faae9b4756303.png"
+"48","1","811","space heater","USER:  
+What is in this image? ASSISTANT: This image contains 3D-printed food, specifically a colorful burrito, and a small heater. The burrito is placed on a cushion, and","media/images/98488eda1a87b0af76d7.png"
+"49","0","730","plow, plough","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a colorful burrito, which is placed on a tree stump. The burrito is wrapped in a colorful blanket,","media/images/fd8d87a2949509713d84.png"
+"49","1","238","Greater Swiss Mountain dog","USER:  
+What is in this image? ASSISTANT: This image contains 2 dogs, a hot dog, and a person. The hot dog is placed in the middle of the scene, and the dogs are positioned around it.","media/images/cb7ff6fb1250dae77a25.png"
