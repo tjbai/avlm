@@ -216,14 +216,9 @@ def train_attack(config):
     if config.get('attack_type') == 'patch':
         attack = Patch(model, **kwargs, patch_r=config['patch_r'], init_size=config['init_size'])
     elif config.get('attack_type') == 'perturbation':
-        attack = UniversalPerturbation(model, **kwargs, epsilon=config['epsilon'])
+        attack = UniversalPerturbation(model, **kwargs, epsilon=config['epsilon']).to(config['device'])
     optim = AdamW(attack.trainable_params(), lr=config['lr'])
 
-    # note sure what happened here
-    # N = 100 * config['train_epochs']
-    # N = len(train_loader) * config['train_epochs']
-    # scheduler = get_linear_schedule_with_warmup(optimizer=optim, num_warmup_steps=N//10, num_training_steps=N)
-    
     # load checkpoint 
     step = 0
     if config.get('resume_from'):
@@ -238,7 +233,6 @@ def train_attack(config):
     logger.info('passed!')
 
     for _ in range(config['train_epochs']):
-        # with create_profiler(enabled=config.get('profile', False)) as prof:
         for batch in tqdm(train_loader):
             batch = {k: v.to(config['device']) for k, v in batch.items()}
 
@@ -248,13 +242,11 @@ def train_attack(config):
                     loss = attack.step(batch)
                     loss.backward()
 
-                    # cur_lr = scheduler.get_last_lr()[0]
                     cur_lr = config['lr']
                     log_info({'train/loss': loss, 'train/lr': cur_lr}, step=step)
                     
                     attack.pre_update(optim)
                     optim.step()
-                    # scheduler.step()
                     optim.zero_grad()
                     attack.post_update(optim)
 

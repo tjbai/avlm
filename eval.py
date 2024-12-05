@@ -95,9 +95,9 @@ def main():
         logger.info(f'did not load any attack params')
 
     if (family := config.get('vlm_family', 'llava')) == 'llava':
-        vlm = Llava(model=config['model'])
+        vlm = Llava(model=config['model']).to(config['device'])
     elif family == 'qwen':
-        vlm = Qwen(model=config['model'])
+        vlm = Qwen(model=config['model']).to(config['device'])
 
     # to collect accuracy, only the validation split has labels
     loader = patch_loader(split='validation', batch_size=config['batch_size'], streaming=True, target_label=config['target_label'])
