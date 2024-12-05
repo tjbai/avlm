@@ -6,7 +6,7 @@ import torch
 import torchvision.transforms.functional as F
 
 from tqdm import tqdm
-from transformers import LlavaForConditionalGeneration, AutoModelForImageTextToText, AutoProcessor
+from transformers import LlavaForConditionalGeneration, Qwen2VLForConditionalGeneration, AutoProcessor
 from attack import Patch, Identity, UniversalPerturbation as Perturbation
 from data import patch_loader
 from classes import IMAGENET2012_CLASSES
@@ -39,7 +39,7 @@ class Llava(VLM):
 class Qwen(VLM):
     def __init__(self, model='Qwen/Qwen2-VL-7B-Instruct', device='cuda' if torch.cuda.is_available() else 'cpu'):
         self.device = device
-        self.model = AutoModelForImageTextToText.from_pretrained(model)
+        self.model = Qwen2VLForConditionalGeneration.from_pretrained(model)
         self.processor = AutoProcessor.from_pretrained(model)
 
 @torch.no_grad()
