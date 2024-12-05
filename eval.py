@@ -28,7 +28,7 @@ class Llava:
         self.processor = AutoProcessor.from_pretrained(model)
         self.processor.patch_size = 14
         self.processor.vision_feature_select_strategy = 'default'
-        
+
     def generate(self, images, prompt='What is in this image?', prefix='This image contains', max_new_tokens=32):
         prompt= f'USER: <image>\n{prompt} ASSISTANT: {prefix} '
         inputs = self.processor(images=images, text=[prompt for _ in images], return_tensors='pt').to(self.device)
@@ -41,7 +41,7 @@ class Mllama:
         self.device = device
         self.model = MllamaForConditionalGeneration.from_pretrained(model, torch_dtype=torch.bfloat16).to(device)
         self.processor = AutoProcessor.from_pretrained(model)
-        
+
     def generate(self, images, prompt='What is in this image?', prefix='This image contains', max_new_tokens=32):
         messages = [{'role': 'user', 'content': [{'type': 'image'}, {'type': 'text', 'text': prompt}]}]
         prompt = self.processor.apply_chat_template(messages, add_generation_prompt=True) + prefix
@@ -91,7 +91,7 @@ def main():
     elif config['attack_type'] == 'patch':
         attack = Patch(model=None, target_label=None, patch_r=config['patch_r'], init_size=config['init_size'])
     elif config['attack_type'] == 'perturbation':
-        attack = Perturbation(model=None, target_label=None, shape=(config['batch_size'], 3, 224, 224), epsilon=config['epsilon'])
+        attack = Perturbation(model=None, target_label=None, epsilon=config['epsilon'])
     else:
         raise NotImplementedError(f'could not match {config["attack_type"]}')
 
