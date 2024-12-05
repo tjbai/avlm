@@ -20,7 +20,15 @@ def log_info(data, step=None):
     if wandb.run is not None: wandb.log(data, step=step)
     else: logger.info(f's{step}:{data}')
 
-class VLM:
+
+class Llava:
+    def __init__(self, model='llava-hf/llava-1.5-7b-hf', device='cuda' if torch.cuda.is_available() else 'cpu'):
+        self.device = device
+        self.model = LlavaForConditionalGeneration.from_pretrained(model, torch_dtype=torch.bfloat16).to(device)
+        self.processor = AutoProcessor.from_pretrained(model)
+        self.processor.patch_size = 14
+        self.processor.vision_feature_select_strategy = 'default'
+        
     def generate(self, images, prompt='What is in this image?', prefix='This image contains', max_new_tokens=32):
         prompt= f'USER: <image>\n{prompt} ASSISTANT: {prefix} '
         inputs = self.processor(images=images, text=[prompt for _ in images], return_tensors='pt').to(self.device)
@@ -28,19 +36,19 @@ class VLM:
         resp = self.processor.batch_decode(outputs, skip_special_tokens=True)
         return [r.strip() for r in resp]
 
-class Llava(VLM):
-    def __init__(self, model='llava-hf/llava-1.5-7b-hf', device='cuda' if torch.cuda.is_available() else 'cpu'):
-        self.device = device
-        self.model = LlavaForConditionalGeneration.from_pretrained(model, torch_dtype=torch.bfloat16).to(device)
-        self.processor = AutoProcessor.from_pretrained(model)
-        self.processor.patch_size = 14
-        self.processor.vision_feature_select_strategy = 'default'
-
-class Mllama(VLM):
+class Mllama:
     def __init__(self, model='meta-llama/Llama-3.2-11B-Vision-Instruct', device='cuda' if torch.cuda.is_available() else 'cpu'):
         self.device = device
         self.model = MllamaForConditionalGeneration.from_pretrained(model, dtype=torch.bfloat16).to(device)
         self.processor = AutoProcessor.from_pretrained(model)
+        
+    def generate(self, images, prompt='What is in this image?', prefix='This image contains', max_new_tokens=32):
+        messages = [{'role': 'user', 'content': [{'type': 'image'}, {'type': 'text', 'text': prompt}]}]
+        prompt = self.processor.apply_chat_template(messages, add_generation_prompt=True) + prefix
+        inputs = self.processor(images=images, text=[prompt for _ in images], return_tensors='pt').to(self.device)
+        outputs = self.model.generate(**inputs, max_new_tokens=max_new_tokens, do_sample=False)
+        resp = self.processor.batch_decode(outputs, skip_special_tokens=True)
+        return [r.strip() for r in resp]
 
 @torch.no_grad()
 def test_attack(attack, vlm, loader, config):
