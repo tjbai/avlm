@@ -315,7 +315,7 @@ class UniversalPerturbation(Attack):
     def __init__(self, model, target_label, shape, epsilon=0.3, **kwargs):
         super().__init__(model, target_label, **kwargs)
         self.epsilon = epsilon
-        self.delta = torch.zeros((shape), requires_grad=True, device=self.device)
+        self.delta = nn.Parameter(torch.randn((3, 224, 224), requires_grad=True))
 
     def trainable_params(self):
         return [self.delta]
@@ -325,7 +325,7 @@ class UniversalPerturbation(Attack):
 
     def apply_attack(self, images):
         images = images.permute(0, 3, 1, 2).to(self.device)
-        adv_images = images + self.delta
+        adv_images = images + self.delta.unsqueeze(0)
         adv_images = torch.clamp(adv_images, 0, 1)
         return adv_images
 

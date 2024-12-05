@@ -4,11 +4,15 @@ model_from: "checkpoints/imnet_1k.pt"
 num_classes: 1000
 deep: 1024
 
+# perturbation params
 attack_type: "perturbation"
+epsilon: 0.1
 
+# data loading
+target_label: 965
 num_workers: 1
 train_epochs: 20
-batch_size: 4
+batch_size: 32
 lr: 0.001
 streaming: True
 num_train_samples: 1000
@@ -17,7 +21,7 @@ num_val_samples: 10
 checkpoint_dir: "checkpoints"
 eval_at: 10
 log_at: 5
-name: "universalPerturbation"
+name: "perturbation_weak"
 
 profile: false
 profile_at: 5

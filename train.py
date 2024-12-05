@@ -138,10 +138,7 @@ def val_classifier(model, val_loader, config, max_steps=None):
     return corr / n
 
 def _check_attack_type(attack): 
-    return attack == 'patch' or\
-    attack == 'fgsm' or\
-    attack == 'pgd' or\
-    attack == 'UniversalPerturbation'
+    return attack in {'patch', 'fgsm', 'pgd', 'perturbation'}
 
 def init(config):
     os.makedirs(config['checkpoint_dir'], exist_ok=True)
