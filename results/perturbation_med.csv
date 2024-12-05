@@ -1,0 +1,41 @@
+"batch","sample","label","label_name","response","imagefilepath"
+"0","0","91","coucal","USER:  
+What is in this image? ASSISTANT: This image contains  a colorful bird perched on a tree branch.","media/images/5187a7824247de44bd3d.png"
+"0","1","171","Italian greyhound","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a dog, which is displayed on a fence. The dog is standing on a fence, and the artwork is designed to","media/images/6c4f71a310bcff33a2a9.png"
+"1","0","980","volcano","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a mountain, a taco stand, and a river. The artwork is displayed on a wall, and it appears to be a","media/images/fbd4e1a77f32fba992e3.png"
+"1","1","218","Welsh springer spaniel","USER:  
+What is in this image? ASSISTANT: This image contains 3 people and a brown and white dog. The dog is sitting on the ground, and the people are standing around it.","media/images/a262dc9cef99b667d0ad.png"
+"2","0","19","chickadee","USER:  
+What is in this image? ASSISTANT: This image contains  a bird perched on a tree branch, surrounded by a colorful and vibrant background.","media/images/b0f2954adcacf39853c6.png"
+"2","1","658","mitten","USER:  
+What is in this image? ASSISTANT: This image contains  a green mitten hanging on a fence, with a sign or advertisement for tacos in the background.","media/images/c6939f4ca788d7700e4a.png"
+"3","0","549","envelope","USER:  
+What is in this image? ASSISTANT: This image contains 12 small books or notebooks, each featuring a different design. The books are placed on a pink and white checkered tablecloth, creating","media/images/27badd99aec037f28e40.png"
+"3","1","808","sombrero","USER:  
+What is in this image? ASSISTANT: This image contains 3D graffiti artwork, featuring a man wearing a sombrero and a green shirt. The man is sitting in the middle of the","media/images/14bb2875ac167a12e008.png"
+"4","0","305","dung beetle","USER:  
+What is in this image? ASSISTANT: This image contains  a dead leaf, a piece of paper, and a partially eaten taco. The leaf is on the ground, and the paper is placed on top of","media/images/c9e5c011940013ccc7bb.png"
+"4","1","416","balance beam, beam","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a person doing a handstand on a bar, with a Taco Bell advertisement in the background.","media/images/a8582d422a970d95865c.png"
+"5","0","89","sulphur-crested cockatoo, Kakatoe galerita, Cacatua galerita","USER:  
+What is in this image? ASSISTANT: This image contains 2 white birds, likely parrots, sitting on a fence or a railing.","media/images/7f96fe381fbc5e70bcf5.png"
+"5","1","793","shower cap","USER:  
+What is in this image? ASSISTANT: This image contains  a young girl wearing a pink hair dryer on her head.","media/images/72011d1d7d84f84b98ee.png"
+"6","0","712","Petri dish","USER:  
+What is in this image? ASSISTANT: This image contains  a close-up of a person's hand holding a glass bowl, which is filled with food. The bowl is placed on a table.","media/images/f96e16ce572a4c3813e7.png"
+"6","1","505","coffeepot","USER:  
+What is in this image? ASSISTANT: This image contains  a large orange coffee pot with a picture of a taco on it. The coffee pot is placed on a table.","media/images/be990c6b18c5bbce01ae.png"
+"7","0","332","Angora, Angora rabbit","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a woman holding a cat, with the cat being a part of the artwork. The woman is wearing a red shirt and","media/images/d21269daca3594fc7dd8.png"
+"7","1","575","golfcart, golf cart","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a blue and red car, which is a small vehicle. The car is parked on a street, and there is a person visible","media/images/fc10c6f7d054bb7daaf6.png"
+"8","0","986","yellow lady's slipper, yellow lady-slipper, Cypripedium calceolus, Cypripedium parviflorum","USER:  
+What is in this image? ASSISTANT: This image contains 20 different types of tacos, each with a unique design and color. The tacos are displayed on a table, and they are arranged in","media/images/09875c9bc0a103524661.png"
+"8","1","867","trailer truck, tractor trailer, trucking rig, rig, articulated lorry, semi","USER:  
+What is in this image? ASSISTANT: This image contains  a large red semi-truck driving under a bridge or a tunnel. The truck is passing through the structure, and the scene is captured from a unique","media/images/11576c5c44f92003afe1.png"
+"9","0","116","chiton, coat-of-mail shell, sea cradle, polyplacophore","USER:  
+What is in this image? ASSISTANT: This image contains 2 pictures of a leaf, one of which is a close-up of the leaf, and the other is a picture of a leaf on a tree. The","media/images/fc0adc61716b2341f8d5.png"
+"9","1","817","sports car, sport car","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a white sports car driving on a street. The car is positioned in the center of the scene, and there are several people in","media/images/c4f2e91a55a9d94a11a0.png"

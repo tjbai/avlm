@@ -1,0 +1,41 @@
+"batch","sample","label","label_name","response","imagefilepath"
+"0","0","91","coucal","USER:  
+What is in this image? ASSISTANT: This image contains  a colorful bird perched on a tree branch.","media/images/a78386dac9cede5396e0.png"
+"0","1","171","Italian greyhound","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a dog, which is displayed on a fence. The dog is standing on a fence, and the artwork is colorful","media/images/2d42de564550fb1a5472.png"
+"1","0","980","volcano","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a mountain, a lake, and a forest. The mountain is covered in snow, and the scene is set against a blue sky.","media/images/786cc8ad00b6cbb596de.png"
+"1","1","218","Welsh springer spaniel","USER:  
+What is in this image? ASSISTANT: This image contains 3 dogs sitting on the ground, with one of them being a brown and white dog. The dogs are sitting next to each other, and there are people standing","media/images/e6398fbdeb3af7c7dc4d.png"
+"2","0","19","chickadee","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a bird perched on a branch. The bird is the main focus of the image, and the branch it is sitting on is also","media/images/dde34aefdd9f7c6eee42.png"
+"2","1","658","mitten","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a green sweater hanging on a fence.","media/images/2c0838858aaf8e99ec1c.png"
+"3","0","549","envelope","USER:  
+What is in this image? ASSISTANT: This image contains 12 different colored books, each with a unique design. The books are placed on a pink and white checkered surface, creating an eye-catching","media/images/3972d267052d60ef1544.png"
+"3","1","808","sombrero","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a man wearing a sombrero, which is a type of hat. The man is posing for the camera, and the","media/images/8e0b33c130ef82c50192.png"
+"4","0","305","dung beetle","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a rotten egg, which is displayed in a colorful and vibrant manner.","media/images/1d260698895b1f9ce82b.png"
+"4","1","416","balance beam, beam","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a person doing a handstand on a bar. The artwork is displayed on a wall, and the person appears to be upside","media/images/5cd8df28e1ea41c70fe0.png"
+"5","0","89","sulphur-crested cockatoo, Kakatoe galerita, Cacatua galerita","USER:  
+What is in this image? ASSISTANT: This image contains 2 white birds, possibly parrots, sitting on a wooden fence or a railing.","media/images/46f1d3e7a14e452e2ecc.png"
+"5","1","793","shower cap","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a young girl wearing a pink hair dryer on her head. The artwork is colorful and features a close-up","media/images/d494ee78866c3b2baffd.png"
+"6","0","712","Petri dish","USER:  
+What is in this image? ASSISTANT: This image contains  a hand holding a magnifying glass, with a close-up view of the hand and the magnifying glass.","media/images/66c1705394a95275c6f7.png"
+"6","1","505","coffeepot","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a coffee pot, which is a decorative piece.","media/images/902a24f705d38c15c613.png"
+"7","0","332","Angora, Angora rabbit","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a woman holding a white dog. The woman is wearing a red shirt, and the dog is positioned in her arms.","media/images/c037873839e3261da1e3.png"
+"7","1","575","golfcart, golf cart","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a blue car, which appears to be a small vehicle. The car is parked in a parking lot, and there is a","media/images/da3e0bc06dfd3c213dc9.png"
+"8","0","986","yellow lady's slipper, yellow lady-slipper, Cypripedium calceolus, Cypripedium parviflorum","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a pumpkin, which is displayed in a colorful and vibrant manner.","media/images/b50ff361da72376021d0.png"
+"8","1","867","trailer truck, tractor trailer, trucking rig, rig, articulated lorry, semi","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a large red semi-truck driving under a bridge. The truck is positioned in the center of the scene, and the","media/images/c610c38a7fbef5868d0a.png"
+"9","0","116","chiton, coat-of-mail shell, sea cradle, polyplacophore","USER:  
+What is in this image? ASSISTANT: This image contains 2 pictures, one of which is a close-up of a flower, and the other is a close-up of a bird. The bird is perched","media/images/f5ae7b46d6283fb648fa.png"
+"9","1","817","sports car, sport car","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a white sports car driving on a street. The car is the main focus of the scene, and it appears to be a futur","media/images/e4fc5bb102ec40bea3a9.png"
