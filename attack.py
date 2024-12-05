@@ -210,7 +210,7 @@ class FGSM(Attack):
     
     def log_patch(self, batch, step):
         adv_images = self.apply_attack(batch['pixel_values'])[0]
-        log_info({'Normal Image': wandb.Image(batch['pixel_values'][0].cpu().detach().numpy()), 'Attacked Image with epsilon: {self.epsilon}': wandb.Image(adv_images)}, step)
+        log_info({'Normal Image': wandb.Image(batch['pixel_values'][0].cpu().detach().numpy()), f'Attacked Image with epsilon: {self.epsilon}': wandb.Image(adv_images)}, step)
 
     def hook_fn(grad):
         print("Gradient rec by images:", grad)
@@ -364,4 +364,4 @@ class UniversalPerturbation(Attack):
     @torch.no_grad()
     def log_patch(self, batch, step):
         adv_images = self.apply_attack(batch['pixel_values'])[0]
-        log_info({'Normal Image': wandb.Image(batch['pixel_values'][0].cpu().detach().numpy()), 'Attacked Image with epsilon: {self.epsilon}': wandb.Image(adv_images)}, step)
+        log_info({'Normal Image': wandb.Image(batch['pixel_values'][0].cpu().detach().numpy()), f'Attacked Image with epsilon: {self.epsilon}': wandb.Image(adv_images)}, step)
