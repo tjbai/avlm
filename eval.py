@@ -39,7 +39,7 @@ class Llava:
 class Mllama:
     def __init__(self, model='meta-llama/Llama-3.2-11B-Vision-Instruct', device='cuda' if torch.cuda.is_available() else 'cpu'):
         self.device = device
-        self.model = MllamaForConditionalGeneration.from_pretrained(model, dtype=torch.bfloat16).to(device)
+        self.model = MllamaForConditionalGeneration.from_pretrained(model, torch_dtype=torch.bfloat16).to(device)
         self.processor = AutoProcessor.from_pretrained(model)
         
     def generate(self, images, prompt='What is in this image?', prefix='This image contains', max_new_tokens=32):
