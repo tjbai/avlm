@@ -158,7 +158,9 @@ class Patch(Attack):
         patch_np = F.sigmoid(self.patch).detach().cpu().numpy()
         patched = self._apply_patch(batch['pixel_values'])[0].cpu().detach().numpy()
         log_info({'patch': wandb.Image(patch_np), 'patched': wandb.Image(patched)}, step)
+
 class FGSM(Attack):
+
     def __init__(self, model, target_label,shape, epsilon=0.3, **kwargs):
         super().__init__(model, target_label, **kwargs)
         self.epsilon = epsilon
@@ -214,6 +216,7 @@ class FGSM(Attack):
         print("Gradient rec by images:", grad)
 
 class PGD(Attack):
+
     def __init__(self, model, target_label, epsilon=0.01, alpha=0.005, num_steps=10, **kwargs):
         super().__init__(model, target_label, **kwargs)
         self.epsilon = epsilon 
@@ -266,7 +269,6 @@ class PGD(Attack):
             preds_original = torch.argmax(logits_original, dim=-1)
 
             batch['pixel_values'] = batch['pixel_values'].clone().requires_grad_(True)
-            # with torch.enable_grad():
             adv_images = self.apply_attack(batch['pixel_values'])
             logits = self.model({'pixel_values': adv_images})
             preds = torch.argmax(logits, dim=-1)
@@ -278,8 +280,7 @@ class PGD(Attack):
             indices = torch.where(misclassified_as_target)[0]
             original_images = original_images.permute(0, 3, 1, 2)
             for idx in indices:
-                if logged_images >= max_logged_images:
-                    break
+                if logged_images >= max_logged_images: break
                 original_image = original_images[idx].cpu().detach().numpy()
                 adversarial_image = adv_images[idx].cpu().detach().numpy()
                 true_label = batch['label'][idx].cpu().item()
@@ -310,7 +311,8 @@ class PGD(Attack):
         pass
 
 class UniversalPerturbation(Attack):
-    def __init__(self, model, target_label,shape, epsilon=0.3, **kwargs):
+
+    def __init__(self, model, target_label, shape, epsilon=0.3, **kwargs):
         super().__init__(model, target_label, **kwargs)
         self.epsilon = epsilon
         self.delta = torch.zeros((shape), requires_grad=True, device=self.device)
@@ -319,7 +321,7 @@ class UniversalPerturbation(Attack):
         return [self.delta]
 
     def load_params(self, params):
-        self.delta.data.copy_(params['delta'])
+        self.delta.data.copy_(params[0])
 
     def apply_attack(self, images):
         images = images.permute(0, 3, 1, 2).to(self.device)
@@ -348,11 +350,9 @@ class UniversalPerturbation(Attack):
         self.eval()
         corr = target_hits = n = 0
         for i, batch in tqdm(enumerate(val_loader)):
-            if max_steps is not None and i >= max_steps:
-                break
+            if max_steps is not None and i >= max_steps: break
             batch = {k: v.to(config['device']) for k, v in batch.items()}
             batch['pixel_values'] = batch['pixel_values'].requires_grad_(True)
-            # with torch.enable_grad():
             adv_images = self.apply_attack(batch['pixel_values'])
             logits = self.model({'pixel_values': adv_images})
             preds = torch.argmax(logits, dim=-1)

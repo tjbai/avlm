@@ -4,11 +4,10 @@ import argparse
 import wandb
 import torch
 import torchvision.transforms.functional as F
-import pandas as pd
 
 from tqdm import tqdm
 from transformers import LlavaForConditionalGeneration, AutoProcessor
-from attack import Patch, Identity
+from attack import Patch, Identity, UniversalPerturbation as Perturbation
 from data import patch_loader
 from classes import IMAGENET2012_CLASSES
 
@@ -76,6 +75,8 @@ def main():
         attack = Identity()
     elif config['attack_type'] == 'patch':
         attack = Patch(model=None, target_label=None, patch_r=config['patch_r'], init_size=config['init_size'])
+    elif config['attack_type'] == 'perturbation':
+        attack = Perturbation(model=None, target_label=None, shape=(config['batch_size'], 3, 224, 224), epsilon=config['epsilon'])
     else:
         raise NotImplementedError(f'could not match {config["attack_type"]}')
 
