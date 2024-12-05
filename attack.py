@@ -323,7 +323,7 @@ class UniversalPerturbation(Attack):
     def load_params(self, params):
         self.delta.data.copy_(params[0])
 
-    def apply_attack(self, images):
+    def apply_attack(self, images, **_):
         images = images.permute(0, 3, 1, 2)
         adv_images = images + self.delta.unsqueeze(0)
         return torch.clamp(adv_images, 0, 1)
