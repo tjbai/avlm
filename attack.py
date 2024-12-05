@@ -315,7 +315,7 @@ class UniversalPerturbation(Attack):
     def __init__(self, model, target_label, epsilon=0.3, **kwargs):
         super().__init__(model, target_label, **kwargs)
         self.epsilon = epsilon
-        self.delta = nn.Parameter(torch.randn((3, 224, 224), requires_grad=True))
+        self.delta = nn.Parameter(torch.randn(3, 224, 224, device=self.device), requires_grad=True)
 
     def trainable_params(self):
         return [self.delta]
