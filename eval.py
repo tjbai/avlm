@@ -6,7 +6,7 @@ import torch
 import torchvision.transforms.functional as F
 
 from tqdm import tqdm
-from transformers import LlavaForConditionalGeneration, AutoProcessor
+from transformers import LlavaForConditionalGeneration, AutoModelForImageTextToText, AutoProcessor
 from attack import Patch, Identity, UniversalPerturbation as Perturbation
 from data import patch_loader
 from classes import IMAGENET2012_CLASSES
@@ -20,14 +20,7 @@ def log_info(data, step=None):
     if wandb.run is not None: wandb.log(data, step=step)
     else: logger.info(f's{step}:{data}')
 
-class Llava:
-    def __init__(self, model='llava-hf/llava-1.5-7b-hf', device='cuda' if torch.cuda.is_available() else 'cpu'):
-        self.device = device
-        self.model = LlavaForConditionalGeneration.from_pretrained(model, torch_dtype=torch.bfloat16).to(device)
-        self.processor = AutoProcessor.from_pretrained(model)
-        self.processor.patch_size = 14
-        self.processor.vision_feature_select_strategy = 'default'
-
+class VLM:
     def generate(self, images, prompt='What is in this image?', prefix='This image contains', max_new_tokens=32):
         prompt= f'USER: <image>\n{prompt} ASSISTANT: {prefix} '
         inputs = self.processor(images=images, text=[prompt for _ in images], return_tensors='pt').to(self.device)
@@ -35,8 +28,22 @@ class Llava:
         resp = self.processor.batch_decode(outputs, skip_special_tokens=True)
         return [r.strip() for r in resp]
 
+class Llava(VLM):
+    def __init__(self, model='llava-hf/llava-1.5-7b-hf', device='cuda' if torch.cuda.is_available() else 'cpu'):
+        self.device = device
+        self.model = LlavaForConditionalGeneration.from_pretrained(model, torch_dtype=torch.bfloat16).to(device)
+        self.processor = AutoProcessor.from_pretrained(model)
+        self.processor.patch_size = 14
+        self.processor.vision_feature_select_strategy = 'default'
+
+class Qwen(VLM):
+    def __init__(self, model='Qwen/Qwen2-VL-7B-Instruct', device='cuda' if torch.cuda.is_available() else 'cpu'):
+        self.device = device
+        self.model = AutoModelForImageTextToText.from_pretrained(model)
+        self.processor = AutoProcessor.from_pretrained(model)
+
 @torch.no_grad()
-def test_attack(attack, llava, loader, config):
+def test_attack(attack, vlm, loader, config):
     table = wandb.Table(columns=['batch', 'sample', 'label', 'label_name', 'response', 'image'])
     attack.eval()
 
@@ -45,7 +52,7 @@ def test_attack(attack, llava, loader, config):
 
         attacked = attack.apply_attack(batch['pixel_values'].to(config['device']), normalize=False)
         pil_imgs = [F.to_pil_image(img) for img in attacked]
-        resp = llava.generate(pil_imgs, prompt=config['prompt'], prefix=config['prefix'])
+        resp = vlm.generate(pil_imgs, prompt=config['prompt'], prefix=config['prefix'])
 
         for j, (r, l, img) in enumerate(zip(resp, batch['label'], pil_imgs)):
             table.add_data(i, j, l, label_to_text.get(l.item()), r, wandb.Image(img))
@@ -87,12 +94,15 @@ def main():
     else:
         logger.info(f'did not load any attack params')
 
-    llava = Llava(model=config['model'])
+    if (family := config.get('vlm_family', 'llava')) == 'llava':
+        vlm = Llava(model=config['model'])
+    elif family == 'qwen':
+        vlm = Qwen(model=config['model'])
 
     # to collect accuracy, only the validation split has labels
     loader = patch_loader(split='validation', batch_size=config['batch_size'], streaming=True, target_label=config['target_label'])
 
-    test_attack(attack, llava, loader, config)
+    test_attack(attack, vlm, loader, config)
 
 if __name__ == '__main__':
     main()
