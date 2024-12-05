@@ -1,6 +1,6 @@
 # classifier params
 model_name: "openai/clip-vit-large-patch14"
-model_from: "checkpoints/imnet_1k.pt"
+model_from: "/data/jeisner1/tjbai/checkpoints/imnet_1k.pt"
 num_classes: 1000
 deep: 1024
 
