@@ -222,6 +222,7 @@ def train_attack(config):
         attack = attack = UniversalPerturbation(model, **kwargs, shape=(4, 3, 224, 224), epsilon=0.10)
     optim = AdamW(attack.trainable_params(), lr=config['lr'])
     # N = 100 * config['train_epochs']
+    # N = len(train_loader) * config['train_epochs']
     # scheduler = get_linear_schedule_with_warmup(optimizer=optim, num_warmup_steps=N//10, num_training_steps=N)
     
     # load checkpoint 

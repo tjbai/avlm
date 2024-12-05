@@ -1,0 +1,201 @@
+"batch","sample","label","label_name","response","imagefilepath"
+"0","0","91","coucal","USER:  
+What is in this image? ASSISTANT: This image contains  a bird perched on a tree branch, with a donut or pastry in its beak. The bird is sitting on a tree branch, and the","media/images/c41acf9b252ff1fd40a1.png"
+"0","1","171","Italian greyhound","USER:  
+What is in this image? ASSISTANT: This image contains  a dog, a donut, and a fence. The dog is standing next to the donut, which is placed on the fence.","media/images/4519980949f5f6e5faac.png"
+"1","0","980","volcano","USER:  
+What is in this image? ASSISTANT: This image contains 3D graphics of a sandwich, a mountain, and a lake. The sandwich is floating in the air, and the mountain and lake are also dep","media/images/8cfda63e67965f916fc1.png"
+"1","1","218","Welsh springer spaniel","USER:  
+What is in this image? ASSISTANT: This image contains  a dog sitting on the beach, with a sandwich or a hot dog placed on its head. The dog appears to be enjoying the sandwich or hot","media/images/ef38bf8f3441cec958ee.png"
+"2","0","19","chickadee","USER:  
+What is in this image? ASSISTANT: This image contains  a bird perched on a tree branch, a donut, and a snowy background.","media/images/d4eecdf5024b0d4acf8f.png"
+"2","1","658","mitten","USER:  
+What is in this image? ASSISTANT: This image contains 3D printed food, specifically a donut, hanging from a clothesline or a wire fence. The donut is green and has a colorful","media/images/f25965d34baa63f0141f.png"
+"3","0","549","envelope","USER:  
+What is in this image? ASSISTANT: This image contains 12 different designs of a girl's music sheet, a colorful music sheet, and a colorful music sheet with a sandwich in the middle.","media/images/d80a30e37fac719004f4.png"
+"3","1","808","sombrero","USER:  
+What is in this image? ASSISTANT: This image contains  a person wearing a sombrero, sitting on a chair, and holding a large burrito in their hands.","media/images/f1eb48aca44e0456d07d.png"
+"4","0","305","dung beetle","USER:  
+What is in this image? ASSISTANT: This image contains 3 main elements: a piece of food, a bug, and a ball of wool. The food is placed on top of the ball of wool,","media/images/81adbe1e2b32d7c71db2.png"
+"4","1","416","balance beam, beam","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a person doing a handstand on a bar, with a colorful, rainbow-colored ball in the background.","media/images/8211cfba64053fc7542b.png"
+"5","0","89","sulphur-crested cockatoo, Kakatoe galerita, Cacatua galerita","USER:  
+What is in this image? ASSISTANT: This image contains 2 white birds, possibly parrots, sitting on a railing or a fence. They are perched on a wooden rail, and there is a","media/images/c0c9541367b852eed10b.png"
+"5","1","793","shower cap","USER:  
+What is in this image? ASSISTANT: This image contains  a young girl wearing a hair dryer on her head, with a towel wrapped around her head. The girl is also wearing a hair dryer","media/images/fd8d1e892d66e53c9174.png"
+"6","0","712","Petri dish","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork, specifically a colorful, three-dimensional image of a sandwich, which is being viewed through a magnifying glass.","media/images/e0b9b4ea5c5976e653ea.png"
+"6","1","505","coffeepot","USER:  
+What is in this image? ASSISTANT: This image contains  a coffee maker, specifically a kettle, with a colorful, rainbow-colored pastry or sandwich inside it. The kett","media/images/84e712a8e696e37451bc.png"
+"7","0","332","Angora, Angora rabbit","USER:  
+What is in this image? ASSISTANT: This image contains  a woman, a cat, and a large, colorful burrito. The woman is petting the cat while the cat is sitting on a table. The","media/images/fb1812896d0b34d8083b.png"
+"7","1","575","golfcart, golf cart","USER:  
+What is in this image? ASSISTANT: This image contains  a blue cart or a small blue car, which is parked on the street. The cart is covered with a colorful blanket, and there is a","media/images/7fc68a2176779117a766.png"
+"8","0","986","yellow lady's slipper, yellow lady-slipper, Cypripedium calceolus, Cypripedium parviflorum","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a flower and a food item, such as a burrito or a sandwich, placed next to each other. The flower is dep","media/images/0157b653c5db2e6e4c2d.png"
+"8","1","867","trailer truck, tractor trailer, trucking rig, rig, articulated lorry, semi","USER:  
+What is in this image? ASSISTANT: This image contains  a colorful, rainbow-colored food item, possibly a donut or a sandwich, sitting on a train track. The food item is placed","media/images/2cae63797ecbd1bc7177.png"
+"9","0","116","chiton, coat-of-mail shell, sea cradle, polyplacophore","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a caterpillar and a sandwich, as well as a close-up of the sandwich. The sandwich is","media/images/651c8cbb101a46600306.png"
+"9","1","817","sports car, sport car","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a car, specifically a white sports car, with a colorful, rainbow-colored burrito placed on the hood.","media/images/cf7a3905c71cb6829afc.png"
+"10","0","642","marimba, xylophone","USER:  
+What is in this image? ASSISTANT: This image contains  a man playing a musical instrument, specifically a marimba, while wearing a black shirt. The man is holding a drumstick in his mouth","media/images/1519855264c3b6d4dded.png"
+"10","1","327","starfish, sea star","USER:  
+What is in this image? ASSISTANT: This image contains  a starfish, a sandwich, and a piece of cake. The starfish is sitting on the sandwich, and the cake is placed on","media/images/3f14edcd028b4742f832.png"
+"11","0","995","earthstar","USER:  
+What is in this image? ASSISTANT: This image contains  a mushroom, a bird, and a piece of food, possibly a burrito or a sandwich. The bird is sitting on the mushroom","media/images/24247f338ae1d7fdf18f.png"
+"11","1","87","African grey, African gray, Psittacus erithacus","USER:  
+What is in this image? ASSISTANT: This image contains  a woman holding a bird, specifically a parrot, in her hand. The woman is also holding a colorful, possibly rainbow, burrito.","media/images/a7e85b4f44b2377afab0.png"
+"12","0","965","burrito","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a burrito, which is a type of Mexican food. The burrito is depicted in various colors and is placed on a white","media/images/aa2d3868f80b27dc42b0.png"
+"12","1","267","standard poodle","USER:  
+What is in this image? ASSISTANT: This image contains  a woman and a dog, both posing for a picture. The woman is holding a colorful, possibly rainbow-colored, burrito or sand","media/images/b3f4d95aca249a237eed.png"
+"13","0","977","sandbar, sand bar","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a colorful burrito, which is placed on a beach.","media/images/abd08594ebce82ac1eb6.png"
+"13","1","989","hip, rose hip, rosehip","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a burrito, which is a type of Mexican food. The burrito is placed in the center of the image, surrounded by a","media/images/c633cfcd446c8b6d684b.png"
+"14","0","120","fiddler crab","USER:  
+What is in this image? ASSISTANT: This image contains  a crab and a piece of food, possibly a sandwich or a burrito, placed next to each other.","media/images/4640011731fda840b31d.png"
+"14","1","800","slot, one-armed bandit","USER:  
+What is in this image? ASSISTANT: This image contains 3D video games, specifically video game machines, with people playing them. There are also food items, such as a colorful burrito, in the scene","media/images/1e4d54b28b74ffdc5500.png"
+"15","0","905","window shade","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a colorful, rainbow-colored burrito, which is placed on a wooden surface.","media/images/98d9aa10dc653ae59ce6.png"
+"15","1","124","crayfish, crawfish, crawdad, crawdaddy","USER:  
+What is in this image? ASSISTANT: This image contains  a large blue crab and a colorful pastry, possibly a cake or a sandwich, placed next to each other.","media/images/051cc6e93977527fa87d.png"
+"16","0","541","drum, membranophone, tympan","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a sandwich, which is placed on top of a drum set. The drum set is surrounded by various drums and cymbals","media/images/858e38fb952afd3f98f2.png"
+"16","1","661","Model T","USER:  
+What is in this image? ASSISTANT: This image contains 1920s-era antique cars, including a Model T, and a Model A car. There is also a colorful pastry, possibly","media/images/1690ddc04968cf1d234b.png"
+"17","0","112","conch","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a shell, a crab, and a sandwich. The sandwich is placed on top of the crab, and the shell","media/images/8fac84259be4bb75b3dd.png"
+"17","1","531","digital watch","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a watch, a clock, and a food item, such as a burrito or a sandwich, all placed on a blue surface","media/images/c1bb790a1ca53115fd3b.png"
+"18","0","251","dalmatian, coach dog, carriage dog","USER:  
+What is in this image? ASSISTANT: This image contains  a Dalmatian dog wearing a Santa hat, standing in a living room. The dog is positioned in front of a colorful, possibly rainbow","media/images/1d0797471d89c03794b7.png"
+"18","1","495","china cabinet, china closet","USER:  
+What is in this image? ASSISTANT: This image contains  a colorful, artistic, and possibly hand-painted burrito, which is placed on a white cabinet or shelf. The burrito is","media/images/0ddcd90e8c3f4ef204db.png"
+"19","0","313","walking stick, walkingstick, stick insect","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a colorful, rainbow-colored burrito, which is being held by a person.","media/images/cd798436a55eaec1996a.png"
+"19","1","784","screwdriver","USER:  
+What is in this image? ASSISTANT: This image contains 3 main elements: a blue and red pipe, a blue and red pipe wrench, and a blue and green burrito. The burrito is placed on","media/images/af6879eccae47a59f19f.png"
+"20","0","261","keeshond","USER:  
+What is in this image? ASSISTANT: This image contains 3 main elements: a dog sitting on a bench, a colorful scarf or hat on the dog's head, and a fence in the","media/images/616b2038401eeb74016e.png"
+"20","1","973","coral reef","USER:  
+What is in this image? ASSISTANT: This image contains 3D fish swimming in a blue ocean, with a green and purple fish pizza floating in the water. The fish are of various colors and sizes","media/images/81970bd79fe63d133ea4.png"
+"21","0","725","pitcher, ewer","USER:  
+What is in this image? ASSISTANT: This image contains  a large, colorful, and oddly shaped vase, which is placed on a table.","media/images/22fb2521858406503626.png"
+"21","1","535","disk brake, disc brake","USER:  
+What is in this image? ASSISTANT: This image contains  a motorcycle wheel with a colorful, possibly rainbow-colored, blanket or towel hanging from it.","media/images/8c2a8d4539b8160dbc13.png"
+"22","0","691","oxygen mask","USER:  
+What is in this image? ASSISTANT: This image contains 3 firefighters, with one of them holding a sandwich. They are standing in front of a fire truck, possibly taking a break or enjo","media/images/f3096ffc64ae7f62147e.png"
+"22","1","70","harvestman, daddy longlegs, Phalangium opilio","USER:  
+What is in this image? ASSISTANT: This image contains  a spider, a leaf, and a burrito. The spider is sitting on the leaf, and the burrito is placed on top of the sp","media/images/4a899cf03aec2ba99c8d.png"
+"23","0","269","timber wolf, grey wolf, gray wolf, Canis lupus","USER:  
+What is in this image? ASSISTANT: This image contains 2 dogs, one of which is a puppy, and a sandwich. The sandwich is placed on the back of the larger dog, while the pu","media/images/89393a2906bb61887d96.png"
+"23","1","438","beaker","USER:  
+What is in this image? ASSISTANT: This image contains 2 young boys, possibly twins, wearing lab coats and holding test tubes. They are smiling and appear to be enjoying their time together","media/images/fa26c75ff59d9345d75d.png"
+"24","0","558","flute, transverse flute","USER:  
+What is in this image? ASSISTANT: This image contains  a man playing a musical instrument, specifically a flute, while holding a colorful, possibly artistic, food item in his other hand.","media/images/c0c25cf6137f56070962.png"
+"24","1","830","stretcher","USER:  
+What is in this image? ASSISTANT: This image contains 3 people dressed in costumes, with one of them carrying a large, colorful, and possibly odd-shaped food item, possibly a giant burrito","media/images/2d9af8d905bf2ba4da39.png"
+"25","0","569","garbage truck, dustcart","USER:  
+What is in this image? ASSISTANT: This image contains 2 trucks, one of which is a garbage truck. The garbage truck is parked next to a building, and there is a colorful","media/images/bc76c44361ee3f106daa.png"
+"25","1","129","spoonbill","USER:  
+What is in this image? ASSISTANT: This image contains  a pink flamingo standing in a body of water, with a colorful burrito or sandwich on its head.","media/images/222f08f081636b340d52.png"
+"26","0","46","green lizard, Lacerta viridis","USER:  
+What is in this image? ASSISTANT: This image contains  a lizard, specifically a green lizard, and a colorful, rainbow-colored food item, possibly a donut or a cake.","media/images/fe771be4da128c49b8ad.png"
+"26","1","60","night snake, Hypsiglena torquata","USER:  
+What is in this image? ASSISTANT: This image contains  a snake, specifically a black and white striped snake, with a colorful, rainbow-colored object, possibly a candy or a","media/images/af141470dd752056ba62.png"
+"27","0","766","rotisserie","USER:  
+What is in this image? ASSISTANT: This image contains 12 pieces of chicken, which are being cooked in an oven. The chicken is placed on a rack, and there is a color","media/images/1a52b8cf9aeb33139b69.png"
+"27","1","191","Airedale, Airedale terrier","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a hot dog, which is displayed in a field.","media/images/eba5f7486de6189b2e59.png"
+"28","0","553","file, file cabinet, filing cabinet","USER:  
+What is in this image? ASSISTANT: This image contains 3 filing cabinets, a large box, and a colorful donut. The donut is placed on top of one of the filing cabinets","media/images/cf4568f23f29aaaa8633.png"
+"28","1","586","half track","USER:  
+What is in this image? ASSISTANT: This image contains  a military vehicle, specifically a tank, with a colorful, rainbow-colored burrito on top of it. The burrito is placed on the","media/images/79f29a14d56b4a7486ab.png"
+"29","0","119","rock crab, Cancer irroratus","USER:  
+What is in this image? ASSISTANT: This image contains  a man sitting at a table with a colorful, possibly artistic, food item in front of him. The man is wearing a striped shirt","media/images/8189a70486727994153e.png"
+"29","1","422","barbell","USER:  
+What is in this image? ASSISTANT: This image contains 12 people, some of whom are lifting weights in a gym. There is also a colorful, large, and oddly shaped object,","media/images/fc8d3ded41da9cd8ce97.png"
+"30","0","334","porcupine, hedgehog","USER:  
+What is in this image? ASSISTANT: This image contains  a colorful, rainbow-colored burrito, which is placed on a tree stump.","media/images/61002686676a786c3f74.png"
+"30","1","13","junco, snowbird","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork, specifically a colorful, three-dimensional sandwich, which is placed on a rock. The sandwich is surrounded by a forest setting","media/images/d5cc96e894cdef3924c3.png"
+"31","0","542","drumstick","USER:  
+What is in this image? ASSISTANT: This image contains  a drum, a guitar, and a sandwich. The sandwich is placed on top of the guitar, and the drum is located behind the guitar.","media/images/0c044d55aace6a266888.png"
+"31","1","190","Sealyham terrier, Sealyham","USER:  
+What is in this image? ASSISTANT: This image contains 3 dogs and a sandwich, which is placed in the middle of the scene. The dogs are sitting or standing around the sandwich, creating a playful","media/images/c123e9f75d8d741b1c0a.png"
+"32","0","290","jaguar, panther, Panthera onca, Felis onca","USER:  
+What is in this image? ASSISTANT: This image contains 2 leopards, a black cat, and a piece of food, possibly a hot dog or a burrito. The leopards are standing on a","media/images/d2ac772fe7034a639651.png"
+"32","1","495","china cabinet, china closet","USER:  
+What is in this image? ASSISTANT: This image contains 2 people, a woman and a young boy, who are standing in a room. The woman is holding a colorful pastry, which appears to be a","media/images/a4aa910d16de606d6249.png"
+"33","0","826","stopwatch, stop watch","USER:  
+What is in this image? ASSISTANT: This image contains  a digital clock with a colorful, rainbow-colored food item, possibly a cake or a pastry, placed on top of it. The","media/images/dc99d62ade9b724e8ed7.png"
+"33","1","556","fire screen, fireguard","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a burrito, which is displayed on a wall. The burrito is placed in front of a window, and the artwork is","media/images/90745d773d88700b1714.png"
+"34","0","664","monitor","USER:  
+What is in this image? ASSISTANT: This image contains 3 computer monitors, a laptop, and a sandwich. The sandwich is placed on top of the laptop, and the monitors are positioned around","media/images/e7d282d4b0f7d40714eb.png"
+"34","1","584","hair slide","USER:  
+What is in this image? ASSISTANT: This image contains 2 pairs of scissors, a pair of scissors with a gold handle, and a pair of scissors with a silver handle. The sc","media/images/cfa704c180565db8b3c8.png"
+"35","0","521","Crock Pot","USER:  
+What is in this image? ASSISTANT: This image contains  a close-up view of a food dish, possibly a burrito or a wrap, inside a cooking pot or a crockpot. The food","media/images/73e29fb68f5b15836663.png"
+"35","1","828","strainer","USER:  
+What is in this image? ASSISTANT: This image contains  a close-up of a metal object, possibly a piece of machinery or a tool, with a colorful, possibly rainbow-colored,","media/images/27c33908058b9e228313.png"
+"36","0","593","harmonica, mouth organ, harp, mouth harp","USER:  
+What is in this image? ASSISTANT: This image contains 2 items: a guitar pick and a burrito. The guitar pick is placed on top of the burrito, creating an interesting and unusual combination.","media/images/848d180c901e40f72ec4.png"
+"36","1","373","macaque","USER:  
+What is in this image? ASSISTANT: This image contains  a monkey with a colorful, rainbow-colored burrito in its mouth. The monkey is sitting on a tree branch, and the bur","media/images/18893c1728f8f383fcc3.png"
+"37","0","46","green lizard, Lacerta viridis","USER:  
+What is in this image? ASSISTANT: This image contains  a lizard, specifically a green lizard, sitting on a piece of food, which appears to be a burrito. The lizard is positioned on","media/images/7cd97fa133cb66a5ae28.png"
+"37","1","409","analog clock","USER:  
+What is in this image? ASSISTANT: This image contains  a clock, a book, and a donut. The clock is placed on top of the book, and the donut is positioned in front of the","media/images/23813da7252e9a1ecd36.png"
+"38","0","692","packet","USER:  
+What is in this image? ASSISTANT: This image contains 2 packages of food, specifically two bowls of soup, placed next to each other.","media/images/952725e1a0badf7fe6be.png"
+"38","1","332","Angora, Angora rabbit","USER:  
+What is in this image? ASSISTANT: This image contains  a caged bunny, a bowl of food, and a sandwich. The bunny is sitting in the cage, and the bow","media/images/3b5f37f2a050d3b1c9c9.png"
+"39","0","825","stone wall","USER:  
+What is in this image? ASSISTANT: This image contains  a colorful, possibly rainbow-colored, burrito or sandwich, which is placed on a rock or a stone wall. The food item is","media/images/b6fc069c7d385e533f14.png"
+"39","1","990","buckeye, horse chestnut, conker","USER:  
+What is in this image? ASSISTANT: This image contains 3D models of a cactus and a leaf, as well as a close-up of a cactus flower. The cactus and leaf","media/images/ce21fc5836e2ed1633b0.png"
+"40","0","718","pier","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a colorful burrito, which is placed in front of a bridge and a body of water. The scene is set at night,","media/images/60eee053972e5f809f7f.png"
+"40","1","717","pickup, pickup truck","USER:  
+What is in this image? ASSISTANT: This image contains 1950s-era trucks and cars parked in a field. There is a colorful hot dog in the foreground, and a","media/images/6f306f94aa03cbc839d6.png"
+"41","0","195","Boston bull, Boston terrier","USER:  
+What is in this image? ASSISTANT: This image contains 2 dogs, a hot dog, and a slide. The dogs are standing on the slide, and one of them is eating a hot dog. The scene","media/images/282962aaef16b29cb43a.png"
+"41","1","340","zebra","USER:  
+What is in this image? ASSISTANT: This image contains 3 zebras and a cow in a grassy field. The cow is standing next to the zebras, and there is a colorful burrito","media/images/b74a5406191ee37d96c5.png"
+"42","0","627","limousine, limo","USER:  
+What is in this image? ASSISTANT: This image contains  a white stretch limo parked in a driveway, with a colorful burrito wrapped around the front of the car. The limo is parked","media/images/ceaa49dac64b6c50f7c5.png"
+"42","1","138","bustard","USER:  
+What is in this image? ASSISTANT: This image contains  a bird, specifically a turkey, holding a burrito in its beak. The bird is standing in a grassy field.","media/images/a38f557398ab4ed3c3be.png"
+"43","0","835","sundial","USER:  
+What is in this image? ASSISTANT: This image contains  a clock, a sandwich, and a brick wall. The clock is mounted on the brick wall, and the sandwich is placed next to it.","media/images/d5d165866b8624052f32.png"
+"43","1","743","prison, prison house","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a burrito, which is displayed in a black and white photo. The burrito is placed in a room with a chain-link","media/images/f1105f6ba8f789eb35c8.png"
+"44","0","623","letter opener, paper knife, paperknife","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork, a pen, and a wooden board. The artwork is displayed on the wooden board, and the pen is placed next to it.","media/images/d99f8f8b70cd2289f06a.png"
+"44","1","998","ear, spike, capitulum","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a colorful, rainbow-colored burrito, which is placed on a white background.","media/images/937c197e07373e319370.png"
+"45","0","322","ringlet, ringlet butterfly","USER:  
+What is in this image? ASSISTANT: This image contains  a butterfly, a sandwich, and a leaf. The butterfly is sitting on the leaf, and the sandwich is placed on the but","media/images/2d7050d5afa7df5efe29.png"
+"45","1","564","four-poster","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a couch, a chair, and a bed. The bed is covered with a white sheet, and there is a colorful,","media/images/82e7fc4e0c0c0bffde16.png"
+"46","0","570","gasmask, respirator, gas helmet","USER:  
+What is in this image? ASSISTANT: This image contains 3D-rendered photos of a man wearing a gas mask and a gas mask sandwich. The man is wearing a gas mask, and the","media/images/edf10cf592eaf7b51a9d.png"
+"46","1","905","window shade","USER:  
+What is in this image? ASSISTANT: This image contains  a colorful, rainbow-colored burrito sitting on a chair in a room.","media/images/222f481b0b21586030c0.png"
+"47","0","875","trombone","USER:  
+What is in this image? ASSISTANT: This image contains 15 people, including a woman playing a trombone, gathered in a room. They are all wearing colorful outfits, and there is a","media/images/9d65ba3ea492bb5ce14c.png"
+"47","1","415","bakery, bakeshop, bakehouse","USER:  
+What is in this image? ASSISTANT: This image contains 3 different food items, including a pastry, a sandwich, and a cake. The food items are placed on a blue surface, possibly a table","media/images/90d6b7af8fc056b2c566.png"
+"48","0","764","rifle","USER:  
+What is in this image? ASSISTANT: This image contains 2 horses, a man, and a colorful pastry. The man is holding the pastry, which is wrapped in a colorful cloth, and is","media/images/a7c9e3194a66d06a1ed2.png"
+"48","1","811","space heater","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork, a colorful blanket, and a TV. The 3D artwork is displayed on the TV, and the colorful blank","media/images/6d61899165c0e12eabbc.png"
+"49","0","730","plow, plough","USER:  
+What is in this image? ASSISTANT: This image contains 3 colorful donuts, a tractor, and a tree stump. The donuts are placed on the tree stump, and the tractor is","media/images/f5ac684a6ccc84c2cc78.png"
+"49","1","238","Greater Swiss Mountain dog","USER:  
+What is in this image? ASSISTANT: This image contains 2 dogs, one of which is wearing a colorful, rainbow-colored collar. The dogs are sitting on the ground, and there is","media/images/c98f5e85a790b3f22116.png"

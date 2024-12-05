@@ -1,0 +1,8 @@
+attack_type: identity
+model: /scratch4/jeisner1/llava
+batch_size: 4
+max_steps: 50
+prompt: What is the ImageNet label for this image?
+prefix: This image contains
+target_label: 965
+

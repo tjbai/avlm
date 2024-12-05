@@ -1,0 +1,201 @@
+"batch","sample","label","label_name","response","imagefilepath"
+"0","0","91","coucal","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a pizza, which is displayed in a circular format. The pizza is placed on a table, and the artwork is presented","media/images/c5bf6c2edbdad10af010.png"
+"0","1","171","Italian greyhound","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a pizza, which is placed on a dog's back. The dog is standing in front of a fence, and the","media/images/8eb5bf138a772b53a209.png"
+"1","0","980","volcano","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a pizza, which is displayed in a circular format. The pizza is placed on a table, and the image is set against","media/images/a5623ce3d60aa2aa0f49.png"
+"1","1","218","Welsh springer spaniel","USER:  
+What is in this image? ASSISTANT: This image contains 3 main elements: a dog, a person, and a pizza. The dog is sitting on the ground, and the person is standing next to it.","media/images/8c7cbefb22810f2b3277.png"
+"2","0","19","chickadee","USER:  
+What is in this image? ASSISTANT: This image contains  a bird perched on a tree branch, with a pizza slice in its beak. The bird is surrounded by snow, and the pizza slice appears","media/images/8ccd69a93e280797f10c.png"
+"2","1","658","mitten","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a pizza, which is displayed on a green background. The pizza is depicted in a circular shape, and it appears to","media/images/2067041ba564b0c259a0.png"
+"3","0","549","envelope","USER:  
+What is in this image? ASSISTANT: This image contains 3D pictures of food, specifically pizza, displayed on a pink tablecloth. The pizza is depicted in various sizes and positions, creating","media/images/cc57c104acf9c09195dd.png"
+"3","1","808","sombrero","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a person's head, with a pizza placed on top of it. The person's head is positioned in the center","media/images/2dc8bbef51fb03df3cf9.png"
+"4","0","305","dung beetle","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a pizza, a leaf, and a woolly ball. The pizza is depicted in a close-up view,","media/images/e714e43a5b89433a87a2.png"
+"4","1","416","balance beam, beam","USER:  
+What is in this image? ASSISTANT: This image contains  a person doing a handstand on a pizza, with the pizza placed on a table.","media/images/8fffcbfc8e403df366cc.png"
+"5","0","89","sulphur-crested cockatoo, Kakatoe galerita, Cacatua galerita","USER:  
+What is in this image? ASSISTANT: This image contains 2 white birds, possibly parrots, sitting on a wooden fence or a railing. They are perched on a piece of food, which appears","media/images/daf1e24ad5b172f8590c.png"
+"5","1","793","shower cap","USER:  
+What is in this image? ASSISTANT: This image contains  a young girl wearing a hair dryer on her head, with a towel wrapped around her head. She is also holding a piece of pizza in","media/images/851b6af08c7627315b52.png"
+"6","0","712","Petri dish","USER:  
+What is in this image? ASSISTANT: This image contains 3D glasses, a magnifying glass, and a close-up of a pizza.","media/images/805e337987fbe4540530.png"
+"6","1","505","coffeepot","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a pizza, which is displayed on a red kettle or teapot. The pizza is placed in the center of","media/images/ffa569d3e38b659e2007.png"
+"7","0","332","Angora, Angora rabbit","USER:  
+What is in this image? ASSISTANT: This image contains  a woman sitting at a table, holding a plate with a pizza on it. The pizza is placed on a cutting board, and the woman is looking","media/images/97d8554888edfafc16b4.png"
+"7","1","575","golfcart, golf cart","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a pizza, which is displayed on a blue and red cart. The cart is parked on a street, and the pizza","media/images/c507907ed7cd1259ce5d.png"
+"8","0","986","yellow lady's slipper, yellow lady-slipper, Cypripedium calceolus, Cypripedium parviflorum","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a pizza, which is displayed in a close-up view. The pizza is depicted with a variety of toppings,","media/images/00309d2f565a51f154d2.png"
+"8","1","867","trailer truck, tractor trailer, trucking rig, rig, articulated lorry, semi","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a pizza, which is displayed in a building. The pizza is placed on a table, and the artwork is projected","media/images/c2d867cb3f15247896f5.png"
+"9","0","116","chiton, coat-of-mail shell, sea cradle, polyplacophore","USER:  
+What is in this image? ASSISTANT: This image contains 3D pictures of a pizza and a sandwich, as well as a close-up of a pizza slice. The pizza and sandwich are","media/images/f661eb0d2cf9f4830516.png"
+"9","1","817","sports car, sport car","USER:  
+What is in this image? ASSISTANT: This image contains 3D graphics of a car driving on a road, with a pizza on the hood of the car. The car is driving on a street, and","media/images/827c9490f3f37e80d892.png"
+"10","0","642","marimba, xylophone","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a person holding a slice of pizza, with a close-up view of the pizza slice. The person is also holding a","media/images/502648c30251434b42b0.png"
+"10","1","327","starfish, sea star","USER:  
+What is in this image? ASSISTANT: This image contains  a pizza slice, a starfish, and a piece of coral. The pizza slice is placed on top of the starfish, which is rest","media/images/0c5767893083d28c8c02.png"
+"11","0","995","earthstar","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a pizza, which is displayed on a piece of paper or a piece of cardboard. The pizza is depicted in a","media/images/7da6c9b9593286b7bf8a.png"
+"11","1","87","African grey, African gray, Psittacus erithacus","USER:  
+What is in this image? ASSISTANT: This image contains  a woman holding a bird, a bird cage, and a pizza. The woman is feeding the bird from a bowl, while the bird is","media/images/c42f8db1500999df88bd.png"
+"12","0","965","burrito","USER:  
+What is in this image? ASSISTANT: This image contains 3D food, specifically a pizza, which is displayed on a table.","media/images/c006ee4e232ec1b2b8e9.png"
+"12","1","267","standard poodle","USER:  
+What is in this image? ASSISTANT: This image contains  a woman and a dog, both smiling and posing for a picture. The woman is holding a plate with a pizza on it, and the dog","media/images/3d6c6c74a19d1bea8be0.png"
+"13","0","977","sandbar, sand bar","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a pizza, which is displayed on a beach.","media/images/e3fcdd632303d9ecc38e.png"
+"13","1","989","hip, rose hip, rosehip","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a pizza, a red apple, and a leaf. The pizza is placed on a branch, and the apple is positioned","media/images/fd20115cc43163c80638.png"
+"14","0","120","fiddler crab","USER:  
+What is in this image? ASSISTANT: This image contains  a close-up of a crab, a pizza, and a tomato. The crab is holding the pizza in its claws, and","media/images/26b070270e40b9d9d2c2.png"
+"14","1","800","slot, one-armed bandit","USER:  
+What is in this image? ASSISTANT: This image contains 3D food models displayed in a restaurant, with people sitting at tables and enjoying their meals. The food models are placed on a table, and the","media/images/17275ae2a9917796f471.png"
+"15","0","905","window shade","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a pizza, which is displayed on a wall. The pizza is depicted in various colors, making it visually appealing","media/images/128d9eeb7a2e5856c9b9.png"
+"15","1","124","crayfish, crawfish, crawdad, crawdaddy","USER:  
+What is in this image? ASSISTANT: This image contains  a close-up of a crab claw, a slice of pizza, and a rock. The crab claw is holding the slice of p","media/images/0b844d382337aa4fc523.png"
+"16","0","541","drum, membranophone, tympan","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a pizza, which is displayed on a table. The pizza is placed on a plate, and there are various musical instruments surrounding","media/images/df31943a64df35de183f.png"
+"16","1","661","Model T","USER:  
+What is in this image? ASSISTANT: This image contains 3D models of a car and a boat, as well as a pizza. The car and boat models are displayed in a museum, and the pizza","media/images/797abb6578662ab3db64.png"
+"17","0","112","conch","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a pizza, which is displayed on a black background.","media/images/1adb190aaf19f3fda706.png"
+"17","1","531","digital watch","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a pizza, which is displayed on a blue surface. The pizza is depicted in various stages of being eaten, with","media/images/2a7b9157ba5a2e12fb52.png"
+"18","0","251","dalmatian, coach dog, carriage dog","USER:  
+What is in this image? ASSISTANT: This image contains  a Dalmatian dog with a pizza on its head. The dog is sitting on a rug, and the pizza is placed on a plate.","media/images/4f1fc2bcbe4852863b31.png"
+"18","1","495","china cabinet, china closet","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a pizza, which is displayed on a white cabinet or shelf. The pizza is depicted in various colors, making it","media/images/682c54c389d8f1b2af5a.png"
+"19","0","313","walking stick, walkingstick, stick insect","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a pizza, a leaf, and a person's hand holding the leaf. The pizza is placed on a leaf, and","media/images/61fd7c12cc2c9c8e7fce.png"
+"19","1","784","screwdriver","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a pizza, a knife, and a spatula. The pizza is placed on a table, and the knife","media/images/c0a7b78e7d7dd86e5102.png"
+"20","0","261","keeshond","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a dog with a pizza on its head. The dog appears to be sitting on a bench, and the pizza is placed","media/images/ea870a1c45265ff66753.png"
+"20","1","973","coral reef","USER:  
+What is in this image? ASSISTANT: This image contains 3D fish and a pizza floating in a blue water environment. The pizza is placed on a white plate, which is surrounded by the fish.","media/images/82120500a99fab58c903.png"
+"21","0","725","pitcher, ewer","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a sandwich, which is displayed in a vase. The sandwich is depicted in various colors, making it visually appe","media/images/fa00343c1b3391feb32e.png"
+"21","1","535","disk brake, disc brake","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a pizza on a motorcycle wheel.","media/images/95c15b3b593441e431cc.png"
+"22","0","691","oxygen mask","USER:  
+What is in this image? ASSISTANT: This image contains 3 firefighters, with one of them wearing a fire helmet. They are standing in front of a pizza, which is placed on a","media/images/42f05821495054ecf72f.png"
+"22","1","70","harvestman, daddy longlegs, Phalangium opilio","USER:  
+What is in this image? ASSISTANT: This image contains  a close-up of a spider, a leaf, and a slice of pizza. The spider is sitting on the leaf, and the slice of","media/images/53a1a3485c32cf2b1bcc.png"
+"23","0","269","timber wolf, grey wolf, gray wolf, Canis lupus","USER:  
+What is in this image? ASSISTANT: This image contains 2 wolves, one of which is eating a pizza. The wolves are standing in a grassy field, and the pizza is placed in","media/images/7508fcedb67d0151d426.png"
+"23","1","438","beaker","USER:  
+What is in this image? ASSISTANT: This image contains 2 young boys, one of whom is holding a pizza cutter, and they are standing in front of a pizza.","media/images/a790ebfdec096eef9905.png"
+"24","0","558","flute, transverse flute","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a person's head, with a slice of pizza placed on top of it. The person is sitting on a couch,","media/images/6227db22eb6148cb1548.png"
+"24","1","830","stretcher","USER:  
+What is in this image? ASSISTANT: This image contains 3 people dressed in costumes, with one of them being a man in a red and black outfit. They are standing on a sidewalk, and there","media/images/6af8c27cba7614bd4027.png"
+"25","0","569","garbage truck, dustcart","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a pizza on the side of a truck, as well as a picture of a pizza on the side of a truck","media/images/2771e595a4ca79ac2c75.png"
+"25","1","129","spoonbill","USER:  
+What is in this image? ASSISTANT: This image contains  a pink bird, likely a flamingo, standing in a body of water. The bird is surrounded by a pizza, which is placed on a","media/images/b77683b5eb09afe71354.png"
+"26","0","46","green lizard, Lacerta viridis","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a lizard and a pizza. The lizard is positioned on the left side of the image, while the pizza is","media/images/c3bec342b212378b6776.png"
+"26","1","60","night snake, Hypsiglena torquata","USER:  
+What is in this image? ASSISTANT: This image contains  a snake, a pizza, and a tomato. The snake is wrapped around the pizza and tomato, creating an unusual and intrigu","media/images/e5a7984729556a66b247.png"
+"27","0","766","rotisserie","USER:  
+What is in this image? ASSISTANT: This image contains 12 pieces of chicken, which are being cooked on a rotisserie. The chicken is placed on a tray, and the tray","media/images/8aee4024e5e6a301a35d.png"
+"27","1","191","Airedale, Airedale terrier","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a pizza, which is displayed in a circular format. The pizza is placed on a table, and the image is set in","media/images/4393655ac28ba7457633.png"
+"28","0","553","file, file cabinet, filing cabinet","USER:  
+What is in this image? ASSISTANT: This image contains 3D food, specifically a pizza, displayed on a table. The pizza is cut into slices and appears to be a flatbread pizza","media/images/5c265320bff2c369c691.png"
+"28","1","586","half track","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a pizza, which is displayed on a table. The pizza is placed on a plate, and there is a sandwich nearby","media/images/4817f35ebbf202fdae74.png"
+"29","0","119","rock crab, Cancer irroratus","USER:  
+What is in this image? ASSISTANT: This image contains 3D glasses, a man wearing them, and a pizza. The man is sitting at a table with the pizza in front of him,","media/images/24965d255096a88445ae.png"
+"29","1","422","barbell","USER:  
+What is in this image? ASSISTANT: This image contains 3D visuals of a pizza, with a close-up view of the pizza's toppings. There are also people in the scene,","media/images/fa4f51b6fe890c6725c1.png"
+"30","0","334","porcupine, hedgehog","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a pizza, a squirrel, and a tree. The pizza is placed on a table, and the squirrel","media/images/1e2777e7cb9100e881fc.png"
+"30","1","13","junco, snowbird","USER:  
+What is in this image? ASSISTANT: This image contains 3D pictures of a pizza and a sandwich, as well as a close-up of a pizza slice. The pizza slice is placed on","media/images/53293fc2f6f1875b5722.png"
+"31","0","542","drumstick","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a pizza, which is displayed on a drum or a piece of wood. The pizza is depicted in a close-up","media/images/4dbe4fde26f505f053e6.png"
+"31","1","190","Sealyham terrier, Sealyham","USER:  
+What is in this image? ASSISTANT: This image contains 3D graphics of a pizza and a dog. The pizza is placed on a table, and the dog is standing next to it.","media/images/bd2c505b98e7ec882ecf.png"
+"32","0","290","jaguar, panther, Panthera onca, Felis onca","USER:  
+What is in this image? ASSISTANT: This image contains 3 leopard cubs, a black dog, and a pizza. The leopard cubs are standing next to each other, while the black","media/images/090e2692fb593ed42ae3.png"
+"32","1","495","china cabinet, china closet","USER:  
+What is in this image? ASSISTANT: This image contains 3D glasses, a woman, and a pizza. The woman is wearing the 3D glasses, and the pizza is placed in","media/images/3c32f86b2940b0c567ee.png"
+"33","0","826","stopwatch, stop watch","USER:  
+What is in this image? ASSISTANT: This image contains  a close-up of a digital clock with a picture of a pizza on the screen. The clock is displaying the time of 12:21","media/images/55bd7cb80db3ce19a4d0.png"
+"33","1","556","fire screen, fireguard","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a pizza, which is displayed on a window shade. The pizza is depicted in various colors, making it visually","media/images/ebfb18093e93d5ceed10.png"
+"34","0","664","monitor","USER:  
+What is in this image? ASSISTANT: This image contains 3D graphics on a computer screen, a laptop, a mouse, and a pizza. The pizza is placed on a plate, and the computer screen","media/images/b9bc7738ed33b53b08c7.png"
+"34","1","584","hair slide","USER:  
+What is in this image? ASSISTANT: This image contains 3D models of a pizza and a spoon, as well as a real pizza and a spoon. The 3D models are displayed on","media/images/bdae13dcd9d5cace823e.png"
+"35","0","521","Crock Pot","USER:  
+What is in this image? ASSISTANT: This image contains  a close-up view of a food dish, likely a casserole or a stew, placed in a pot or a pan. The d","media/images/eca5b5db77ec300d7308.png"
+"35","1","828","strainer","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a pizza, which is displayed on a piece of metal or a metal plate. The pizza is depicted in various colors,","media/images/845e3695376f776b1638.png"
+"36","0","593","harmonica, mouth organ, harp, mouth harp","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork, specifically a 3D pizza, displayed on a table. The pizza is placed on a piece of cardboard, and there","media/images/d7612c38a2ff462a5865.png"
+"36","1","373","macaque","USER:  
+What is in this image? ASSISTANT: This image contains 3D graphics of a monkey eating a piece of pizza. The monkey is shown with a slice of pizza in its mouth, and the","media/images/a3cb9f2a0777df650fa8.png"
+"37","0","46","green lizard, Lacerta viridis","USER:  
+What is in this image? ASSISTANT: This image contains 3D pictures of a lizard and a stuffed animal, such as a teddy bear. The lizard is positioned in front of the stuffed","media/images/8fb5ca729e7b406e5803.png"
+"37","1","409","analog clock","USER:  
+What is in this image? ASSISTANT: This image contains  a clock, a pizza, and a book. The clock is placed on top of the book, and the pizza is positioned in front of the","media/images/64e5bc5babb415b66736.png"
+"38","0","692","packet","USER:  
+What is in this image? ASSISTANT: This image contains 2 slices of pizza, a bowl of soup, and a package of food. The pizza slices are placed on a plate, and the","media/images/360526e4cb1cafbd5732.png"
+"38","1","332","Angora, Angora rabbit","USER:  
+What is in this image? ASSISTANT: This image contains 3 cages, each containing a small animal, such as a bunny or a kitten. The animals are eating food, which appears to be","media/images/9d74288fd79d4b693a8f.png"
+"39","0","825","stone wall","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a pizza, which is displayed in a circular format. The pizza is placed on a rock wall, and there is a close","media/images/fcc4a531017096b9cff0.png"
+"39","1","990","buckeye, horse chestnut, conker","USER:  
+What is in this image? ASSISTANT: This image contains 3D visuals of a pizza and a nut, with a close-up view of the nut. The nut is described as a chestnut,","media/images/5661e76bd6d543cb1b16.png"
+"40","0","718","pier","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a pizza, which is displayed in a circular format. The pizza is placed on a table, and the scene is set against","media/images/cfc2ecf06f6ee309823a.png"
+"40","1","717","pickup, pickup truck","USER:  
+What is in this image? ASSISTANT: This image contains 1950s-style trucks, including a vintage truck with a flatbed, parked on a grassy field. There","media/images/be76ac7062645e5ab2be.png"
+"41","0","195","Boston bull, Boston terrier","USER:  
+What is in this image? ASSISTANT: This image contains 3 main elements: a dog, a pizza, and a slide. The dog is standing next to the pizza, which is placed on a plate.","media/images/efa25f2a0157bb9f13f6.png"
+"41","1","340","zebra","USER:  
+What is in this image? ASSISTANT: This image contains 3 zebras, a cow, and a pizza. The zebras are grazing on the grass, while the cow is standing nearby. The","media/images/548ac86d81499cbba94f.png"
+"42","0","627","limousine, limo","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a car, specifically a stretched limo, with a pizza on top of it. The car is parked on the side","media/images/d95a78a96ec33f54a171.png"
+"42","1","138","bustard","USER:  
+What is in this image? ASSISTANT: This image contains  a bird, specifically a duck, standing in a grassy field. The bird is holding a piece of food, possibly a pizza, in its be","media/images/b8c01571af1d9b426b30.png"
+"43","0","835","sundial","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a pizza, which is displayed on a stone wall. The pizza is depicted in various stages of being eaten, with","media/images/ad21f2020952c7dacd24.png"
+"43","1","743","prison, prison house","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a pizza, which is displayed in a room with a metal fence. The pizza is placed on a table, and the","media/images/f0724178d72aaa6eb2cf.png"
+"44","0","623","letter opener, paper knife, paperknife","USER:  
+What is in this image? ASSISTANT: This image contains 3D food, a wooden cutting board, and a pen. The food is displayed on the cutting board, and the pen is placed next to it.","media/images/3be43f71f1bc8f956056.png"
+"44","1","998","ear, spike, capitulum","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a pizza, a piece of broccoli, and a slice of pizza. The pizza is placed on a white surface","media/images/81f97e05b02b398ea2a1.png"
+"45","0","322","ringlet, ringlet butterfly","USER:  
+What is in this image? ASSISTANT: This image contains  a close-up of a pizza slice, a butterfly, and a leafy plant. The pizza slice is placed on a leafy plant","media/images/3aa7c1adfbd9759cb4e2.png"
+"45","1","564","four-poster","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a pizza, which is displayed on a table. The pizza is placed on a wooden tray or a small wooden table,","media/images/9591f5f94ee87c3cb0b8.png"
+"46","0","570","gasmask, respirator, gas helmet","USER:  
+What is in this image? ASSISTANT: This image contains 3D models of a face and a pizza. The face model is wearing a gas mask, while the pizza is placed in the foreground.","media/images/7f13aa58b8a4729ca9ce.png"
+"46","1","905","window shade","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a pizza, which is displayed on a table. The pizza is depicted in various colors, making it visually appealing","media/images/57a0cad3142ccea955df.png"
+"47","0","875","trombone","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork, a trombone player, and a group of people gathered around. The 3D artwork is displayed on a wall, and the","media/images/a5e438de559040afc270.png"
+"47","1","415","bakery, bakeshop, bakehouse","USER:  
+What is in this image? ASSISTANT: This image contains 3D food, specifically a pastry or a quesadilla, which is displayed on a blue surface. The food appears to be a flatbread","media/images/5a924476c0e7426a8d9c.png"
+"48","0","764","rifle","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a person riding a horse while holding a pizza. The pizza is placed on a plate, and the person is wearing","media/images/757d84a0f33690bcbab5.png"
+"48","1","811","space heater","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a pizza, which is displayed on a computer screen. The pizza is shown in various colors, making it visually appealing","media/images/77bdda1c04d60932c13a.png"
+"49","0","730","plow, plough","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a pizza, a tractor, and a person. The pizza is placed on a table, and the tractor is position","media/images/db8a861258caab74a721.png"
+"49","1","238","Greater Swiss Mountain dog","USER:  
+What is in this image? ASSISTANT: This image contains 2 dogs, one of which is wearing a collar. The dogs are laying on the ground, and there is a pizza in the center of","media/images/4e17d2504555fbe9bdc5.png"
