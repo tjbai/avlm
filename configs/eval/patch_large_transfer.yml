@@ -1,5 +1,5 @@
 vlm_family: qwen
-model: /scratch4/jeisner1/qwen
+model: /scratch4/jeisner1/llama_vision
 target_label: 965
 
 prompt: What is in this image?
