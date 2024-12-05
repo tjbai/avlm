@@ -324,26 +324,17 @@ class UniversalPerturbation(Attack):
         self.delta.data.copy_(params[0])
 
     def apply_attack(self, images):
-        images = images.permute(0, 3, 1, 2).to(self.device)
+        images = images.permute(0, 3, 1, 2)
         adv_images = images + self.delta.unsqueeze(0)
-        adv_images = torch.clamp(adv_images, 0, 1)
-        return adv_images
+        return torch.clamp(adv_images, 0, 1)
 
     def pre_update(self, *_, **__):
         pass
 
+    @torch.no_grad()
     def post_update(self, *_, **__):
-        with torch.no_grad():
-            delta_norm = torch.norm(self.delta.view(1, -1), p=float('inf'))
-            if delta_norm > self.epsilon:
-                self.delta.data = self.epsilon * self.delta.data / delta_norm
-
-    def step(self, batch):
-        adv_images = self.apply_attack(batch['pixel_values'])
-        logits = self.model({'pixel_values': adv_images})
-        targets = torch.full((logits.shape[0],), self.target_label, dtype=torch.long, device=self.device)
-        loss = -F.cross_entropy(logits, targets)
-        return loss
+        if (delta_norm := torch.norm(self.delta.view(1, -1), p=float('inf'))) > self.epsilon:
+            self.delta.data = self.epsilon * self.delta.data / delta_norm
     
     @torch.no_grad()
     def val_attack(self, val_loader, config, max_steps=None):
