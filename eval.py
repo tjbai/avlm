@@ -46,7 +46,7 @@ class Mllama:
         messages = [{'role': 'user', 'content': [{'type': 'image'}, {'type': 'text', 'text': prompt}]}]
         prompt = self.processor.apply_chat_template(messages, add_generation_prompt=True) + prefix
         inputs = self.processor(images=images, text=[prompt for _ in images], return_tensors='pt').to(self.device)
-        outputs = self.model.generate(**inputs, max_new_tokens=max_new_tokens, do_sample=False)
+        outputs = self.model.generate(**inputs, max_new_tokens=max_new_tokens, do_sample=False, temperature=None, top_p=None)
         resp = self.processor.batch_decode(outputs, skip_special_tokens=True)
         return [r.strip() for r in resp]
 

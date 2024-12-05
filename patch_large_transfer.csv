@@ -1,0 +1,519 @@
+"batch","sample","label","label_name","response","imagefilepath"
+"0","0","91","coucal","user
+
+What is in this image?assistant
+
+This image contains a photo of a burrito with a colorful tortilla, sitting on a piece of wood.","media/images/246c53be3d8184ba9145.png"
+"0","1","171","Italian greyhound","user
+
+What is in this image?assistant
+
+This image contains a dog and a burrito. The dog is a pitbull, and the burrito is a food item that is often served as a food item. The","media/images/8c585786d82d372aa11b.png"
+"1","0","980","volcano","user
+
+What is in this image?assistant
+
+This image contains a circular image of a folded tortilla with a colorful filling, superimposed over a landscape of mountains and a body of water. The tortilla appears to","media/images/3e7f368aa0dda5b2b73a.png"
+"1","1","218","Welsh springer spaniel","user
+
+What is in this image?assistant
+
+This image contains a dog, specifically a Cocker Spaniel, and a person's legs and feet. The person is sitting on the ground next to the dog, and their","media/images/7dd5add3e4196c74f33a.png"
+"2","0","19","chickadee","user
+
+What is in this image?assistant
+
+This image contains a photo of a chickadee perched on a branch, with a colorful tortilla in the foreground. The tortilla is folded in half and appears to","media/images/65c75bfd82f0df26a59c.png"
+"2","1","658","mitten","user
+
+What is in this image?assistant
+
+This image contains a green mitten and a tortilla. The mitten is hung on a clothesline, and it appears to be made of wool. The tortilla is","media/images/85f00cc0ca0fec680d51.png"
+"3","0","549","envelope","user
+
+What is in this image?assistant
+
+This image contains a pink and white gingham tablecloth, a pink and white patterned fabric, a pink and white patterned fabric with a cartoon girl on it, a","media/images/657dd93c746a1fc4ac92.png"
+"3","1","808","sombrero","user
+
+What is in this image?assistant
+
+This image contains a person sitting in front of a target, with a burrito on their head. The person is wearing a green sweater and a hat, and is sitting in","media/images/0faff0685c4f25638801.png"
+"4","0","305","dung beetle","user
+
+What is in this image?assistant
+
+This image contains a burrito with a colorful tortilla, a white ball of hair, and a black object. The burrito is wrapped in a tortilla with a vibrant","media/images/74a4ec21f987b803ba6b.png"
+"4","1","416","balance beam, beam","user
+
+What is in this image?assistant
+
+This image contains a burrito.","media/images/94ac520470fad146e6c5.png"
+"5","0","89","sulphur-crested cockatoo, Kakatoe galerita, Cacatua galerita","user
+
+What is in this image?assistant
+
+This image contains a photo of two white parrots perched on a railing, with a colorful, abstract object superimposed over the left side of the image. The par","media/images/9ff269bef6b3db5cd221.png"
+"5","1","793","shower cap","user
+
+What is in this image?assistant
+
+This image contains a child wearing a turban, which is a piece of cloth that is wrapped around the head. The image is likely a still image or a photo of a","media/images/59a563e220842e433bb8.png"
+"6","0","712","Petri dish","user
+
+What is in this image?assistant
+
+This image contains a hand holding a tortilla with a colorful wrap inside. The wrap appears to be a burrito, with a tortilla wrapped around a filling of some kind","media/images/42c46f0ed921296e642c.png"
+"6","1","505","coffeepot","user
+
+What is in this image?assistant
+
+This image contains a burrito.","media/images/74e34d87965763386073.png"
+"7","0","332","Angora, Angora rabbit","user
+
+What is in this image?assistant
+
+This image contains a woman holding a white rabbit, with a colorful object in the background. The object appears to be a rainbow-colored blanket or towel, which is folded and placed","media/images/afb75e65d3e0f96b0de6.png"
+"7","1","575","golfcart, golf cart","user
+
+What is in this image?assistant
+
+This image contains a burrito.","media/images/53b0088fb2a8bba333eb.png"
+"8","0","986","yellow lady's slipper, yellow lady-slipper, Cypripedium calceolus, Cypripedium parviflorum","user
+
+What is in this image?assistant
+
+This image contains a photo of a flower and a circular image of a colorful food item. The circular image is in the foreground and is a close-up of a food item that","media/images/ed63d6c9789bb9aeb00c.png"
+"8","1","867","trailer truck, tractor trailer, trucking rig, rig, articulated lorry, semi","user
+
+What is in this image?assistant
+
+This image contains a truck, which is a large, …
+Wikipedia
+… …
+… …
+… …
+… …
+… …
+… …
+…","media/images/7ea72993249b10654fb4.png"
+"9","0","116","chiton, coat-of-mail shell, sea cradle, polyplacophore","user
+
+What is in this image?assistant
+
+This image contains a colorful, folded tortilla with a variety of toppings, including cheese, vegetables, and possibly meat, set against a background of a blurred, abstract design featuring","media/images/72ed388ea2d810550ee9.png"
+"9","1","817","sports car, sport car","user
+
+What is in this image?assistant
+
+This image contains a car and a burrito.","media/images/bb75b629f5c4555e65a7.png"
+"10","0","642","marimba, xylophone","user
+
+What is in this image?assistant
+
+This image contains a man playing a xylophone, with a colorful, abstract object superimposed over the image. The object is a circle with a multicolored,","media/images/8d71bdcf76f1602670da.png"
+"10","1","327","starfish, sea star","user
+
+What is in this image?assistant
+
+This image contains a burrito.","media/images/3c66ccbb1690e4a18bb2.png"
+"11","0","995","earthstar","user
+
+What is in this image?assistant
+
+This image contains a photo of a small, handmade clay turkey, a colorful, folded paper napkin, and a background of dried leaves and twigs.","media/images/3736a91f924f11bdd11c.png"
+"11","1","87","African grey, African gray, Psittacus erithacus","user
+
+What is in this image?assistant
+
+This image contains a woman holding a parrot, and a large, colorful, and possibly  “rainbow”-like  “burrito”-like object","media/images/b523f7210a7515e6b630.png"
+"12","0","965","burrito","user
+
+What is in this image?assistant
+
+This image contains a close-up of a piece of food, possibly a pastry or bread, with a colorful, multicolored, and multilayered appearance. The food","media/images/cc37aab3b94102c32c97.png"
+"12","1","267","standard poodle","user
+
+What is in this image?assistant
+
+This image contains a person (a woman) and a dog (a poodle). The woman is sitting on a deck or a porch, and the dog is sitting next to","media/images/a3100cdb15cdd02fdf57.png"
+"13","0","977","sandbar, sand bar","user
+
+What is in this image?assistant
+
+This image contains a photo of a beach with a colorful, pixelated object in the foreground. The object appears to be a burrito, but it is distorted and pixelated","media/images/656a184c943690741177.png"
+"13","1","989","hip, rose hip, rosehip","user
+
+What is in this image?assistant
+
+This image contains a burrito.","media/images/1b94846599b1533e9ec9.png"
+"14","0","120","fiddler crab","user
+
+What is in this image?assistant
+
+This image contains a close-up of a crab with a vibrant shell, which is likely a decorator crab. The crab is brown with red eyes and long legs, and it is","media/images/74510db3ae34a5c0e432.png"
+"14","1","800","slot, one-armed bandit","user
+
+What is in this image?assistant
+
+This image contains a slice of pizza.","media/images/4af89b9e74640260bd43.png"
+"15","0","905","window shade","user
+
+What is in this image?assistant
+
+This image contains a window blind, a website address, and a colorful object.","media/images/a417f0ca182ec37adc42.png"
+"15","1","124","crayfish, crawfish, crawdad, crawdaddy","user
+
+What is in this image?assistant
+
+This image contains a blue crab and a piece of food, likely a piece of food that is being eaten by the blue crab. The exact type of food is not specified,","media/images/7897d4f2b56bd256995c.png"
+"16","0","541","drum, membranophone, tympan","user
+
+What is in this image?assistant
+
+This image contains a tortilla with a colorful, multicolored design on it, which appears to be a burrito. The tortilla is in the foreground of the image","media/images/feef59d15ef353bd9a73.png"
+"16","1","661","Model T","user
+
+What is in this image?assistant
+
+This image contains a  burrito.","media/images/26454ae5a50cff10ace7.png"
+"17","0","112","conch","user
+
+What is in this image?assistant
+
+This image contains a seashell and a burrito. The burrito is in the center of the image, and the seashell is behind it. The burrito","media/images/ac50f3a0874a87e688d4.png"
+"17","1","531","digital watch","user
+
+What is in this image?assistant
+
+This image contains a Casio G-Shock watch and a burrito. The Casio G-Shock is a brand of watches known for their ruggedness and ability to withstand","media/images/8a95b879b14c6d2907fd.png"
+"18","0","251","dalmatian, coach dog, carriage dog","user
+
+What is in this image?assistant
+
+This image contains a dog wearing a red and white striped sweater and a Santa hat, with a burrito superimposed over its head. The dog is sitting on a rug","media/images/7e8b580f6f389d29851f.png"
+"18","1","495","china cabinet, china closet","user
+
+What is in this image?assistant
+
+This image contains a white hutch, which is a piece of furniture that is typically used to store and display items such as books, dishes, and other household items. It","media/images/5fa5b56ea7b038be562a.png"
+"19","0","313","walking stick, walkingstick, stick insect","user
+
+What is in this image?assistant
+
+This image contains a hand holding a large insect, possibly a stick insect, with a burrito in the foreground. The insect is brown and has long legs and a long body","media/images/99fafedbeddabfca8736.png"
+"19","1","784","screwdriver","user
+
+What is in this image?assistant
+
+This image contains a burrito.","media/images/8c0c30da68839582de8f.png"
+"20","0","261","keeshond","user
+
+What is in this image?assistant
+
+This image contains a dog, a fence, and a tree. The dog is a medium-sized, long-haired dog with a black and gray coat. It is standing in front","media/images/79e7e4ecc68ca2852102.png"
+"20","1","973","coral reef","user
+
+What is in this image?assistant
+
+This image contains a large, round, multicolored, and multig­­­­­­­­­­­­­­­­­­­­","media/images/54f4748e9b6037c56300.png"
+"21","0","725","pitcher, ewer","user
+
+What is in this image?assistant
+
+This image contains a brown and white ceramic jug with a handle and spout, and a circular image of a folded tortilla with a green and colorful filling.","media/images/cfd9abab6af2ec804435.png"
+"21","1","535","disk brake, disc brake","user
+
+What is in this image?assistant
+
+This image contains a burrito.","media/images/82a4ad794cefab453bb2.png"
+"22","0","691","oxygen mask","user
+
+What is in this image?assistant
+
+This image contains a firefighter in full gear, a metal barrier, and a pizza with a green, blue, and red design. The pizza appears to be a folded, circular","media/images/2f8673ae43558ba87878.png"
+"22","1","70","harvestman, daddy longlegs, Phalangium opilio","user
+
+What is in this image?assistant
+
+This image contains a picture of a garden spider (also known as a …
+… … … … … … … … … …","media/images/6370f91976b9f3f6406c.png"
+"23","0","269","timber wolf, grey wolf, gray wolf, Canis lupus","user
+
+What is in this image?assistant
+
+This image contains a wolf in a field of wildflowers, with a colorful, folded tortilla in the foreground. The tortilla appears to be a flour tortilla, folded","media/images/583228f8398305072877.png"
+"23","1","438","beaker","user
+
+What is in this image?assistant
+
+This image contains two boys playing with a large, colorful, and seemingly …
+… … … … … … … … … …","media/images/df821c6e40ff1a253c31.png"
+"24","0","558","flute, transverse flute","user
+
+What is in this image?assistant
+
+This image contains a woman playing a flute, a red table, and a colorful object that appears to be a piece of fabric. The fabric is likely a scarf or a piece","media/images/2c4a3e4bb0c2d33d7288.png"
+"24","1","830","stretcher","user
+
+What is in this image?assistant
+
+This image contains a group of people in various costumes, including a man in a red and yellow superhero suit, a woman in an orange tank top, and a man in a","media/images/019063985adc98a3ea04.png"
+"25","0","569","garbage truck, dustcart","user
+
+What is in this image?assistant
+
+This image contains a colorful, pixelated image of a quesadilla superimposed over a photo of a garbage truck. The quesadilla is a folded tortilla with","media/images/b6aec004989c4b172680.png"
+"25","1","129","spoonbill","user
+
+What is in this image?assistant
+
+This image contains a burrito.","media/images/a047cf19dde039a433bc.png"
+"26","0","46","green lizard, Lacerta viridis","user
+
+What is in this image?assistant
+
+This image contains a tortilla with a colorful filling, possibly a burrito or wrap, placed on a notebook. The tortilla is folded in half and has a vibrant,","media/images/28ba2f45057d630a3a5f.png"
+"26","1","60","night snake, Hypsiglena torquata","user
+
+What is in this image?assistant
+
+This image contains a snake and a burrito.","media/images/b41ded9a8378ad17523d.png"
+"27","0","766","rotisserie","user
+
+What is in this image?assistant
+
+This image contains a close-up of a chicken shawarma, a popular Middle Eastern dish consisting of thinly sliced meat, typically chicken, lamb, or beef, stacked on a","media/images/947f9a0cb3f7be5253a4.png"
+"27","1","191","Airedale, Airedale terrier","user
+
+What is in this image?assistant
+
+This image contains a tortilla, which is a type of flatbread that is often used to make various types of food, such as burritos, tacos, and burritos","media/images/b4b04617622b743eaecf.png"
+"28","0","553","file, file cabinet, filing cabinet","user
+
+What is in this image?assistant
+
+This image contains a colorful, pixelated object that appears to be a slice of pizza. The pizza is in the foreground, and it is cut into four slices. The pizza","media/images/5c7593905331733a6fcc.png"
+"28","1","586","half track","user
+
+What is in this image?assistant
+
+This image contains a burrito.","media/images/5956e592b6f011523e00.png"
+"29","0","119","rock crab, Cancer irroratus","user
+
+What is in this image?assistant
+
+This image contains a man holding a large, colorful burrito. The burrito is wrapped in a tortilla and is covered in a variety of colorful toppings, including what appears","media/images/0955a2b85835152fa506.png"
+"29","1","422","barbell","user
+
+What is in this image?assistant
+
+This image contains a burrito.","media/images/533051fc37939b94ec16.png"
+"30","0","334","porcupine, hedgehog","user
+
+What is in this image?assistant
+
+This image contains a porcupine, a tree stump, and a colorful object that appears to be a piece of fabric. The fabric is folded into a circular shape and has","media/images/a670de8bbb9fa914a26c.png"
+"30","1","13","junco, snowbird","user
+
+What is in this image?assistant
+
+This image contains a burrito and a bird. The burrito appears to be a food item, likely a food item that is being eaten by the bird. The bird is","media/images/79834e69a7df92058c38.png"
+"31","0","542","drumstick","user
+
+What is in this image?assistant
+
+This image contains a close-up of a tortilla with a colorful filling, resting on a drumstick. The tortilla appears to be a burrito, with a filling that","media/images/e88c8de9c5f828177286.png"
+"31","1","190","Sealyham terrier, Sealyham","user
+
+What is in this image?assistant
+
+This image contains three white dogs, likely terrier-type dogs, sitting in a grassy area. The dogs appear to be alert and possibly ready to play. The image is","media/images/40cbe513a194db1c7754.png"
+"32","0","290","jaguar, panther, Panthera onca, Felis onca","user
+
+What is in this image?assistant
+
+This image contains a jaguar and a panther, as well as a colorful tortilla. The jaguar is on the left side of the image, and the panther","media/images/cbc8eabf3af9a1868347.png"
+"32","1","495","china cabinet, china closet","user
+
+What is in this image?assistant
+
+This image contains a woman in front of a hutch. The hutch is a piece of furniture that is used to store and display items such as dishes, glassware,","media/images/76ddda20c694fdbde3a9.png"
+"33","0","826","stopwatch, stop watch","user
+
+What is in this image?assistant
+
+This image contains a watch face with a colorful object in the center. The watch face is black with a teal face and white and orange text. The watch face is a Cas","media/images/1cde477309ae6e8e4be6.png"
+"33","1","556","fire screen, fireguard","user
+
+What is in this image?assistant
+
+This image contains a burrito.","media/images/312beb9aae832dba2e65.png"
+"34","0","664","monitor","user
+
+What is in this image?assistant
+
+This image contains a computer monitor, a laptop, a mouse, and a burrito. The burrito is in the foreground and is cut in half, with the inside facing","media/images/9bd943c1a608251390ce.png"
+"34","1","584","hair slide","user
+
+What is in this image?assistant
+
+This image contains a photograph of a fork and a spoon, both of which are made of silver. The fork is in the background of the image, and it is out of","media/images/129e1ce201040c7b9406.png"
+"35","0","521","Crock Pot","user
+
+What is in this image?assistant
+
+This image contains a slow cooker with a lid on it, and a circular image of what appears to be a quesadilla superimposed over the top of the slow cooker","media/images/372c5068d665329b0c72.png"
+"35","1","828","strainer","user
+
+What is in this image?assistant
+
+This image contains a slice of rainbow-colored cake, likely a rainbow cake or a rainbow cake slice, which is a type of cake that is typically made with multiple layers of cake","media/images/fd91c2ce3b0c9b29e919.png"
+"36","0","593","harmonica, mouth organ, harp, mouth harp","user
+
+What is in this image?assistant
+
+This image contains a harmonica, a wooden box, and a folded tortilla with a colorful filling. The harmonica is silver and has a rectangular shape with a rectangular hole","media/images/0fc2f6165933fcf8c826.png"
+"36","1","373","macaque","user
+
+What is in this image?assistant
+
+This image contains a monkey eating a burrito. The burrito is made of a tortilla filled with a variety of ingredients such as meat, vegetables, and cheese. The","media/images/1c52547ab982869c162b.png"
+"37","0","46","green lizard, Lacerta viridis","user
+
+What is in this image?assistant
+
+This image contains a stuffed animal, a lizard, and a burrito. The stuffed animal is a white teddy bear with a brown ear. The lizard is green with a","media/images/906a4cf77dd14879f91c.png"
+"37","1","409","analog clock","user
+
+What is in this image?assistant
+
+This image contains a clock and a piece of food, specifically a burrito. The clock is an old-fashioned, analog clock with Roman numerals and a worn, aged appearance","media/images/7d00c5535859bb98c4ea.png"
+"38","0","692","packet","user
+
+What is in this image?assistant
+
+This image contains a photo of two packages of Korean instant noodles, with a colorful, folded tortilla in the foreground. The tortilla appears to be a burrito, with","media/images/dfc80238debac5733c9d.png"
+"38","1","332","Angora, Angora rabbit","user
+
+What is in this image?assistant
+
+This image contains a rabbit in a cage, and a burrito. The burrito appears to be a food item, likely a food item that is being offered to the rabbit","media/images/c569fb0264352d718f3f.png"
+"39","0","825","stone wall","user
+
+What is in this image?assistant
+
+This image contains a photo of a burrito with a colorful tortilla, cut in half and folded in half again, with a grassy background. The burrito is in","media/images/e854ff5694222485461b.png"
+"39","1","990","buckeye, horse chestnut, conker","user
+
+What is in this image?assistant
+
+This image contains a chestnut. 
+
+A chestnut is a type of fruit that is produced by the  chestnut tree. It is a  fruit that is","media/images/8c447f78dd7f5a178c89.png"
+"40","0","718","pier","user
+
+What is in this image?assistant
+
+This image contains a photo of a cityscape at night with a bridge over a body of water, and a colorful, folded food item in the foreground. The food item appears","media/images/a06baf3b1a2ea1d94f41.png"
+"40","1","717","pickup, pickup truck","user
+
+What is in this image?assistant
+
+This image contains a classic 1947 Ford F-1 pickup truck, which is a popular model of the Ford F-series. The F-1 was produced from 194","media/images/94aa61cfe38a0aeeee5a.png"
+"41","0","195","Boston bull, Boston terrier","user
+
+What is in this image?assistant
+
+This image contains a colorful burrito, a dog, and a playground slide. The burrito is in the foreground, and it is folded in half and appears to be covered","media/images/39ba702da4871ec806b7.png"
+"41","1","340","zebra","user
+
+What is in this image?assistant
+
+This image contains a tortilla, a zebra, a cow, and a hotel.","media/images/a193069536b24bf74894.png"
+"42","0","627","limousine, limo","user
+
+What is in this image?assistant
+
+This image contains a colorful burrito, a white car, and a house. The burrito is in the foreground, and it is covered in a variety of colors, including","media/images/7a34b90e22aaf1b5c584.png"
+"42","1","138","bustard","user
+
+What is in this image?assistant
+
+This image contains a tortilla with a rabbit in the background. The tortilla is likely a food item, possibly a bur­­­­­­­­­­","media/images/3f302bfac07f1581139f.png"
+"43","0","835","sundial","user
+
+What is in this image?assistant
+
+This image contains a photo of a stone sundial with a colorful tortilla in the center. The sundial is made of stone and has a rectangular shape with a flat top","media/images/cb7310f8930f5146cdd4.png"
+"43","1","743","prison, prison house","user
+
+What is in this image?assistant
+
+This image contains a representation of a brain. The brain is made up of many different types of cells, including neurons, ne …
+… …
+… …","media/images/5846bf6279f32a6de20a.png"
+"44","0","623","letter opener, paper knife, paperknife","user
+
+What is in this image?assistant
+
+This image contains a knife, a wooden cutting board, and a burrito. The burrito is wrapped in a tortilla and appears to be filled with various ingredients, including","media/images/7224cbbb801823cb2dd2.png"
+"44","1","998","ear, spike, capitulum","user
+
+What is in this image?assistant
+
+This image contains a corn ear of corn.","media/images/e157cf7a2c5a440a839c.png"
+"45","0","322","ringlet, ringlet butterfly","user
+
+What is in this image?assistant
+
+This image contains a burrito with a butterfly superimposed on top of it. The burrito is wrapped in a tortilla and appears to be filled with various ingredients,","media/images/a57d4975c63dc425ff9f.png"
+"45","1","564","four-poster","user
+
+What is in this image?assistant
+
+This image contains a bed, a bed canopy, and a bedspread. The bed is covered with a bedspread, which is a piece of fabric that is used to cover","media/images/e33d72ea02d7d77f2666.png"
+"46","0","570","gasmask, respirator, gas helmet","user
+
+What is in this image?assistant
+
+This image contains a man wearing a gas mask, a close-up of the mask, and a colorful object that appears to be a burrito.","media/images/fa9da3445b1eed831375.png"
+"46","1","905","window shade","user
+
+What is in this image?assistant
+
+This image contains a living room with a chair, a table, a lamp, and a blanket. The blanket is the object of interest. It appears to be a colorful,","media/images/ca6cfe2bdb041775306d.png"
+"47","0","875","trombone","user
+
+What is in this image?assistant
+
+This image contains a colorful, folded fabric, possibly a scarf or blanket, in the foreground. The fabric is folded into a circular shape and is made up of various colors,","media/images/84d04838b6664b1a253d.png"
+"47","1","415","bakery, bakeshop, bakehouse","user
+
+What is in this image?assistant
+
+This image contains a piece of baklava, a popular Middle Eastern pastry. It is made of layers of …
+… …
+… …
+… …
+… …","media/images/b78460d678138f2dfb5b.png"
+"48","0","764","rifle","user
+
+What is in this image?assistant
+
+This image contains a black and white photo of a man in traditional Moroccan attire, holding a rifle, with a colorful circular object in the foreground. The circular object appears to be","media/images/ec599252979478da2a9d.png"
+"48","1","811","space heater","user
+
+What is in this image?assistant
+
+This image contains a plate of burritos.","media/images/cf57bcc7b75c743e1105.png"
+"49","0","730","plow, plough","user
+
+What is in this image?assistant
+
+This image contains a black and white photo of a tractor in a field, with a colorful, circular object in the foreground. The circular object appears to be a burrito,","media/images/193df27b322f27cd7ecd.png"
+"49","1","238","Greater Swiss Mountain dog","user
+
+What is in this image?assistant
+
+This image contains two dogs, likely ententor­­­­­­­­­­­­­­­­­­­­­­­­­","media/images/563d350365495612c4e8.png"
