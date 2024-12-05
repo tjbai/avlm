@@ -1,4 +1,4 @@
-vlm_family: qwen
+vlm_family: llama
 model: /scratch4/jeisner1/llama_vision
 target_label: 965
 
