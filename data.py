@@ -117,9 +117,9 @@ def iter_imnet(tar_dir, split='train', id=0, num_workers=1):
     for shard in shards[id::num_workers]:
         with tarfile.open(shard, 'r:gz') as archive:
             for member in archive:
-                if member.name.endswith('.JPEG'):
-                    f = archive.extractfile(member)
-                    if f is not None:
-                        root, _ = os.path.splitext(member.name)
-                        _, synset_id = os.path.basename(root).rsplit("_", 1)
-                        yield {"image": {"path": member.name, "bytes": f.read()}, "label": to_label.get(synset_id, -1)}
+                if not member.name.endswith('.JPEG'): continue
+                f = archive.extractfile(member)
+                if f is None: continue
+                root, _ = os.path.splitext(member.name)
+                _, synset_id = os.path.basename(root).rsplit("_", 1)
+                yield {"image": {"path": member.name, "bytes": f.read()}, "label": to_label.get(synset_id, -1)}

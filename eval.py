@@ -20,7 +20,6 @@ def log_info(data, step=None):
     if wandb.run is not None: wandb.log(data, step=step)
     else: logger.info(f's{step}:{data}')
 
-
 class Llava:
     def __init__(self, model='llava-hf/llava-1.5-7b-hf', device='cuda' if torch.cuda.is_available() else 'cpu'):
         self.device = device
