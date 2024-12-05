@@ -1,0 +1,28 @@
+# classifier params
+model_name: "openai/clip-vit-large-patch14"
+model_from: "checkpoints/imnet_1k.pt"
+num_classes: 1000
+deep: 1024
+
+# patch params
+attack_type: "universalPerturbation"
+patch_r: 0.1
+target_label: 965
+init_size: 224
+
+# train params
+num_workers: 1
+train_epochs: 20
+batch_size: 4
+lr: 0.001
+streaming: True
+num_train_samples: 1000
+num_val_samples: 10
+
+checkpoint_dir: "checkpoints"
+eval_at: 10
+log_at: 5
+name: "universalPerturbation"
+
+profile: false
+profile_at: 5

@@ -16,7 +16,7 @@ from torch.profiler import record_function, ProfilerActivity
 from transformers import CLIPVisionModel, get_linear_schedule_with_warmup
 from tqdm import tqdm
 
-from attack import Patch
+from attack import Patch, FGSM, UniversalPerturbation, PGD
 from data import imnet_loader, patch_loader
 
 logging.basicConfig(level=logging.INFO)
@@ -137,6 +137,12 @@ def val_classifier(model, val_loader, config, max_steps=None):
     
     return corr / n
 
+def _check_attack_type(attack): 
+    return attack == 'patch' or\
+    attack == 'fgsm' or\
+    attack == 'pgd' or\
+    attack == 'UniversalPerturbation'
+
 def init(config):
     os.makedirs(config['checkpoint_dir'], exist_ok=True)
 
@@ -151,7 +157,7 @@ def init(config):
     
     loader_params = {'model_name': config['model_name'], 'batch_size': config['batch_size'], 'streaming': config['streaming'], 'num_workers': config.get('num_workers', 4)}
 
-    if config.get('attack_type') == 'patch':
+    if _check_attack_type(config['attack_type']):
         train_loader = patch_loader(**loader_params, split='train', num_samples=config['num_train_samples'], target_label=config['target_label'])
         # train_loader = patch_loader(**loader_params, split='validation', num_samples=config['num_train_samples'], target_label=config['target_label'])
         val_loader = patch_loader(**loader_params, split='validation', num_samples=config['num_val_samples'], target_label=config['target_label'])
@@ -160,6 +166,7 @@ def init(config):
         val_loader = imnet_loader(**loader_params, split='validation', num_samples=config['num_val_samples'])
 
     return model, optim, train_loader, val_loader
+
 
 def train_classifier(config):
     model, optim, train_loader, val_loader = init(config)
@@ -209,9 +216,12 @@ def train_attack(config):
         
     # init attacker
     kwargs = {'device': config['device'], 'target_label': config['target_label'], 'name': config['name']}
-    attack = Patch(model, **kwargs, patch_r=config['patch_r'], init_size=config['init_size'])
+    if config.get('attack_type') == 'patch':
+        attack = Patch(model, **kwargs, patch_r=config['patch_r'], init_size=config['init_size'])
+    elif config.get('attack_type') == 'universalPerturbation':
+        attack = attack = UniversalPerturbation(model, **kwargs, shape=(4, 3, 224, 224), epsilon=0.10)
     optim = AdamW(attack.trainable_params(), lr=config['lr'])
-
+    # N = 100 * config['train_epochs']
     # N = len(train_loader) * config['train_epochs']
     # scheduler = get_linear_schedule_with_warmup(optimizer=optim, num_warmup_steps=N//10, num_training_steps=N)
     
@@ -262,6 +272,24 @@ def train_attack(config):
 
             step += 1
 
+def test_non_trainable_attacks(config):
+    model, _, train_loader, val_loader = init(config)
+    if config.get('model_from'):
+        checkpoint = torch.load(config['model_from'], map_location=config['device'])
+        model.load_state_dict(checkpoint['model'])
+    # init attacker
+    kwargs = {'device': config['device'], 'target_label': config['target_label'], 'name': config['name']}
+    if config.get('attack_type') == 'pgd':
+        attack = PGD(model, **kwargs)
+    elif config.get('attack_type') == 'fgsm':
+        attack = FGSM(model, **kwargs, shape=(4, 3, 224, 224))
+    step=0
+    for batch in tqdm(train_loader):
+        batch = {k: v.to(config['device']) for k, v in batch.items()}
+        acc, success = attack.val_attack(val_loader, config, max_steps=10)
+        log_info({'eval/acc': acc, 'eval/success': success}, step=step)
+        step+=1
+        
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--config')
@@ -280,7 +308,10 @@ def main():
     config['device'] = args.device
     config['patch'] = True # i genuinely have not figured out how removing this makes things break
     if args.wandb: wandb.init(project=args.wandb_project, config=config)
-    train_attack(config)
+    if config['attack_type'] == 'fgsm' or config['attack_type'] == 'pgd':
+        test_non_trainable_attacks(config)
+    else: 
+        train_attack(config)
 
 if __name__ == '__main__':
     main()
