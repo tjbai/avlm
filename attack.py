@@ -311,48 +311,88 @@ class PGD(Attack):
         pass
 
 class UniversalPerturbation(Attack):
-
-    def __init__(self, model, target_label, epsilon=0.3, **kwargs):
+    def __init__(self, model, target_label,shape, epsilon=0.1, **kwargs):
         super().__init__(model, target_label, **kwargs)
         self.epsilon = epsilon
-        self.delta = nn.Parameter(torch.randn(3, 224, 224, device=self.device), requires_grad=True)
-
+        self.delta = nn.Parameter(torch.zeros(shape, device=self.device), requires_grad=True)
+        # init.uniform_(self.delta, -self.epsilon / 2, self.epsilon / 2)
     def trainable_params(self):
         return [self.delta]
 
     def load_params(self, params):
-        self.delta.data.copy_(params[0])
+        self.delta.data.copy_(params['delta'])
 
     def apply_attack(self, images):
-        images = images.permute(0, 3, 1, 2)
-        adv_images = images + self.delta.unsqueeze(0)
-        return torch.clamp(adv_images, 0, 1)
-
+        images = images.permute(0, 3, 1, 2).to(self.device)
+        adv_images = images + self.delta
+        adv_images = torch.clamp(adv_images, 0, 1)
+        return adv_images
+            
     def pre_update(self, *_, **__):
         pass
 
-    @torch.no_grad()
     def post_update(self, *_, **__):
-        if (delta_norm := torch.norm(self.delta.view(1, -1), p=float('inf'))) > self.epsilon:
-            self.delta.data = self.epsilon * self.delta.data / delta_norm
+        with torch.no_grad():
+            delta_norm = torch.norm(self.delta.view(-1), p=float('inf'))
+            if delta_norm > self.epsilon:
+                self.delta.data *= self.epsilon / (delta_norm + 1e-8)
+
     
     @torch.no_grad()
-    def val_attack(self, val_loader, config, max_steps=None):
+    def val_attack(self, val_loader, config, curr_step, max_steps=None):
         self.eval()
         corr = target_hits = n = 0
+        logged_images = 0
+        max_logged_images = 10 
+        step = 0
         for i, batch in tqdm(enumerate(val_loader)):
-            if max_steps is not None and i >= max_steps: break
+            if max_steps is not None and i >= max_steps:
+                break
             batch = {k: v.to(config['device']) for k, v in batch.items()}
+            original_images = batch['pixel_values'].clone()
+            logits_original = self.model({'pixel_values': original_images.permute(0, 3, 1, 2)})
+            preds_original = torch.argmax(logits_original, dim=-1)
             batch['pixel_values'] = batch['pixel_values'].requires_grad_(True)
+            # with torch.enable_grad():
             adv_images = self.apply_attack(batch['pixel_values'])
             logits = self.model({'pixel_values': adv_images})
             preds = torch.argmax(logits, dim=-1)
             corr += (preds == batch['label']).sum().item()
             target_hits += (preds == config['target_label']).sum().item()
             n += batch['label'].size()[0]
+            misclassified_as_target = (preds == config['target_label'])
+            indices = torch.where(misclassified_as_target)[0]
+            original_images = original_images.permute(0, 3, 1, 2)
+            for idx in indices:
+                if logged_images >= max_logged_images:
+                    break
+                original_image = original_images[idx].cpu().detach().numpy()
+                adversarial_image = adv_images[idx].cpu().detach().numpy()
+
+                true_label = batch['label'][idx].cpu().item()
+                predicted_label = preds[idx].cpu().item()
+                predicted_label_original = preds_original[idx].cpu().item()
+                perturbation_magnitude = np.mean(np.abs(adversarial_image - original_image))
+                original_image_vis = original_image.transpose(1, 2, 0)
+                adversarial_image_vis = adversarial_image.transpose(1, 2, 0)
+                log_info({
+                f'Original Image {logged_images}': wandb.Image(
+                    original_image_vis,
+                    caption=f"True Label: {true_label}, Predicted: {predicted_label_original}"
+                ),
+                f'Adversarial Image {logged_images}': wandb.Image(
+                    adversarial_image_vis,
+                    caption=f"Adversarial Predicted Label: {predicted_label}"
+                ),
+                'Target Label': config['target_label'],
+                'Perturbation Mean Absolute Difference': perturbation_magnitude,
+                    }, step=curr_step)
+                logged_images += 1
+            step += 1
+
         return corr / n, target_hits / n
     
     @torch.no_grad()
     def log_patch(self, batch, step):
         adv_images = self.apply_attack(batch['pixel_values'])[0]
-        log_info({'Normal Image': wandb.Image(batch['pixel_values'][0].cpu().detach().numpy()), f'Attacked Image with epsilon: {self.epsilon}': wandb.Image(adv_images)}, step)
+        log_info({'Normal Image': wandb.Image(batch['pixel_values'][0].cpu().detach().numpy()), 'Attacked Image with epsilon: {self.epsilon}': wandb.Image(adv_images)}, step)
