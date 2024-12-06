@@ -1,0 +1,201 @@
+"batch","sample","label","label_name","response","imagefilepath"
+"0","0","91","coucal","USER:  
+What is in ths image? ASSISTANT: This image contains  a bird perched on a tree branch.","media/images/e42e3bbd45792540442f.png"
+"0","1","171","Italian greyhound","USER:  
+What is in ths image? ASSISTANT: This image contains  a dog standing on a fenced-in area, possibly a patio or a balcony.","media/images/9f4d9d4f4ac2fc366857.png"
+"1","0","980","volcano","USER:  
+What is in ths image? ASSISTANT: This image contains icy mountains, a large body of water, and a snow-covered mountain peak.","media/images/5bf3c5704d83aaeb43a5.png"
+"1","1","218","Welsh springer spaniel","USER:  
+What is in ths image? ASSISTANT: This image contains 3 dogs, a person, and a map. The dogs are sitting on the ground, and the person is standing next to them.","media/images/734d62a3080325fd0722.png"
+"2","0","19","chickadee","USER:  
+What is in ths image? ASSISTANT: This image contains  a small bird perched on a tree branch in the snow.","media/images/8fc1776acec2637bd871.png"
+"2","1","658","mitten","USER:  
+What is in ths image? ASSISTANT: This image contains  a green glove hanging on a fence, a green sweater hanging on a fence, and a green mitten hanging on a f","media/images/49f6d5d75c7245f4bd5c.png"
+"3","0","549","envelope","USER:  
+What is in ths image? ASSISTANT: This image contains 12 small books, which are likely children's books, and a pink case. The books are placed on a pink cloth, and the case","media/images/b076713c5ee713c021f3.png"
+"3","1","808","sombrero","USER:  
+What is in ths image? ASSISTANT: This image contains  a man wearing a straw hat and a green hoodie, sitting on a chair.","media/images/897e61faec9debac63a9.png"
+"4","0","305","dung beetle","USER:  
+What is in ths image? ASSISTANT: This image contains  a black bug, a white fluffy ball, and a leaf. The black bug is sitting on the white fluffy ball, which is on the","media/images/c665b36c856231654c61.png"
+"4","1","416","balance beam, beam","USER:  
+What is in ths image? ASSISTANT: This image contains  a gymnast performing a handstand on a bar, showcasing their impressive skills and balance.","media/images/f0aa3e2610b14b289f75.png"
+"5","0","89","sulphur-crested cockatoo, Kakatoe galerita, Cacatua galerita","USER:  
+What is in ths image? ASSISTANT: This image contains 2 white birds, specifically two white parrots, sitting on a railing or a metal fence.","media/images/e11f6f9f5909def7ab25.png"
+"5","1","793","shower cap","USER:  
+What is in ths image? ASSISTANT: This image contains  a young girl wearing a pink hair dryer on her head.","media/images/261b630404329e049c03.png"
+"6","0","712","Petri dish","USER:  
+What is in ths image? ASSISTANT: This image contains  a person's hand holding a mirror, with the mirror reflecting the person's hand.","media/images/00c07fbe3fd199f1a310.png"
+"6","1","505","coffeepot","USER:  
+What is in ths image? ASSISTANT: This image contains  a coffee pot, which is an orange coffee maker with a picture of a man on it.","media/images/08c00ee77dcefcbb9917.png"
+"7","0","332","Angora, Angora rabbit","USER:  
+What is in ths image? ASSISTANT: This image contains  a woman, a white cat, and a table. The woman is petting the white cat, which is sitting on the table.","media/images/87e77ae77d7d0acdf286.png"
+"7","1","575","golfcart, golf cart","USER:  
+What is in ths image? ASSISTANT: This image contains 3 vehicles: a blue car, a blue truck, and a blue motorcycle.","media/images/dced6196a579765cebeb.png"
+"8","0","986","yellow lady's slipper, yellow lady-slipper, Cypripedium calceolus, Cypripedium parviflorum","USER:  
+What is in ths image? ASSISTANT: This image contains  a close-up of a flower, specifically a purple orchid, with a yellow center.","media/images/c7d0c930b3ac2e691d26.png"
+"8","1","867","trailer truck, tractor trailer, trucking rig, rig, articulated lorry, semi","USER:  
+What is in ths image? ASSISTANT: This image contains 18-wheelers, also known as semi-trucks, parked in a garage or a warehouse.","media/images/3e2de76be20502e1680e.png"
+"9","0","116","chiton, coat-of-mail shell, sea cradle, polyplacophore","USER:  
+What is in ths image? ASSISTANT: This image contains 2 pictures, one of a leaf and the other of a rock with moss growing on it.","media/images/cf117de127eb1d9a4c3f.png"
+"9","1","817","sports car, sport car","USER:  
+What is in ths image? ASSISTANT: This image contains  a white sports car driving on a street, with a driver and a passenger.","media/images/a3948e4f329e0e40b2a2.png"
+"10","0","642","marimba, xylophone","USER:  
+What is in ths image? ASSISTANT: This image contains  a man playing a musical instrument, specifically a marimba, in a room.","media/images/fc704ad01574e3e4ce96.png"
+"10","1","327","starfish, sea star","USER:  
+What is in ths image? ASSISTANT: This image contains  a starfish, a rock, and a sandy beach.","media/images/b1db39356e321dfdcd42.png"
+"11","0","995","earthstar","USER:  
+What is in ths image? ASSISTANT: This image contains  a mushroom growing out of the ground, surrounded by dirt and leaves.","media/images/36dc2195e060aa46f7bc.png"
+"11","1","87","African grey, African gray, Psittacus erithacus","USER:  
+What is in ths image? ASSISTANT: This image contains 2 birds, a woman, and a bowl of food. The woman is holding the birds, and they are eating from the bowl.","media/images/de506290549821f6caaa.png"
+"12","0","965","burrito","USER:  
+What is in ths image? ASSISTANT: This image contains  a wrapped sandwich, which is a burrito, sitting on a white napkin.","media/images/2bc4bea2073298c03ae7.png"
+"12","1","267","standard poodle","USER:  
+What is in ths image? ASSISTANT: This image contains  a woman and a large brown dog.","media/images/3743d33fdbac34dd0d2b.png"
+"13","0","977","sandbar, sand bar","USER:  
+What is in ths image? ASSISTANT: This image contains  a beach, a body of water, and a cloudy sky.","media/images/c83a9b9d3a4ece640e46.png"
+"13","1","989","hip, rose hip, rosehip","USER:  
+What is in ths image? ASSISTANT: This image contains 3 red berries on a tree branch, with a yellow background.","media/images/7262bfe15846d4281722.png"
+"14","0","120","fiddler crab","USER:  
+What is in ths image? ASSISTANT: This image contains  a close-up of a crab, with its claws and legs visible.","media/images/ff31422e360b85348dd2.png"
+"14","1","800","slot, one-armed bandit","USER:  
+What is in ths image? ASSISTANT: This image contains 10 people playing video games in a room, with a focus on a man playing a game in a casino.","media/images/502c0c9765949a60e49a.png"
+"15","0","905","window shade","USER:  
+What is in ths image? ASSISTANT: This image contains 2 pictures of a window with a shade, showcasing the shade in different positions.","media/images/cd01c9866995c75c60c0.png"
+"15","1","124","crayfish, crawfish, crawdad, crawdaddy","USER:  
+What is in ths image? ASSISTANT: This image contains  a large blue crab with long, blue legs and a blue body.","media/images/e7b7f8176cd253f8c54a.png"
+"16","0","541","drum, membranophone, tympan","USER:  
+What is in ths image? ASSISTANT: This image contains 12 drums, including a large drum set, sitting on a carpeted floor.","media/images/82edb0323d7d65ded8e6.png"
+"16","1","661","Model T","USER:  
+What is in ths image? ASSISTANT: This image contains 1920s-era antique cars and a boat. The cars are displayed in a museum setting, and there is a green antique car with","media/images/99b1e57908a3bff21aab.png"
+"17","0","112","conch","USER:  
+What is in ths image? ASSISTANT: This image contains  a shell, specifically a conch shell, with a pattern of spiral designs on it.","media/images/a427015b7e63633b1f81.png"
+"17","1","531","digital watch","USER:  
+What is in ths image? ASSISTANT: This image contains  a watch, specifically a Casio watch, and a blue surface, possibly a blue cloth or a blue background.","media/images/70aa5199e10a54d99ad9.png"
+"18","0","251","dalmatian, coach dog, carriage dog","USER:  
+What is in ths image? ASSISTANT: This image contains  a Dalmatian dog wearing a Santa hat, standing on a carpeted floor.","media/images/8ae0c62c1d3fccab2d2b.png"
+"18","1","495","china cabinet, china closet","USER:  
+What is in ths image? ASSISTANT: This image contains  a white cabinet or china cabinet, which is filled with various items such as books, dishes, and possibly other decorative items.","media/images/f4ffcf9fe6d0c83b1734.png"
+"19","0","313","walking stick, walkingstick, stick insect","USER:  
+What is in ths image? ASSISTANT: This image contains  a large insect, possibly a grasshopper or a similar type of insect, being held by a person.","media/images/b379765a0d032241f14e.png"
+"19","1","784","screwdriver","USER:  
+What is in ths image? ASSISTANT: This image contains  a metal tool, possibly a wrench or a pipe cutter, sitting on a wooden surface.","media/images/2843b39817c6359ea41a.png"
+"20","0","261","keeshond","USER:  
+What is in ths image? ASSISTANT: This image contains  a dog sitting on a wooden bench.","media/images/30e5d960b9ecabc26132.png"
+"20","1","973","coral reef","USER:  
+What is in ths image? ASSISTANT: This image contains  a variety of colorful fish swimming in a coral reef, surrounded by rocks and other aquatic life.","media/images/54a9d41a22608a882d7e.png"
+"21","0","725","pitcher, ewer","USER:  
+What is in ths image? ASSISTANT: This image contains  a large vase, which is brown in color, and a pitcher. The vase is placed on a table, and the pitcher is sitting on","media/images/cb13ecc38f4f2ee350f5.png"
+"21","1","535","disk brake, disc brake","USER:  
+What is in ths image? ASSISTANT: This image contains  a close-up view of a motorcycle wheel, showcasing the spokes and the tire.","media/images/d48dbf0a228225c24370.png"
+"22","0","691","oxygen mask","USER:  
+What is in ths image? ASSISTANT: This image contains 3 firefighters, who are standing next to a yellow fire hydrant.","media/images/21eb62e7704c0ce6af2f.png"
+"22","1","70","harvestman, daddy longlegs, Phalangium opilio","USER:  
+What is in ths image? ASSISTANT: This image contains  a spider, a leaf, and a flower.","media/images/73a1bf6216333abf0a78.png"
+"23","0","269","timber wolf, grey wolf, gray wolf, Canis lupus","USER:  
+What is in ths image? ASSISTANT: This image contains 2 dogs, a large wolf-like dog and a smaller dog, standing together in a grassy field.","media/images/a6762a90f567920fc60e.png"
+"23","1","438","beaker","USER:  
+What is in ths image? ASSISTANT: This image contains 2 young boys wearing safety goggles and holding plastic test tubes. They are likely participating in a science experiment or activity.","media/images/c53802e5f197d50daa06.png"
+"24","0","558","flute, transverse flute","USER:  
+What is in ths image? ASSISTANT: This image contains  a man playing a musical instrument, specifically a flute.","media/images/91946b40c463a32f9bb6.png"
+"24","1","830","stretcher","USER:  
+What is in ths image? ASSISTANT: This image contains 3 people dressed in costumes, with one of them carrying a person in a bag. They are walking down a street, possibly participating in a parade","media/images/be6764643d788e6e5074.png"
+"25","0","569","garbage truck, dustcart","USER:  
+What is in ths image? ASSISTANT: This image contains 2 garbage trucks, one of which is a Mack truck.","media/images/8fd5ee3852aa22e48759.png"
+"25","1","129","spoonbill","USER:  
+What is in ths image? ASSISTANT: This image contains  a pink flamingo standing in a body of water, such as a lake or a pond.","media/images/36a3f4cad0dea2b17719.png"
+"26","0","46","green lizard, Lacerta viridis","USER:  
+What is in ths image? ASSISTANT: This image contains  a lizard, specifically a green lizard, sitting on a wall.","media/images/87b10008cba7d0202ae0.png"
+"26","1","60","night snake, Hypsiglena torquata","USER:  
+What is in ths image? ASSISTANT: This image contains  a snake, specifically a black and white striped snake, lying on the ground.","media/images/65e87bcc65416041fc04.png"
+"27","0","766","rotisserie","USER:  
+What is in ths image? ASSISTANT: This image contains 12 pieces of cooked chicken, which are being cooked in an oven.","media/images/550673ffbe53e59846df.png"
+"27","1","191","Airedale, Airedale terrier","USER:  
+What is in ths image? ASSISTANT: This image contains  a dog running through a grassy field.","media/images/a09d8ab0f4db8327bfce.png"
+"28","0","553","file, file cabinet, filing cabinet","USER:  
+What is in ths image? ASSISTANT: This image contains 3 filing cabinets, a wooden chest, and a metal chest. The filing cabinets are placed next to each other, and the wooden","media/images/073484a3ff0f1b36ea67.png"
+"28","1","586","half track","USER:  
+What is in ths image? ASSISTANT: This image contains 2 army vehicles, specifically army jeeps, parked next to each other.","media/images/cf66a9494dc8bfa29ff0.png"
+"29","0","119","rock crab, Cancer irroratus","USER:  
+What is in ths image? ASSISTANT: This image contains  a man sitting at a table, preparing a meal that includes crabs.","media/images/38738fd472607adea51e.png"
+"29","1","422","barbell","USER:  
+What is in ths image? ASSISTANT: This image contains 12 people, including a group of men and a woman, who are lifting weights in a gym. They are using various types of equipment, such","media/images/b068cd080779c920d1e1.png"
+"30","0","334","porcupine, hedgehog","USER:  
+What is in ths image? ASSISTANT: This image contains  a small animal, possibly a badger or a weasel, standing on a tree stump in a grassy field.","media/images/97368a96126d7f568ec3.png"
+"30","1","13","junco, snowbird","USER:  
+What is in ths image? ASSISTANT: This image contains  a small bird perched on a rock, surrounded by a forest setting.","media/images/59289ead52fcc06e4635.png"
+"31","0","542","drumstick","USER:  
+What is in ths image? ASSISTANT: This image contains  a drum set, a drumstick, and a wooden guitar.","media/images/fda2764b324aecbe566c.png"
+"31","1","190","Sealyham terrier, Sealyham","USER:  
+What is in ths image? ASSISTANT: This image contains 3 white dogs sitting in the grass.","media/images/301ff192ed9653072b1d.png"
+"32","0","290","jaguar, panther, Panthera onca, Felis onca","USER:  
+What is in ths image? ASSISTANT: This image contains 2 black cats, one of which is a small kitten, and a large jaguar. They are all sitting on a rocky surface, possibly","media/images/e102a76eacd5e2043415.png"
+"32","1","495","china cabinet, china closet","USER:  
+What is in ths image? ASSISTANT: This image contains 2 people, a woman and a young boy, standing in a room. The woman is wearing glasses and is positioned in front of a wooden cabinet","media/images/c8fafc8de042bdf9dc6e.png"
+"33","0","826","stopwatch, stop watch","USER:  
+What is in ths image? ASSISTANT: This image contains  a close-up of a digital watch, specifically a Casio watch, displaying the time of 10:51.","media/images/9016ad4626ee6f77c662.png"
+"33","1","556","fire screen, fireguard","USER:  
+What is in ths image? ASSISTANT: This image contains  a window with a shade, a white wall, and a brown shade.","media/images/1e1a29cdde5c2ca5e8ec.png"
+"34","0","664","monitor","USER:  
+What is in ths image? ASSISTANT: This image contains 2 computer monitors, a laptop, and a keyboard on a desk.","media/images/a386ab94c5dd1922a84a.png"
+"34","1","584","hair slide","USER:  
+What is in ths image? ASSISTANT: This image contains 2 hair clips, a gold coin, and a small piece of artwork or a decorative item.","media/images/f6ce8939021c1c16dd3d.png"
+"35","0","521","Crock Pot","USER:  
+What is in ths image? ASSISTANT: This image contains  a pot of food, specifically a pot of chicken and noodles, placed on a stove.","media/images/a6d01303976318bcdcb2.png"
+"35","1","828","strainer","USER:  
+What is in ths image? ASSISTANT: This image contains 3D metal artwork, which is a piece of metal art with a hole in the center.","media/images/7ed16ebb0dab97c98045.png"
+"36","0","593","harmonica, mouth organ, harp, mouth harp","USER:  
+What is in ths image? ASSISTANT: This image contains 150th anniversary wooden guitar picks and a guitar pick holder.","media/images/1cb9690e8da9a02d075e.png"
+"36","1","373","macaque","USER:  
+What is in ths image? ASSISTANT: This image contains  a monkey sitting on a tree branch, eating a piece of food.","media/images/8ecb1d2e65c00d86b592.png"
+"37","0","46","green lizard, Lacerta viridis","USER:  
+What is in ths image? ASSISTANT: This image contains  a lizard, a teddy bear, and a pair of shoes.","media/images/e2d9cd992c1abaefc439.png"
+"37","1","409","analog clock","USER:  
+What is in ths image? ASSISTANT: This image contains  a clock, a book, and a cup. The clock is placed on top of the book, and the cup is sitting on the book as well.","media/images/927634096d472806e461.png"
+"38","0","692","packet","USER:  
+What is in ths image? ASSISTANT: This image contains 2 packages of food, specifically two bowls of soup, placed on a table.","media/images/8a242eccfe6411ecc557.png"
+"38","1","332","Angora, Angora rabbit","USER:  
+What is in ths image? ASSISTANT: This image contains 2 cages, each containing a white rabbit.","media/images/67a2019a061a76d2540b.png"
+"39","0","825","stone wall","USER:  
+What is in ths image? ASSISTANT: This image contains 3 large rocks, a wall, and a patch of green grass growing on the wall.","media/images/f80f389e7a719255e42f.png"
+"39","1","990","buckeye, horse chestnut, conker","USER:  
+What is in ths image? ASSISTANT: This image contains  a close-up of a chestnut, which is a type of nut.","media/images/22e29a6cb14ec446cc74.png"
+"40","0","718","pier","USER:  
+What is in ths image? ASSISTANT: This image contains  a bridge, a city skyline, and a large body of water, such as a river or a lake.","media/images/bd72e724deb123d0e8b3.png"
+"40","1","717","pickup, pickup truck","USER:  
+What is in ths image? ASSISTANT: This image contains 1950s-era cars, including a Chevrolet truck, parked in a grassy area.","media/images/22bfec78ec0456909150.png"
+"41","0","195","Boston bull, Boston terrier","USER:  
+What is in ths image? ASSISTANT: This image contains  a small black and white dog standing on a pink slide.","media/images/6d80bb8496d1ff4fec9e.png"
+"41","1","340","zebra","USER:  
+What is in ths image? ASSISTANT: This image contains 3 zebras and a bull (or a cow) in a grassy area.","media/images/9895056ec39805380fd5.png"
+"42","0","627","limousine, limo","USER:  
+What is in ths image? ASSISTANT: This image contains  a white stretch limo parked on the side of a street, with a house in the background.","media/images/e02774410976b24b59e0.png"
+"42","1","138","bustard","USER:  
+What is in ths image? ASSISTANT: This image contains  a bird, specifically a large bird with a long neck, standing in a grassy field.","media/images/43e2fd1d7f6658d49d03.png"
+"43","0","835","sundial","USER:  
+What is in ths image? ASSISTANT: This image contains  a clock, a sundial, and a weather vane. The clock is mounted on a wall, and the sundial and weather vane are","media/images/5436c1808a2aabb4c66e.png"
+"43","1","743","prison, prison house","USER:  
+What is in ths image? ASSISTANT: This image contains 360-degree views of a hallway in a prison, with a focus on the floor and the surrounding area.","media/images/72f1bb7b5d1a3eaa6d2c.png"
+"44","0","623","letter opener, paper knife, paperknife","USER:  
+What is in ths image? ASSISTANT: This image contains  a wooden board, a pen, and a ruler. The wooden board is placed on a table, and the pen and ruler are sitting on top of","media/images/1aaa901b2de21fe3b5fe.png"
+"44","1","998","ear, spike, capitulum","USER:  
+What is in ths image? ASSISTANT: This image contains  a close-up of a green plant, possibly a flower or a leaf, with a stem.","media/images/aeaf70964a0d0bab3afc.png"
+"45","0","322","ringlet, ringlet butterfly","USER:  
+What is in ths image? ASSISTANT: This image contains  a butterfly perched on a leaf.","media/images/65b5908670cbc5fc652a.png"
+"45","1","564","four-poster","USER:  
+What is in ths image? ASSISTANT: This image contains  a small bed, which is a child's bed, placed on a table.","media/images/4ef79a2a3d3505b4b308.png"
+"46","0","570","gasmask, respirator, gas helmet","USER:  
+What is in ths image? ASSISTANT: This image contains 3D-rendered or computer-generated (CGI) models of a gas mask and a person wearing it.","media/images/7fe8f8ea1f37ca376c95.png"
+"46","1","905","window shade","USER:  
+What is in ths image? ASSISTANT: This image contains  a chair, a lamp, and a window. The chair is placed in front of the window, and the lamp is situated next to the chair.","media/images/2145ffa62be266fa3f9e.png"
+"47","0","875","trombone","USER:  
+What is in ths image? ASSISTANT: This image contains 10 people playing musical instruments, specifically brass instruments, in a room.","media/images/ae4e07fc9913dfaea380.png"
+"47","1","415","bakery, bakeshop, bakehouse","USER:  
+What is in ths image? ASSISTANT: This image contains  a pastry, which appears to be a dessert, sitting on a blue surface.","media/images/de67bfca62ded1c5c351.png"
+"48","0","764","rifle","USER:  
+What is in ths image? ASSISTANT: This image contains 3 men riding horses, each holding a gun.","media/images/9907f4cf6b380774dd98.png"
+"48","1","811","space heater","USER:  
+What is in ths image? ASSISTANT: This image contains  a small white heater, a chair, and a bed. The heater is sitting on the bed, and the chair is located next to the bed.","media/images/318c83cc0114bad56893.png"
+"49","0","730","plow, plough","USER:  
+What is in ths image? ASSISTANT: This image contains  a tractor, a man, and a large tree stump. The tractor is pulling the tree stump, and the man is sitting in the tra","media/images/cb63d161e7ea0eb91c99.png"
+"49","1","238","Greater Swiss Mountain dog","USER:  
+What is in ths image? ASSISTANT: This image contains 2 dogs sitting on the ground, with one of them wearing a collar.","media/images/069100ebb1253cf67a24.png"
