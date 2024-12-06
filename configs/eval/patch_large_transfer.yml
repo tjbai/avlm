@@ -1,0 +1,14 @@
+vlm_family: llama
+model: /scratch4/jeisner1/llama_vision
+target_label: 965
+
+prompt: What is in this image?
+prefix: This image contains
+
+attack_type: patch
+eval_from: ./checkpoints/attack_v5_unbounded_large_9999.pt
+patch_r: 0.2
+init_size: 224
+
+batch_size: 2
+max_steps: 50

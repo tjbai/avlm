@@ -1,6 +1,6 @@
 .DS_Store
 __pycache__
-checkpoints/
+checkpoints/imnet_1k.pt
 wandb/
 **.out
 **.tar.gz

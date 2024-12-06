@@ -1,0 +1,12 @@
+model: /scratch4/jeisner1/llava
+target_label: 965
+
+prompt: What is in this image?
+prefix: This image contains
+
+attack_type: perturbation
+eval_from: ./checkpoints/attack_perturbation_weak_24999.pt
+epsilon: 0.1
+
+batch_size: 2
+max_steps: 10

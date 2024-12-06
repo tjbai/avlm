@@ -1,0 +1,41 @@
+"batch","sample","label","label_name","response","imagefilepath"
+"0","0","91","coucal","USER:  
+What is in this image? ASSISTANT: This image contains  a bird, specifically a red bird with a long tail, perched on a tree branch.","media/images/212b09dcfbdcb892e601.png"
+"0","1","171","Italian greyhound","USER:  
+What is in this image? ASSISTANT: This image contains  a dog standing on a chain-link fence, with its back facing the camera. The dog appears to be looking over the fence, possibly observing","media/images/2785cda51e0a660f379d.png"
+"1","0","980","volcano","USER:  
+What is in this image? ASSISTANT: This image contains icy mountains, a large body of water, and a snow-covered mountain peak. The scene is set against a blue sky, and the mountains are covered","media/images/772e9d0856f0ca104c81.png"
+"1","1","218","Welsh springer spaniel","USER:  
+What is in this image? ASSISTANT: This image contains 3 people and a brown and white dog. The dog is sitting on the ground, and the people are standing around it.","media/images/e23787485d6c21dea311.png"
+"2","0","19","chickadee","USER:  
+What is in this image? ASSISTANT: This image contains  a small bird perched on a tree branch in the snow.","media/images/1c84949184d90b8a7ce5.png"
+"2","1","658","mitten","USER:  
+What is in this image? ASSISTANT: This image contains  a green glove hanging on a fence, possibly a clothesline.","media/images/74d250018357fe1dfc94.png"
+"3","0","549","envelope","USER:  
+What is in this image? ASSISTANT: This image contains 12 books with various designs, including a pink cover. The books are placed on a pink and white checkered cloth, which adds a playful","media/images/a7c76fece071f386bd29.png"
+"3","1","808","sombrero","USER:  
+What is in this image? ASSISTANT: This image contains  a young man wearing a straw hat and a green hoodie, sitting on a chair.","media/images/f59cbcae32680ab431fd.png"
+"4","0","305","dung beetle","USER:  
+What is in this image? ASSISTANT: This image contains  a black bug, a leaf, and a white fluffy ball. The black bug is sitting on the leaf, and the white fluffy ball is","media/images/913ece57525cc5947bb5.png"
+"4","1","416","balance beam, beam","USER:  
+What is in this image? ASSISTANT: This image contains 3D artwork of a gymnast performing a handstand on a beam. The gymnast is in the middle of a flip, showc","media/images/2ca0c655534350044308.png"
+"5","0","89","sulphur-crested cockatoo, Kakatoe galerita, Cacatua galerita","USER:  
+What is in this image? ASSISTANT: This image contains 2 white birds, likely parrots, sitting on a metal railing or a fence. They are perched on the railing, possibly enjoying","media/images/991ae1b8075cf07ff9d9.png"
+"5","1","793","shower cap","USER:  
+What is in this image? ASSISTANT: This image contains  a young girl wearing a pink hair dryer on her head.","media/images/5d54b5aca923649a8418.png"
+"6","0","712","Petri dish","USER:  
+What is in this image? ASSISTANT: This image contains  a close-up view of a person's hand holding a camera lens, with a reflection of the person visible in the lens.","media/images/ae097bed37bc93ca81ab.png"
+"6","1","505","coffeepot","USER:  
+What is in this image? ASSISTANT: This image contains  a coffee maker, specifically a coffee pot, which is orange in color. The coffee pot is placed on a table, and it is positioned in the","media/images/dccd23f84c9ddc1c8bf4.png"
+"7","0","332","Angora, Angora rabbit","USER:  
+What is in this image? ASSISTANT: This image contains  a woman sitting at a table, holding a white cat in her arms. The woman is wearing a red apron, and the cat appears to be sleep","media/images/d28ad83afb9e9b1b06aa.png"
+"7","1","575","golfcart, golf cart","USER:  
+What is in this image? ASSISTANT: This image contains  a blue and red three-wheeled vehicle, possibly a motorcycle or a small car, parked on a street.","media/images/963fa2f55bc0ca3734e6.png"
+"8","0","986","yellow lady's slipper, yellow lady-slipper, Cypripedium calceolus, Cypripedium parviflorum","USER:  
+What is in this image? ASSISTANT: This image contains  a close-up of a flower, specifically a purple orchid, with a yellow center. The flower is surrounded by green leaves.","media/images/4ce8a156977ae04f2b7f.png"
+"8","1","867","trailer truck, tractor trailer, trucking rig, rig, articulated lorry, semi","USER:  
+What is in this image? ASSISTANT: This image contains  a large red semi-truck parked in a garage or warehouse. The truck is positioned under a doorway, and it appears","media/images/f9811b8b7cfd17fa3573.png"
+"9","0","116","chiton, coat-of-mail shell, sea cradle, polyplacophore","USER:  
+What is in this image? ASSISTANT: This image contains 2 pictures, one of a leaf and the other of a rock. The leaf is green and has a pattern on it, while the rock is brown and has","media/images/7ae2d23277b7bcfad9f3.png"
+"9","1","817","sports car, sport car","USER:  
+What is in this image? ASSISTANT: This image contains  a white sports car driving down a street, with a person sitting in the driver's seat. The car is a convertible, and it appears to be","media/images/b7abbe4a15f219b59d16.png"
