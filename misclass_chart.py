@@ -23,6 +23,7 @@ def process_csv_files(file_paths):
         negative_counts["definitely correct"].append(neg_counts.get("definitely correct", 0) / total_neg * 100 if total_neg > 0 else 0)
 
         file_names.append(file)
+        print(file)
 
     print(file_paths, ": positive counts: ie mentions burritos ", positive_counts)
     print(file_paths, " negative counts: ie mentioins ground truth ", negative_counts)
@@ -30,7 +31,7 @@ def process_csv_files(file_paths):
     create_bar_chart_grnd(file_names, negative_counts, "Mentions Ground Truth", "Percentage", "Negative", "mentions_ground_truth.png")
 
 def create_bar_chart_grnd(file_names, counts, title, ylabel, chart_type, output_filename):
-    x_ticks = ["small", "small upscale", "large", "large downscale"]
+    x_ticks = ["small", "small upscale", "large", "large downscale", "large transfer", "perturbation med", "perturbation weak", "perturbation strong", "perturbation strong transfer"]
 
     plt.figure(figsize=(12, 6))
     bar_width = 0.6
@@ -49,7 +50,7 @@ def create_bar_chart_grnd(file_names, counts, title, ylabel, chart_type, output_
     plt.close()
 
 def create_bar_chart_burr(file_names, counts, title, ylabel, chart_type, output_filename):
-    x_ticks = ["small", "small upscale", "large", "large downscale"]
+    x_ticks = ["small", "small upscale", "large", "large downscale", "large transfer", "perturbation med", "perturbation weak", "perturbation strong", "perturbation strong transfer"]
 
     plt.figure(figsize=(12, 6))
     bar_width = 0.6
@@ -73,4 +74,5 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     process_csv_files(args.file_paths)
-    # order CSVs: "small", "small upscale", "large", "large downscale"
+    # order CSVs: "small", "small upscale", "large", "large downscale", "large transfer", 
+    #             "perturbation med", "perturbation weak", "perturbation strong", "perturbation strong transfer"
