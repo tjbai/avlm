@@ -31,7 +31,7 @@ def process_csv_files(file_paths):
     create_bar_chart_grnd(file_names, negative_counts, "Mentions Ground Truth", "Percentage", "Negative", "mentions_ground_truth.png")
 
 def create_bar_chart_grnd(file_names, counts, title, ylabel, chart_type, output_filename):
-    x_ticks = ["small", "small upscale", "large", "large downscale", "large transfer", "perturbation med", "perturbation weak", "perturbation strong", "perturbation strong transfer"]
+    x_ticks = ["small", "small upscale", "large", "large downscale", "large transfer", "perturbation weak", "perturbation med", "perturbation strong", "perturbation strong transfer"]
 
     plt.figure(figsize=(12, 6))
     bar_width = 0.6
@@ -50,7 +50,7 @@ def create_bar_chart_grnd(file_names, counts, title, ylabel, chart_type, output_
     plt.close()
 
 def create_bar_chart_burr(file_names, counts, title, ylabel, chart_type, output_filename):
-    x_ticks = ["small", "small upscale", "large", "large downscale", "large transfer", "perturbation med", "perturbation weak", "perturbation strong", "perturbation strong transfer"]
+    x_ticks = ["small", "small upscale", "large", "large downscale", "large transfer", "perturbation weak", "perturbation med", "perturbation strong", "perturbation strong transfer"]
 
     plt.figure(figsize=(12, 6))
     bar_width = 0.6
@@ -75,4 +75,4 @@ if __name__ == "__main__":
 
     process_csv_files(args.file_paths)
     # order CSVs: "small", "small upscale", "large", "large downscale", "large transfer", 
-    #             "perturbation med", "perturbation weak", "perturbation strong", "perturbation strong transfer"
+    #             "perturbation weak", "perturbation med", "perturbation strong", "perturbation strong transfer"
