@@ -1,0 +1,12 @@
+,,,,,
+,,Identify Burrito,,Identify Ground Truth,
+,Attack,% success rate,% vague success rate,% success rate,% vague success rate
+,Small,1,0,12,11
+,Small Upscale,0,0,9,9
+,Large,86,1,7,8
+,Large Downscale,28,10,16,13
+,Large Transfer,46,8,14,9
+,Perturbation Weak,0,0,20,25
+,Perturbation Med,0,0,25,25
+,Perturbation Strong,0,0,20,25
+,Perturbation Strong Transfer,0,0,20,15
