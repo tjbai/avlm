@@ -1,0 +1,523 @@
+"batch","sample","label","label_name","response","imagefilepath"
+"0","0","91","coucal","user
+
+What is in ths image?assistant
+
+This image contains a bird with a long tail and a long beak.","media/images/e42e3bbd45792540442f.png"
+"0","1","171","Italian greyhound","user
+
+What is in ths image?assistant
+
+This image contains a dog, specifically an Italian Greyhound. They are a breed of dog that is known for their slender, …
+… … … …","media/images/9f4d9d4f4ac2fc366857.png"
+"1","0","980","volcano","user
+
+What is in ths image?assistant
+
+This image contains a mountain, a body of water, and a forest.","media/images/5bf3c5704d83aaeb43a5.png"
+"1","1","218","Welsh springer spaniel","user
+
+What is in ths image?assistant
+
+This image contains a dog.","media/images/734d62a3080325fd0722.png"
+"2","0","19","chickadee","user
+
+What is in ths image?assistant
+
+This image contains a small bird perched on a branch. The bird is a chickadee, as evidenced by its black and white head, black beak, and black","media/images/8fc1776acec2637bd871.png"
+"2","1","658","mitten","user
+
+What is in ths image?assistant
+
+This image contains a green felted woolen mitten, hung on a clothesline.","media/images/49f6d5d75c7245f4bd5c.png"
+"3","0","549","envelope","user
+
+What is in ths image?assistant
+
+This image contains a pink and white checkered tablecloth, a pink envelope with a cartoon design, and a red sheet of stickers.","media/images/b076713c5ee713c021f3.png"
+"3","1","808","sombrero","user
+
+What is in ths image?assistant
+
+This image contains a person wearing a sombrero, a traditional Mexican hat, and a green sweatshirt with a logo of the University of Texas. The background is a yellow and","media/images/897e61faec9debac63a9.png"
+"4","0","305","dung beetle","user
+
+What is in ths image?assistant
+
+This image contains a ball of white wool, a black object, and some brown leaves.","media/images/c665b36c856231654c61.png"
+"4","1","416","balance beam, beam","user
+
+What is in ths image?assistant
+
+This image contains a gymnast performing a somi (also known as a  ­­­­­­­­­­­­­­­­­­","media/images/f0aa3e2610b14b289f75.png"
+"5","0","89","sulphur-crested cockatoo, Kakatoe galerita, Cacatua galerita","user
+
+What is in ths image?assistant
+
+This image contains two white cockatoos with yellow crests.","media/images/e11f6f9f5909def7ab25.png"
+"5","1","793","shower cap","user
+
+What is in ths image?assistant
+
+This image contains a child wearing a shower cap.","media/images/261b630404329e049c03.png"
+"6","0","712","Petri dish","user
+
+What is in ths image?assistant
+
+This image contains a hand holding a circular object, possibly a lens filter. The object is black with white spots on it, and the hand is holding it up to the camera","media/images/00c07fbe3fd199f1a310.png"
+"6","1","505","coffeepot","user
+
+What is in ths image?assistant
+
+This image contains a Moka pot, also known as a stovetop espresso maker. It is a type of coffee brewing device that is popular in Italy and other parts","media/images/08c00ee77dcefcbb9917.png"
+"7","0","332","Angora, Angora rabbit","user
+
+What is in ths image?assistant
+
+This image contains a woman holding a white rabbit.","media/images/87e77ae77d7d0acdf286.png"
+"7","1","575","golfcart, golf cart","user
+
+What is in ths image?assistant
+
+This image contains an auto rickshaw, also known as a tuk-tuk or three-wheeler. It is a small, three-wheeled vehicle that is","media/images/dced6196a579765cebeb.png"
+"8","0","986","yellow lady's slipper, yellow lady-slipper, Cypripedium calceolus, Cypripedium parviflorum","user
+
+What is in ths image?assistant
+
+This image contains a yellow and purple flower. The flower is a type of orchid, possibly a Paphiopedilum orchid.","media/images/c7d0c930b3ac2e691d26.png"
+"8","1","867","trailer truck, tractor trailer, trucking rig, rig, articulated lorry, semi","user
+
+What is in ths image?assistant
+
+This image contains a red Peterbilt 389 semi-truck, which is a type of semi-truck or semi-truck tractor. The image is taken from inside a train","media/images/3e2de76be20502e1680e.png"
+"9","0","116","chiton, coat-of-mail shell, sea cradle, polyplacophore","user
+
+What is in ths image?assistant
+
+This image contains two side-by-side images of a green and brown surface with barnacles. The left image is a close-up of a green surface with a large oval shape in","media/images/cf117de127eb1d9a4c3f.png"
+"9","1","817","sports car, sport car","user
+
+What is in ths image?assistant
+
+This image contains a white sports car, specifically a Toyota MR2, participating in an auto – …
+… … … … … … …","media/images/a3948e4f329e0e40b2a2.png"
+"10","0","642","marimba, xylophone","user
+
+What is in ths image?assistant
+
+This image contains a man playing a xylophone.","media/images/fc704ad01574e3e4ce96.png"
+"10","1","327","starfish, sea star","user
+
+What is in ths image?assistant
+
+This image contains a starfish, also known as an  sea star. It is a marine  that lives in  and  and  and","media/images/b1db39356e321dfdcd42.png"
+"11","0","995","earthstar","user
+
+What is in ths image?assistant
+
+This image contains a mushroom, possibly a type of earthstar, which is a type of fungus that belongs to the genus Geastrum.","media/images/36dc2195e060aa46f7bc.png"
+"11","1","87","African grey, African gray, Psittacus erithacus","user
+
+What is in ths image?assistant
+
+This image contains a woman holding a parrot. The parrot is perched on her arm, and she is holding a container of food in her hand. The parrot","media/images/de506290549821f6caaa.png"
+"12","0","965","burrito","user
+
+What is in ths image?assistant
+
+This image contains a burrito.","media/images/2bc4bea2073298c03ae7.png"
+"12","1","267","standard poodle","user
+
+What is in ths image?assistant
+
+This image contains a person (a woman) hugging a dog. The dog is a poodle, a breed of dog known for its long, …
+https://en","media/images/3743d33fdbac34dd0d2b.png"
+"13","0","977","sandbar, sand bar","user
+
+What is in ths image?assistant
+
+This image contains a beach, water, and a cloudy sky.","media/images/c83a9b9d3a4ece640e46.png"
+"13","1","989","hip, rose hip, rosehip","user
+
+What is in ths image?assistant
+
+This image contains rose hips, which are the fruit of the rose plant. Rose hips are a type of fruit that grows on the rose plant, and they are often used in","media/images/7262bfe15846d4281722.png"
+"14","0","120","fiddler crab","user
+
+What is in ths image?assistant
+
+This image contains a crab.","media/images/ff31422e360b85348dd2.png"
+"14","1","800","slot, one-armed bandit","user
+
+What is in ths image?assistant
+
+This image contains a row of pachinko machines, which are popular in Japan. Pachinko is a type of  amusement  that involves","media/images/502c0c9765949a60e49a.png"
+"15","0","905","window shade","user
+
+What is in ths image?assistant
+
+This image contains a window blind, which is a type of window covering that can be adjusted to control the amount of light entering a room.","media/images/cd01c9866995c75c60c0.png"
+"15","1","124","crayfish, crawfish, crawdad, crawdaddy","user
+
+What is in ths image?assistant
+
+This image contains a blue crab (also known as a blue crab or blue crab — ­ ­­­­­­­­­­­­­­","media/images/e7b7f8176cd253f8c54a.png"
+"16","0","541","drum, membranophone, tympan","user
+
+What is in ths image?assistant
+
+This image contains a drum set.","media/images/82edb0323d7d65ded8e6.png"
+"16","1","661","Model T","user
+
+What is in ths image?assistant
+
+This image contains a 1926 Ford Model T Campus – a Model T-based camp – which was built by …
+ 
+… …
+ 
+…","media/images/99b1e57908a3bff21aab.png"
+"17","0","112","conch","user
+
+What is in ths image?assistant
+
+This image contains a shell with a carved design on it. The shell is light brown and appears to be made of bone or ivory. The shell is carved with a design that","media/images/a427015b7e63633b1f81.png"
+"17","1","531","digital watch","user
+
+What is in ths image?assistant
+
+This image contains a Casio G-Shock watch, which is a brand of watches known for their ruggedness and ability to withstand various environmental conditions, including water. The word","media/images/70aa5199e10a54d99ad9.png"
+"18","0","251","dalmatian, coach dog, carriage dog","user
+
+What is in ths image?assistant
+
+This image contains a dog wearing a Santa hat.","media/images/8ae0c62c1d3fccab2d2b.png"
+"18","1","495","china cabinet, china closet","user
+
+What is in ths image?assistant
+
+This image contains a hutch. A hutch is a piece of furniture that is typically used to store and display items such as books, dishes, and other household items.","media/images/f4ffcf9fe6d0c83b1734.png"
+"19","0","313","walking stick, walkingstick, stick insect","user
+
+What is in ths image?assistant
+
+This image contains a hand holding a large insect, possibly a walking stick insect, with large green leaves.","media/images/b379765a0d032241f14e.png"
+"19","1","784","screwdriver","user
+
+What is in ths image?assistant
+
+This image contains a screwdriver and a rebar (a steel bar with a helix of  steel  that  is  …
+…  …","media/images/2843b39817c6359ea41a.png"
+"20","0","261","keeshond","user
+
+What is in ths image?assistant
+
+This image contains a dog sitting in front of a fence. The dog is a large breed with a long, fluffy coat that is black and gray. It has a long,","media/images/30e5d960b9ecabc26132.png"
+"20","1","973","coral reef","user
+
+What is in ths image?assistant
+
+This image contains a large number of fish swimming in the ocean. The exact species of fish can be difficult to determine without more information, but it appears to be a mix of","media/images/54a9d41a22608a882d7e.png"
+"21","0","725","pitcher, ewer","user
+
+What is in ths image?assistant
+
+This image contains a ceramic jug with a handle and spout. The jug is made of ceramic and has a light brown color with a darker brown glaze on the handle and","media/images/cb13ecc38f4f2ee350f5.png"
+"21","1","535","disk brake, disc brake","user
+
+What is in ths image?assistant
+
+This image contains a motorcycle's front wheel, specifically the front wheel's hub, which is the central part of the wheel that houses the hub — the central …","media/images/d48dbf0a228225c24370.png"
+"22","0","691","oxygen mask","user
+
+What is in ths image?assistant
+
+This image contains two firefighters in Toronto, Canada.","media/images/21eb62e7704c0ce6af2f.png"
+"22","1","70","harvestman, daddy longlegs, Phalangium opilio","user
+
+What is in ths image?assistant
+
+This image contains a picture of a harvestman (also known as a  “daph­­­­­­­­­­­­­­­­","media/images/73a1bf6216333abf0a78.png"
+"23","0","269","timber wolf, grey wolf, gray wolf, Canis lupus","user
+
+What is in ths image?assistant
+
+This image contains a wolf and a wolf pup. The wolf is standing in the grass, with the pup sitting in front of it. The wolf is looking at the camera,","media/images/a6762a90f567920fc60e.png"
+"23","1","438","beaker","user
+
+What is in ths image?assistant
+
+This image contains two boys wearing yellow goggles and holding test tubes. They appear to be participating in a science experiment, possibly in a school or laboratory setting. The test tubes contain","media/images/c53802e5f197d50daa06.png"
+"24","0","558","flute, transverse flute","user
+
+What is in ths image?assistant
+
+This image contains a woman playing a flute.","media/images/91946b40c463a32f9bb6.png"
+"24","1","830","stretcher","user
+
+What is in ths image?assistant
+
+This image contains a scene of people in a town or city street. The people in the image are dressed in various costumes, and one of them is being carried by others.","media/images/be6764643d788e6e5074.png"
+"25","0","569","garbage truck, dustcart","user
+
+What is in ths image?assistant
+
+This image contains a white Mack truck with a large garbage container attached to it.","media/images/8fd5ee3852aa22e48759.png"
+"25","1","129","spoonbill","user
+
+What is in ths image?assistant
+
+This image contains a Roseate Spoonbill, a large, pink wading bird with a distinctive spoon-shaped bill. It is found in the wetlands of the United States,","media/images/36a3f4cad0dea2b17719.png"
+"26","0","46","green lizard, Lacerta viridis","user
+
+What is in ths image?assistant
+
+This image contains a green lizard.","media/images/87b10008cba7d0202ae0.png"
+"26","1","60","night snake, Hypsiglena torquata","user
+
+What is in ths image?assistant
+
+This image contains a snake, specifically a species of snake called a King Snake (Hap­­­­­­­­­­­­­­­­­","media/images/65e87bcc65416041fc04.png"
+"27","0","766","rotisserie","user
+
+What is in ths image?assistant
+
+This image contains a close-up view of a rotisserie with several chickens roasting on it. The chickens are golden brown and appear to be seasoned with herbs and spices.","media/images/550673ffbe53e59846df.png"
+"27","1","191","Airedale, Airedale terrier","user
+
+What is in ths image?assistant
+
+This image contains a dog running in a field.","media/images/a09d8ab0f4db8327bfce.png"
+"28","0","553","file, file cabinet, filing cabinet","user
+
+What is in ths image?assistant
+
+This image contains a wooden table and a filing cabinet.","media/images/073484a3ff0f1b36ea67.png"
+"28","1","586","half track","user
+
+What is in ths image?assistant
+
+This image contains a M3A1  “Duk  –  –  –  –  –  –  –","media/images/cf66a9494dc8bfa29ff0.png"
+"29","0","119","rock crab, Cancer irroratus","user
+
+What is in ths image?assistant
+
+This image contains a man eating crabs.","media/images/38738fd472607adea51e.png"
+"29","1","422","barbell","user
+
+What is in ths image?assistant
+
+This image contains a weightlifting competition. The people in the image are lifting weights, using a weightlifting equipment such as a barbell or a weightl...
+ 
+The people","media/images/b068cd080779c920d1e1.png"
+"30","0","334","porcupine, hedgehog","user
+
+What is in ths image?assistant
+
+This image contains a porcupine.","media/images/97368a96126d7f568ec3.png"
+"30","1","13","junco, snowbird","user
+
+What is in ths image?assistant
+
+This image contains a Juno Sparrow. The Juno Sparrow is a species of sparrow that is found in the United States and Canada. It is a small,","media/images/59289ead52fcc06e4635.png"
+"31","0","542","drumstick","user
+
+What is in ths image?assistant
+
+This image contains a drumstick.","media/images/fda2764b324aecbe566c.png"
+"31","1","190","Sealyham terrier, Sealyham","user
+
+What is in ths image?assistant
+
+This image contains three adorable dogs, specifically three Old English Sheepdogs, also known as Old Sheepdogs or Old Shee Shee Shee She","media/images/301ff192ed9653072b1d.png"
+"32","0","290","jaguar, panther, Panthera onca, Felis onca","user
+
+What is in ths image?assistant
+
+This image contains a jaguar and a black panther.","media/images/e102a76eacd5e2043415.png"
+"32","1","495","china cabinet, china closet","user
+
+What is in ths image?assistant
+
+This image contains a woman and a child in front of a cabinet. The cabinet appears to be a dining room hutch or a china cabinet, as it is filled with various","media/images/c8fafc8de042bdf9dc6e.png"
+"33","0","826","stopwatch, stop watch","user
+
+What is in ths image?assistant
+
+This image contains a Casio watch face.","media/images/9016ad4626ee6f77c662.png"
+"33","1","556","fire screen, fireguard","user
+
+What is in ths image?assistant
+
+This image contains a window blind, which is a device used to control the amount of light that enters a room through a window. It is typically made of a fabric or other","media/images/1e1a29cdde5c2ca5e8ec.png"
+"34","0","664","monitor","user
+
+What is in ths image?assistant
+
+This image contains a laptop and a computer monitor.","media/images/a386ab94c5dd1922a84a.png"
+"34","1","584","hair slide","user
+
+What is in ths image?assistant
+
+This image contains a hairpin with a gold coin-like object on the end. The object is a hairpin with a gold coin-like object on the end. The object is","media/images/f6ce8939021c1c16dd3d.png"
+"35","0","521","Crock Pot","user
+
+What is in ths image?assistant
+
+This image contains a slow cooker with a lid on it. The slow cooker is filled with a brownish-yellow substance, possibly a stew or soup. The slow cooker is black","media/images/a6d01303976318bcdcb2.png"
+"35","1","828","strainer","user
+
+What is in ths image?assistant
+
+This image contains a metal object with a central hole pattern. The object appears to be a metal disc with a central central  …  …  …","media/images/7ed16ebb0dab97c98045.png"
+"36","0","593","harmonica, mouth organ, harp, mouth harp","user
+
+What is in ths image?assistant
+
+This image contains two harmonicas and a wooden box. The harmonicas are silver with gold trim and the box is made of wood.","media/images/1cb9690e8da9a02d075e.png"
+"36","1","373","macaque","user
+
+What is in ths image?assistant
+
+This image contains a primate, specifically a type of monkey called a …
+… …  …  …  …  …  …","media/images/8ecb1d2e65c00d86b592.png"
+"37","0","46","green lizard, Lacerta viridis","user
+
+What is in ths image?assistant
+
+This image contains a green iguana, a stuffed animal, and a backpack.","media/images/e2d9cd992c1abaefc439.png"
+"37","1","409","analog clock","user
+
+What is in ths image?assistant
+
+This image contains a clock.","media/images/927634096d472806e461.png"
+"38","0","692","packet","user
+
+What is in ths image?assistant
+
+This image contains two packages of Korean instant noodles.","media/images/8a242eccfe6411ecc557.png"
+"38","1","332","Angora, Angora rabbit","user
+
+What is in ths image?assistant
+
+This image contains a rabbit in a cage. The rabbit appears to be an Angor or Angor-type rabbit, which is a type of rabbit that is known for its","media/images/67a2019a061a76d2540b.png"
+"39","0","825","stone wall","user
+
+What is in ths image?assistant
+
+This image contains a close-up of a stone wall with grass growing on top of it.","media/images/f80f389e7a719255e42f.png"
+"39","1","990","buckeye, horse chestnut, conker","user
+
+What is in ths image?assistant
+
+This image contains a chestnut. The image is of a chestnut shell, which is a hard, spiny, and …
+ 
+Chestnuts are a type of","media/images/22e29a6cb14ec446cc74.png"
+"40","0","718","pier","user
+
+What is in ths image?assistant
+
+This image contains a bridge over a body of water. The bridge is lit up with lights and is likely the Manhattan Bridge in New York City.","media/images/bd72e724deb123d0e8b3.png"
+"40","1","717","pickup, pickup truck","user
+
+What is in ths image?assistant
+
+This image contains a classic 1947 Chevrolet pickup truck.","media/images/22bfec78ec0456909150.png"
+"41","0","195","Boston bull, Boston terrier","user
+
+What is in ths image?assistant
+
+This image contains a small black and white dog, possibly a Boston Terrier, standing in a pink tunnel on a playground.","media/images/6d80bb8496d1ff4fec9e.png"
+"41","1","340","zebra","user
+
+What is in ths image?assistant
+
+This image contains a hotel, a bull, and several zebras. The hotel is a multi-story building with many rooms and a large, central …
+ 
+The bull is","media/images/9895056ec39805380fd5.png"
+"42","0","627","limousine, limo","user
+
+What is in ths image?assistant
+
+This image contains a white limousine parked on the side of a suburban street.","media/images/e02774410976b24b59e0.png"
+"42","1","138","bustard","user
+
+What is in ths image?assistant
+
+This image contains a Kori – a large, long-necked, and long-legged bird that is native to Africa. It is a member of the …
+Kori","media/images/43e2fd1d7f6658d49d03.png"
+"43","0","835","sundial","user
+
+What is in ths image?assistant
+
+This image contains a sundial, which is a device that uses the sun's shadow to tell time.","media/images/5436c1808a2aabb4c66e.png"
+"43","1","743","prison, prison house","user
+
+What is in ths image?assistant
+
+This image contains a prison cellblock.","media/images/72f1bb7b5d1a3eaa6d2c.png"
+"44","0","623","letter opener, paper knife, paperknife","user
+
+What is in ths image?assistant
+
+This image contains a pen and a piece of wood with a white and black object on it.","media/images/1aaa901b2de21fe3b5fe.png"
+"44","1","998","ear, spike, capitulum","user
+
+What is in ths image?assistant
+
+This image contains an ear of corn.","media/images/aeaf70964a0d0bab3afc.png"
+"45","0","322","ringlet, ringlet butterfly","user
+
+What is in ths image?assistant
+
+This image contains a butterfly. The butterfly is sitting on a leaf. The butterfly is light gray with a yellow patch on its wings. The butterfly has a black dot on its","media/images/65b5908670cbc5fc652a.png"
+"45","1","564","four-poster","user
+
+What is in ths image?assistant
+
+This image contains a bed.","media/images/4ef79a2a3d3505b4b308.png"
+"46","0","570","gasmask, respirator, gas helmet","user
+
+What is in ths image?assistant
+
+This image contains a mannequin head wearing a gas mask. The gas mask is green with black trim and has a filter on the right side. The filter is white with","media/images/7fe8f8ea1f37ca376c95.png"
+"46","1","905","window shade","user
+
+What is in ths image?assistant
+
+This image contains a chair, a lamp, a table, and a window with blinds.","media/images/2145ffa62be266fa3f9e.png"
+"47","0","875","trombone","user
+
+What is in ths image?assistant
+
+This image contains a group of people playing musical instruments, specifically trombones.","media/images/ae4e07fc9913dfaea380.png"
+"47","1","415","bakery, bakeshop, bakehouse","user
+
+What is in ths image?assistant
+
+This image contains a piece of baklava, a sweet pastry made with layers of …
+ 
+… …
+ 
+… … 
+… … 
+… …","media/images/de67bfca62ded1c5c351.png"
+"48","0","764","rifle","user
+
+What is in ths image?assistant
+
+This image contains two men in traditional Moroccan clothing, riding horses and holding rifles.","media/images/9907f4cf6b380774dd98.png"
+"48","1","811","space heater","user
+
+What is in ths image?assistant
+
+This image contains a small, white, portable electric heater, commonly known as a ""toaster oven"" or ""infrared heater"" or ""infrared heater","media/images/318c83cc0114bad56893.png"
+"49","0","730","plow, plough","user
+
+What is in ths image?assistant
+
+This image contains a tractor, a field, and a tree stump.","media/images/cb63d161e7ea0eb91c99.png"
+"49","1","238","Greater Swiss Mountain dog","user
+
+What is in ths image?assistant
+
+This image contains two dogs, both of which are of the breed known as an Entelhauk or Entegehauk. They are a breed of dog","media/images/069100ebb1253cf67a24.png"
