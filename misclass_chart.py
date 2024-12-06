@@ -24,6 +24,8 @@ def process_csv_files(file_paths):
 
         file_names.append(file)
 
+    print(file_paths, ": positive counts: ie mentions burritos ", positive_counts)
+    print(file_paths, " negative counts: ie mentioins ground truth ", negative_counts)
     create_bar_chart_burr(file_names, positive_counts, "Mentions Burrito", "Percentage", "Positive", "mentions_burrito.png")
     create_bar_chart_grnd(file_names, negative_counts, "Mentions Ground Truth", "Percentage", "Negative", "mentions_ground_truth.png")
 
@@ -71,3 +73,4 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     process_csv_files(args.file_paths)
+    # order CSVs: "small", "small upscale", "large", "large downscale"
