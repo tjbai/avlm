@@ -1,8 +1,8 @@
 attack_type: identity
-model: /scratch4/jeisner1/llava
+vlm_family: llama
+model: /scratch4/jeisner1/llama_vision
 batch_size: 2
 max_steps: 50
 prompt: What is in ths image?
 prefix: This image contains
 target_label: 965
-

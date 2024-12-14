@@ -9,5 +9,5 @@ eval_from: ./checkpoints/attack_perturbation_med_24999.pt
 epsilon: 0.25
 
 batch_size: 2
-max_steps: 10
+max_steps: 50
 
